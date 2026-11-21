@@ -5,11 +5,6 @@ import StoreButtons from './StoreButtons.astro';
 <section class="cta" id="descargar" aria-labelledby="h-cta">
   <div class="wrap">
     <div class="cta-box" data-reveal>
-      <div class="cta-clouds" aria-hidden="true">
-        <svg class="cta-cloud cloud-one" viewBox="0 0 180 72"><path d="M25 57c-13 0-22-9-22-21 0-11 9-20 20-21 5-10 15-15 26-14 13 1 22 9 25 20 5-4 11-6 18-6 14 0 25 9 28 22 12-2 23 6 23 18 0 11-9 19-21 19H25z"/></svg>
-        <svg class="cta-cloud cloud-two" viewBox="0 0 180 72"><path d="M25 57c-13 0-22-9-22-21 0-11 9-20 20-21 5-10 15-15 26-14 13 1 22 9 25 20 5-4 11-6 18-6 14 0 25 9 28 22 12-2 23 6 23 18 0 11-9 19-21 19H25z"/></svg>
-        <svg class="cta-cloud cloud-three" viewBox="0 0 180 72"><path d="M25 57c-13 0-22-9-22-21 0-11 9-20 20-21 5-10 15-15 26-14 13 1 22 9 25 20 5-4 11-6 18-6 14 0 25 9 28 22 12-2 23 6 23 18 0 11-9 19-21 19H25z"/></svg>
-      </div>
       <div class="pinwrap" aria-hidden="true"><i></i><i></i><i></i><svg viewBox="0 0 24 30"><path d="M12 1a8 8 0 0 0-8 8c0 6 8 16 8 16s8-10 8-16a8 8 0 0 0-8-8zm0 11.5a3.5 3.5 0 110-7 3.5 3.5 0 010 7z"/></svg></div>
       <h2 id="h-cta">Descarga Woki y pide tu primer taxi</h2>
       <p class="lead">Encuentra aquí los enlaces oficiales para instalar Woki cuando estén publicados.</p>
@@ -18,13 +13,3 @@ import StoreButtons from './StoreButtons.astro';
     </div>
   </div>
 </section>
-
-<style>
-  .cta-box>.cta-clouds{position:absolute;z-index:0;inset:0;overflow:hidden;pointer-events:none}
-  .cta-cloud{position:absolute;left:-22%;display:block;width:clamp(120px,16vw,190px);height:auto;fill:#e9ffff22;stroke:#ffffff18;stroke-width:1.5;filter:drop-shadow(0 5px 12px #0030370a);animation:cta-cloud-drift 52s linear infinite}
-  .cloud-one{top:14%;animation-duration:54s}
-  .cloud-two{top:45%;width:clamp(95px,12vw,145px);animation-duration:67s;animation-delay:-34s;opacity:.68}
-  .cloud-three{top:72%;width:clamp(135px,18vw,210px);animation-duration:61s;animation-delay:-20s;opacity:.52}
-  @keyframes cta-cloud-drift{from{transform:translateX(0)}to{transform:translateX(150vw)}}
-  @media(prefers-reduced-motion:reduce){.cta-cloud{animation:none;left:auto;right:8%}.cloud-two{right:48%;top:62%}.cloud-three{right:24%;top:28%}}
-</style>
