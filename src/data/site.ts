@@ -1,5 +1,5 @@
 import images from './images';
-import { getContactEmail, getSiteConfig } from './site-config.mjs';
+import { getSiteConfig } from './site-config.mjs';
 
 const runtimeEnv = typeof process === 'undefined' ? {} : process.env;
 const siteConfig = getSiteConfig({ ...import.meta.env, ...runtimeEnv });
@@ -10,8 +10,9 @@ export const brand = {
   city: 'Cerro de Pasco',
   region: 'Pasco',
   country: 'Perú',
-  email: getContactEmail(siteConfig.requestedSiteUrl),
-  emailIsTemporary: true,
+  email: 'soporte@woki.pe',
+  legalEmail: 'legal@woki.pe',
+  emailIsTemporary: false,
   whatsapp: '+51 900 000 000',
   whatsappIsTemporary: true,
   siteUrl: siteConfig.siteUrl,

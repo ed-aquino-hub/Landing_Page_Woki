@@ -207,8 +207,71 @@ all<HTMLElement>('[data-journey]').forEach((journey) => {
 const contactForm = document.querySelector<HTMLFormElement>('[data-contact-form]');
 if (contactForm) {
   const status = contactForm.querySelector<HTMLElement>('[data-form-status]');
+  const fields = all<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>('[data-contact-field]').filter((field) => field.closest('[data-contact-form]') === contactForm);
+  const clearFieldError = (field: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement) => {
+    const name = field.dataset.contactField;
+    field.removeAttribute('aria-invalid');
+    field.classList.remove('is-invalid');
+    const error = name && contactForm.querySelector<HTMLElement>(`[data-field-error="${name}"]`);
+    if (error) {
+      error.hidden = true;
+      error.textContent = '';
+    }
+    if (field instanceof HTMLInputElement || field instanceof HTMLTextAreaElement) {
+      field.placeholder = field.dataset.defaultPlaceholder ?? '';
+    }
+    if (field instanceof HTMLSelectElement) {
+      const placeholderOption = field.options[0];
+      if (placeholderOption) placeholderOption.textContent = 'Elige una opción';
+    }
+  };
+  const setFieldError = (field: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement, message: string) => {
+    const name = field.dataset.contactField;
+    field.setAttribute('aria-invalid', 'true');
+    field.classList.add('is-invalid');
+    const error = name && contactForm.querySelector<HTMLElement>(`[data-field-error="${name}"]`);
+    if (error) {
+      error.textContent = message;
+      error.hidden = false;
+    }
+    if (field instanceof HTMLInputElement || field instanceof HTMLTextAreaElement) field.placeholder = message;
+    if (field instanceof HTMLSelectElement && field.options[0]) field.options[0].textContent = 'Falta elegir una opción';
+  };
+  const validateForm = () => {
+    let firstInvalid: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | undefined;
+    const mark = (field: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | undefined, message: string) => {
+      if (!field) return;
+      setFieldError(field, message);
+      firstInvalid ??= field;
+    };
+    const field = (name: string) => fields.find((item) => item.dataset.contactField === name);
+    const name = field('nombre');
+    const contact = field('contacto');
+    const reason = field('motivo');
+    const message = field('mensaje');
+    const consent = field('consentimiento');
+
+    if (name && !name.value.trim()) mark(name, 'Falta ingresar tu nombre.');
+    if (contact) {
+      const value = contact.value.trim();
+      const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+      const digits = value.replace(/\D/g, '');
+      const isPhone = digits.length >= 7 && digits.length <= 15 && /^[+\d\s().-]+$/.test(value);
+      if (!isEmail && !isPhone) mark(contact, 'Ingresa un correo o teléfono válido.');
+    }
+    if (reason && !reason.value.trim()) mark(reason, 'Selecciona el tema de tu consulta.');
+    if (message && !message.value.trim()) mark(message, 'Falta escribir tu mensaje.');
+    if (consent instanceof HTMLInputElement && !consent.checked) mark(consent, 'Acepta el uso de tus datos para responderte.');
+    firstInvalid?.focus();
+    return !firstInvalid;
+  };
+
+  fields.forEach((field) => {
+    field.addEventListener(field instanceof HTMLSelectElement || (field instanceof HTMLInputElement && field.type === 'checkbox') ? 'change' : 'input', () => clearFieldError(field));
+  });
   contactForm.addEventListener('submit', async (event) => {
     event.preventDefault();
+    if (!validateForm()) return;
     const data = new FormData(contactForm);
     if (data.get('website')) return;
     const endpoint = contactForm.dataset.endpoint;
@@ -225,6 +288,6 @@ if (contactForm) {
       return;
     }
 
-    if (status) status.textContent = 'El formulario de contacto estará disponible pronto.';
+    if (status) status.textContent = 'El formulario está validado, pero el envío web aún no está conectado. Escríbenos a soporte@woki.pe.';
   });
 }

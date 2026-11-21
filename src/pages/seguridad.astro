@@ -4,6 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import OrbitBadges from '../components/OrbitBadges.astro';
 import TopographicBackdrop from '../components/TopographicBackdrop.astro';
+import BenefitStats from '../components/BenefitStats.astro';
 import { benefits, buildSectionJsonLd } from '../data/content';
 import { assets, brand } from '../data/site';
 
@@ -15,7 +16,12 @@ const structuredData = buildSectionJsonLd(Astro.site, '/seguridad', 'Seguridad e
   {structuredData.map((item) => <script type="application/ld+json" set:html={JSON.stringify(item)} slot="head" />)}
   <Header solid />
   <main id="main-content">
-    <section class="subpage-hero detail-hero safety-hero"><TopographicBackdrop city /><div class="wrap safety-hero-grid"><div class="safety-hero-copy"><p class="eyebrow">Confianza en cada recorrido</p><h1>Viaja con más tranquilidad</h1><p class="lead">Conoce las herramientas de Woki que ayudan a identificar el viaje, seguir el recorrido y mantener el contacto.</p></div><div class="safety-pin-stage"><OrbitBadges items={benefits}/><div class="safety-pin-panel" role="img" aria-label={`PIN de seguridad del viaje: ${brand.demoPin}`}><span>PIN de seguridad</span><strong aria-hidden="true">{[...brand.demoPin].map((digit,index)=><i style={`--digit-index:${index}`}>{digit}</i>)}</strong></div></div></div></section>
+    <section class="subpage-hero detail-hero safety-hero"><TopographicBackdrop city /><div class="wrap safety-hero-grid"><div class="safety-hero-copy"><p class="eyebrow">Confianza en cada recorrido</p><h1>Viaja con más tranquilidad</h1><p class="lead">Conoce las herramientas de Woki que ayudan a identificar el viaje, seguir el recorrido y mantener el contacto.</p><a class="btn solid safety-hero-cta" href="/#descargar">Viaja como pasajero</a></div><div class="safety-pin-stage"><OrbitBadges items={benefits}/><div class="safety-pin-panel" role="img" aria-label={`PIN de seguridad del viaje: ${brand.demoPin}`}><span>PIN de seguridad</span><strong aria-hidden="true">{[...brand.demoPin].map((digit,index)=><i style={`--digit-index:${index}`}>{digit}</i>)}</strong></div></div></div></section>
+    <BenefitStats title="Beneficios para tu viaje" items={[
+      { value: 4, label: 'momentos del recorrido', description: 'Desde que pides el taxi hasta que calificas el servicio.' },
+      { value: 1, label: 'PIN por viaje', description: 'Confirma con el conductor que el servicio es el correcto.' },
+      { value: 2, label: 'formas de pago', description: 'Efectivo o Yape, según lo disponible en la app.' },
+    ]} />
     <section class="detail-section safety-coordination" aria-labelledby="safety-coordination-title">
       <TopographicBackdrop />
       <div class="wrap detail-two-col">
@@ -38,13 +44,12 @@ const structuredData = buildSectionJsonLd(Astro.site, '/seguridad', 'Seguridad e
         </div>
       </div>
     </section>
-    <section class="detail-section safety-overview" aria-labelledby="safety-overview-title">
-      <TopographicBackdrop city />
-      <div class="wrap">
-        <header class="about-centered-heading" data-reveal><p class="eyebrow">Pensado para cada etapa</p><h2 id="safety-overview-title">Información clara para viajar</h2><p>Revisa los recursos que acompañan el viaje desde que solicitas el taxi hasta que llegas a destino.</p></header>
-        <div class="grid4 safety-grid">
-          {benefits.map((item) => <article class="benefit" data-reveal><span class="sign" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={item.iconPath} /></svg></span><h3>{item.title}</h3><p>{item.description}</p></article>)}
-        </div>
+    <section class="detail-section passenger-next-step" aria-labelledby="passenger-next-title">
+      <div class="wrap passenger-next-step-card" data-reveal>
+        <p class="eyebrow dark">¿Necesitas ayuda?</p>
+        <h2 id="passenger-next-title">Estamos para orientarte</h2>
+        <p>Si tienes dudas sobre cómo usar Woki o revisar la información de tu viaje, nuestro equipo puede ayudarte desde la página de contacto.</p>
+        <a class="btn solid" href="/contacto">Contactar a Woki</a>
       </div>
     </section>
   </main>
@@ -59,6 +64,7 @@ const structuredData = buildSectionJsonLd(Astro.site, '/seguridad', 'Seguridad e
   .safety-hero-copy .eyebrow{color:var(--aqua)}
   .safety-hero-copy h1{max-width:11ch;color:white;font-size:clamp(2.65rem,5.7vw,4.75rem);line-height:1.02;text-wrap:balance}
   .safety-hero-copy .lead{max-width:52ch;color:var(--paper);font-size:1.05rem;line-height:1.65}
+  .safety-hero-cta{margin-top:.4rem}
   .safety-pin-stage{position:relative;display:grid;place-items:center;min-width:0;min-height:320px}
   .safety-pin-stage :global(.orbit-badges){--orbit-size:clamp(250px,29vw,370px);position:absolute;inset:50% auto auto 50%;transform:translate(-50%,-50%)}
   .safety-pin-panel{position:relative;z-index:2;display:grid;justify-items:center;gap:.6rem;min-width:220px;padding:1.25rem 1.6rem;border:1px solid color-mix(in srgb,var(--aqua) 42%,transparent);border-radius:24px;background:color-mix(in srgb,var(--deep) 58%,transparent);color:white;box-shadow:0 24px 65px color-mix(in srgb,var(--ink) 36%,transparent);backdrop-filter:blur(16px)}
@@ -92,19 +98,12 @@ const structuredData = buildSectionJsonLd(Astro.site, '/seguridad', 'Seguridad e
     .safety-flow .safety-time-rail span{width:0;animation:safety-progress 1s linear both;animation-timeline:view();animation-range:entry 0% exit 100%}
   }
   @keyframes safety-progress{to{width:100%}}
-  .safety-overview{position:relative;isolation:isolate;overflow:hidden;background:linear-gradient(125deg,var(--deep),var(--ink));color:#fff}
-  .safety-overview>.wrap{position:relative;z-index:1}
-  .safety-overview :global(.topographic-backdrop){color:var(--aqua);opacity:.14}
-  .safety-overview .about-centered-heading h2,.safety-overview .about-centered-heading>p:last-child{color:white}
-  .safety-overview .about-centered-heading .eyebrow{color:var(--aqua)}
-  .safety-overview .safety-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem;margin-top:2.3rem}
-  .safety-overview .benefit{position:relative;overflow:hidden;min-height:245px;padding:1.4rem;border:1px solid color-mix(in srgb,var(--aqua) 28%,transparent);border-radius:var(--r-lg);background:color-mix(in srgb,var(--deep) 66%,transparent);box-shadow:0 18px 42px color-mix(in srgb,var(--ink) 32%,transparent);backdrop-filter:blur(12px)}
-  .safety-overview .benefit::after{content:"";position:absolute;right:-45px;top:-46px;width:150px;height:150px;border:1px solid color-mix(in srgb,var(--aqua) 30%,transparent);border-radius:50%;box-shadow:0 0 0 13px color-mix(in srgb,var(--aqua) 8%,transparent),0 0 0 27px color-mix(in srgb,var(--aqua) 4%,transparent);pointer-events:none}
-  .safety-overview .benefit .sign{position:relative;z-index:1;width:58px;height:58px;border:2px solid color-mix(in srgb,var(--aqua) 80%,white);border-radius:18px;background:var(--cian);color:#fff;box-shadow:0 0 0 5px color-mix(in srgb,var(--aqua) 13%,transparent)}
-  .safety-overview .benefit .sign svg{width:29px;height:29px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
-  .safety-overview .benefit h3{position:relative;z-index:1;margin-top:1.2rem;color:white}
-  .safety-overview .benefit p{position:relative;z-index:1;color:var(--paper);line-height:1.6}
-  @media(max-width:950px){.safety-hero{padding:7rem 0 2.5rem}.safety-hero>.wrap{grid-template-columns:1fr minmax(240px,.7fr)}.safety-pin-stage{min-height:290px}.safety-flow .detail-cards{grid-template-columns:repeat(2,minmax(0,1fr))}.safety-time-rail{display:none}.safety-overview .safety-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-  @media(max-width:640px){.safety-hero{padding:6.5rem 0 2rem}.safety-hero>.wrap{grid-template-columns:1fr;gap:1rem}.safety-hero-copy h1{font-size:clamp(2.55rem,12vw,3.6rem)}.safety-hero-copy .lead{font-size:1rem}.safety-pin-stage{min-height:250px}.safety-pin-stage :global(.orbit-badges){--orbit-size:min(72vw,300px)}.safety-pin-panel{min-width:190px;padding:1rem 1.25rem}.safety-coordination .detail-two-col{grid-template-columns:1fr;gap:1.5rem}.safety-checklist{grid-template-columns:1fr}.safety-checklist legend{grid-column:auto}.safety-flow .detail-cards{grid-template-columns:1fr}.safety-flow .detail-cards article{min-height:0}.safety-overview .safety-grid{grid-template-columns:1fr}.safety-overview .benefit{min-height:0}}
+  .passenger-next-step{background:linear-gradient(135deg,var(--paper),#fff)}
+  .passenger-next-step-card{max-width:860px;padding:clamp(1.5rem,4vw,2.6rem);border:1px solid color-mix(in srgb,var(--cian) 23%,white);border-radius:var(--r-lg);background:#fff;box-shadow:0 18px 45px color-mix(in srgb,var(--deep) 9%,transparent);text-align:center}
+  .passenger-next-step-card .eyebrow{justify-content:center}
+  .passenger-next-step-card h2{margin:.2rem 0 .6rem;color:var(--deep)}
+  .passenger-next-step-card>p:not(.eyebrow){max-width:60ch;margin:0 auto 1.2rem;color:#45666b;line-height:1.65}
+  @media(max-width:950px){.safety-hero{padding:7rem 0 2.5rem}.safety-hero>.wrap{grid-template-columns:1fr minmax(240px,.7fr)}.safety-pin-stage{min-height:290px}.safety-flow .detail-cards{grid-template-columns:repeat(2,minmax(0,1fr))}.safety-time-rail{display:none}}
+  @media(max-width:640px){.safety-hero{padding:6.5rem 0 2rem}.safety-hero>.wrap{grid-template-columns:1fr;gap:1rem}.safety-hero-copy h1{font-size:clamp(2.55rem,12vw,3.6rem)}.safety-hero-copy .lead{font-size:1rem}.safety-pin-stage{min-height:250px}.safety-pin-stage :global(.orbit-badges){--orbit-size:min(72vw,300px)}.safety-pin-panel{min-width:190px;padding:1rem 1.25rem}.safety-coordination .detail-two-col{grid-template-columns:1fr;gap:1.5rem}.safety-checklist{grid-template-columns:1fr}.safety-checklist legend{grid-column:auto}.safety-flow .detail-cards{grid-template-columns:1fr}.safety-flow .detail-cards article{min-height:0}}
   @media(prefers-reduced-motion:reduce){.safety-pin-panel i{animation:none}.safety-time-rail span{animation:none!important;width:100%}}
 </style>

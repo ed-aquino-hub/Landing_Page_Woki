@@ -449,6 +449,12 @@ html.no-splash{--s:0s}
 .form .check{display:flex;gap:.6rem;align-items:flex-start;font-weight:400;font-size:.88rem}
 .form .check input{width:auto;margin-top:.25rem;accent-color:var(--cian)}
 .form .check a{color:#176f78;text-decoration:underline}
+.form :is(input,select,textarea).is-invalid{border-color:#c33737;box-shadow:0 0 0 3px #c3373718}
+.form :is(input,textarea).is-invalid::placeholder{color:#b3261e;opacity:1}
+.form select.is-invalid{color:#b3261e}
+.field-error{display:block;color:#b3261e;font-size:.82rem;font-weight:700;line-height:1.35}
+.contact-consent{display:grid;gap:.45rem}
+.contact-consent [aria-invalid="true"]{outline:2px solid #c33737;outline-offset:2px}
 .hp{position:absolute;left:-9999px}
 .form .btn{justify-self:start;cursor:pointer;font:inherit;font-weight:700}
 @media(max-width:860px){.contact-grid{grid-template-columns:1fr}}

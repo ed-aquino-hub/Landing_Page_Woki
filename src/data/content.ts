@@ -134,6 +134,7 @@ export function buildSectionJsonLd(_site: URL | undefined, path: string, name: s
 
 export const contacto = {
   email: brand.email,
+  legalEmail: brand.legalEmail,
   emailIsTemporary: brand.emailIsTemporary,
   ubicacion: `${brand.city}, ${brand.region}, ${brand.country}`,
   whatsapp: brand.whatsapp,

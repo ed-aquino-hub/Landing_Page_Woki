@@ -4,6 +4,7 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import TopographicBackdrop from '../components/TopographicBackdrop.astro';
+import BenefitStats from '../components/BenefitStats.astro';
 import { buildSectionJsonLd, driverBenefits, driverReasons } from '../data/content';
 import { assets, brand } from '../data/site';
 
@@ -15,16 +16,12 @@ const structuredData = buildSectionJsonLd(Astro.site, '/conductores', 'Conduce c
   {structuredData.map((item) => <script type="application/ld+json" set:html={JSON.stringify(item)} slot="head" />)}
   <Header solid />
   <main id="main-content">
-    <section class="subpage-hero detail-hero driver-hero"><TopographicBackdrop city /><div class="wrap driver-hero-grid"><div class="driver-hero-copy"><p class="eyebrow">Para quienes conducen</p><h1>Conduce con Woki a tu manera</h1><p class="lead">Conoce las funciones que te ayudan a revisar cada solicitud y mantener a la vista la información de tus viajes.</p></div><div class="driver-hero-visual"><Picture src={assets.driverPhoto} formats={['avif', 'webp']} widths={[360, 540, 720, 960, 1200]} sizes="(min-width: 1000px) 46vw, 100vw" alt="Conductor de taxi en Cerro de Pasco" loading="eager" fetchpriority="high" decoding="async"/><article class="driver-float-card float-request"><b>{driverBenefits[0].title}</b><span>{driverBenefits[0].description}</span></article><article class="driver-float-card float-online"><b>{driverBenefits[3].title}</b><span>{driverBenefits[3].description}</span></article></div></div></section>
-    <section class="detail-section driver-detail-intro driver-split" aria-labelledby="driver-detail-title">
-      <div class="wrap driver-intro-content">
-        <header class="about-centered-heading" data-reveal><p class="eyebrow dark">Tu trabajo, a tu manera</p><h2 id="driver-detail-title">Decide con información a la vista</h2><p>Organiza cada jornada con los datos que necesitas en el momento indicado.</p></header>
-        <div class="driver-decision-flow" role="list" aria-label="Información disponible antes y después de cada viaje">
-          <article class="driver-decision-card" role="listitem" data-reveal><span class="driver-decision-number">01</span><p class="eyebrow dark">Antes de aceptar</p><h3>Revisa cada solicitud</h3><p>Consulta los datos del recorrido y la forma de pago antes de decidir si aceptas el viaje.</p></article>
-          <article class="driver-decision-card" role="listitem" data-reveal><span class="driver-decision-number">02</span><p class="eyebrow dark">Después de cada viaje</p><h3>Consulta tu actividad</h3><p>Revisa tus ganancias y la actividad de tus viajes desde la aplicación.</p></article>
-        </div>
-      </div>
-    </section>
+    <section class="subpage-hero detail-hero driver-hero"><TopographicBackdrop city /><div class="wrap driver-hero-grid"><div class="driver-hero-copy"><p class="eyebrow">Para quienes conducen</p><h1>Conduce con Woki a tu manera</h1><p class="lead">Conoce las funciones que te ayudan a revisar cada solicitud y mantener a la vista la información de tus viajes.</p><a class="btn solid driver-hero-cta" href="#registro-conductor">Regístrate como conductor</a></div><div class="driver-hero-visual"><Picture src={assets.driverPhoto} formats={['avif', 'webp']} widths={[360, 540, 720, 960, 1200]} sizes="(min-width: 1000px) 46vw, 100vw" alt="Conductor de taxi en Cerro de Pasco" loading="eager" fetchpriority="high" decoding="async"/><article class="driver-float-card float-request"><b>{driverBenefits[0].title}</b><span>{driverBenefits[0].description}</span></article><article class="driver-float-card float-online"><b>{driverBenefits[3].title}</b><span>{driverBenefits[3].description}</span></article></div></div></section>
+    <BenefitStats title="Beneficios para conducir con Woki" items={[
+      { value: 4, label: 'etapas claras', description: 'Conéctate, revisa, acepta y consulta tu actividad.' },
+      { value: 3, label: 'opciones de ajuste', description: 'Puedes sumar S/1, S/2 o S/3 a la tarifa propuesta.' },
+      { value: 1, label: 'vista de ganancias', description: 'Consulta lo ganado y tu porcentaje de aceptación.' },
+    ]} />
     <section class="detail-section driver-detail-benefits driver-bento" aria-labelledby="driver-detail-benefits-title">
       <div class="wrap">
         <header class="about-centered-heading driver-bento-heading" data-reveal><p class="eyebrow dark">Herramientas para cada jornada</p><h2 id="driver-detail-benefits-title">Lo que tienes a la vista</h2><p>Funciones para organizarte desde que te conectas hasta que completas un viaje.</p></header>
@@ -37,24 +34,14 @@ const structuredData = buildSectionJsonLd(Astro.site, '/conductores', 'Conduce c
         </ol>
       </div>
     </section>
-    <section class="detail-section driver-onboarding" aria-labelledby="driver-onboarding-title">
+    <section class="detail-section driver-onboarding" id="registro-conductor" aria-labelledby="driver-onboarding-title">
       <div class="wrap">
-        <header class="about-centered-heading" data-reveal><p class="eyebrow dark">Primeros pasos</p><h2 id="driver-onboarding-title">Cómo empezar a conducir con Woki</h2><p>El registro y la revisión se realizan desde la aplicación.</p></header>
+        <header class="about-centered-heading" data-reveal><p class="eyebrow dark">Primeros pasos</p><h2 id="driver-onboarding-title">Regístrate como conductor</h2><p>Completa estos pasos desde la aplicación para enviar tu perfil a revisión.</p></header>
         <div class="detail-cards driver-step-strip" tabindex="0" role="region" aria-label="Primeros pasos para conducir con Woki">
           <article data-reveal tabindex="0"><span>01</span><h3>Elige el perfil conductor</h3><p>En la app, selecciona la opción para registrarte como conductor.</p></article>
           <article data-reveal tabindex="0"><span>02</span><h3>Envía tus documentos</h3><p>Completa tu registro y carga la información solicitada para la revisión.</p></article>
           <article data-reveal tabindex="0"><span>03</span><h3>Espera la validación</h3><p>El equipo revisa tus documentos y te activa para que puedas conectarte.</p></article>
         </div>
-      </div>
-    </section>
-    <section class="detail-section driver-cta" aria-labelledby="driver-workflow-title">
-      <TopographicBackdrop city />
-      <div class="wrap">
-        <div class="detail-two-col">
-          <div><p class="eyebrow dark">Una solicitud a la vez</p><h2 id="driver-workflow-title">Revisa los datos y decide con claridad</h2><p>Al conectarte como conductor, la app muestra solicitudes disponibles cerca. Antes de aceptar, revisa la recogida, el destino, la distancia, el tiempo y la forma de pago. La tarifa se presenta para que puedas aceptarla o ajustar tu propuesta según las opciones de la aplicación.</p><p>Esta información sirve para evaluar cada recorrido desde el inicio.</p></div>
-          <div><h3>Registro y revisión del perfil</h3><p>Para empezar, elige el perfil de conductor, completa los datos que solicita la app y carga tus documentos para la revisión. El equipo revisa la información y te activa para que puedas conectarte.</p><p>Conoce <a href="/como-funciona">las etapas de un viaje para pasajero y conductor</a> y las <a href="/seguridad">herramientas de seguridad que acompañan cada recorrido</a>. Para consultas sobre el registro, visita <a href="/contacto">Contáctanos</a>.</p></div>
-        </div>
-        <a class="btn driver-final-cta" href="/#descargar"><span class="driver-final-pin" aria-hidden="true"></span>Conoce Woki</a>
       </div>
     </section>
   </main>
@@ -69,6 +56,7 @@ const structuredData = buildSectionJsonLd(Astro.site, '/conductores', 'Conduce c
   .driver-hero-copy h1{max-width:12ch;color:#fff;font-size:clamp(2.45rem,4.5vw,3.8rem);line-height:1.02;text-wrap:balance}
   .driver-hero-copy .eyebrow{color:var(--aqua)}
   .driver-hero-copy .lead{max-width:50ch;color:var(--paper);font-size:1.1rem;line-height:1.65}
+  .driver-hero-cta{margin-top:.35rem}
   .driver-hero-visual{position:relative;min-width:0;aspect-ratio:1.65;isolation:isolate}
   .driver-hero-visual::before{content:"";position:absolute;z-index:-1;inset:-7%;border:1px solid color-mix(in srgb,var(--aqua) 30%,transparent);border-radius:50%;box-shadow:0 0 0 20px color-mix(in srgb,var(--aqua) 5%,transparent),0 0 0 48px color-mix(in srgb,var(--aqua) 3%,transparent)}
   .driver-hero-visual picture,.driver-hero-visual img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;object-position:center;border-radius:47% 53% 42% 58% / 46% 40% 60% 54%}
