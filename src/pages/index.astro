@@ -79,6 +79,7 @@ const jsonLd = buildJsonLd(Astro.site);
           ))}
           <Taxi />
         </div>
+        <a class="btn solid home-audience-link" href="/seguridad">Ver más para pasajeros</a>
       </div>
     </section>
 
@@ -117,6 +118,7 @@ const jsonLd = buildJsonLd(Astro.site);
             ))}
           </div>
         </div>
+        <a class="btn solid home-audience-link" href="/conductores">Conoce cómo conducir con Woki</a>
       </div>
     </section>
 
@@ -145,11 +147,13 @@ const jsonLd = buildJsonLd(Astro.site);
   .home-section-heading .eyebrow{justify-content:center;margin-bottom:.6rem}
   .home-section-heading h2{margin:0 0 .5rem}
   .home-section-heading .lead{margin:0}
-  .drivers .drivers-wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,1.05fr) minmax(0,1fr);grid-template-areas:"heading heading heading" "left photo right" "reasons reasons reasons";align-items:center;column-gap:clamp(.85rem,2vw,1.6rem);row-gap:clamp(2.5rem,5vw,4rem)}
+  .drivers .drivers-wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,1.05fr) minmax(0,1fr);grid-template-areas:"heading heading heading" "left photo right" "reasons reasons reasons" "driver-cta driver-cta driver-cta";align-items:center;column-gap:clamp(.85rem,2vw,1.6rem);row-gap:clamp(2.5rem,5vw,4rem)}
   .drivers-heading{grid-area:heading;max-width:780px;margin:0 auto;text-align:center}
   .drivers-heading .eyebrow{justify-content:center;margin-bottom:.6rem}
   .drivers-heading h2{margin:0 0 .45rem}
   .drivers-heading .lead{margin:0}
+  .home-audience-link{justify-self:center;margin-top:1.15rem}
+  .drivers .home-audience-link{grid-area:driver-cta;justify-self:center;margin-top:-1.1rem}
   .drivers .photo{grid-area:photo;width:100%;max-width:430px;aspect-ratio:1;justify-self:center}
   .drivers .driver-benefits{grid-template-columns:minmax(0,1fr);grid-auto-rows:1fr;gap:.9rem;margin:0}
   .drivers .driver-benefits-left{grid-area:left}
@@ -161,7 +165,7 @@ const jsonLd = buildJsonLd(Astro.site);
   .home-how .journey-role-group>.tablist{display:flex;width:max-content;max-width:100%;margin:1.5rem auto 2rem;padding:.35rem;gap:.2rem;border:1px solid #cfe5e7;border-radius:999px;background:#eaf5f5;box-shadow:0 8px 24px #00303712}
   .home-how .journey-role-group>.tablist label{display:flex;flex:1 1 0;align-items:center;justify-content:center;gap:.55rem;min-width:160px;min-height:48px;padding:.65rem 1.25rem;border-radius:999px;color:#315a60;font-size:.95rem;font-weight:750;line-height:1;white-space:nowrap}
   .home-how .journey-role-group>.tablist label .role-icon{width:19px;height:19px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-  @media(max-width:900px){.drivers .drivers-wrap{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-areas:"heading heading" "photo photo" "left right" "reasons reasons"}.drivers .photo{width:min(100%,460px)}.drivers .driver-benefits li{min-height:150px}}
-  @media(max-width:560px){.drivers .drivers-wrap{grid-template-columns:1fr;grid-template-areas:"heading" "photo" "left" "right" "reasons"}.drivers .driver-benefits{gap:.7rem}.drivers .driver-benefits li{min-height:0}.faq details{padding:.9rem 1rem}.faq summary{font-size:.95rem}}
+  @media(max-width:900px){.drivers .drivers-wrap{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-areas:"heading heading" "photo photo" "left right" "reasons reasons" "driver-cta driver-cta"}.drivers .photo{width:min(100%,460px)}.drivers .driver-benefits li{min-height:150px}}
+  @media(max-width:560px){.drivers .drivers-wrap{grid-template-columns:1fr;grid-template-areas:"heading" "photo" "left" "right" "reasons" "driver-cta"}.drivers .driver-benefits{gap:.7rem}.drivers .driver-benefits li{min-height:0}.faq details{padding:.9rem 1rem}.faq summary{font-size:.95rem}}
   @media(max-width:560px){.home-how .journey-role-group>.tablist{width:min(100%,380px);margin:1.15rem auto 1.5rem}.home-how .journey-role-group>.tablist label{min-width:0;padding-inline:.7rem;font-size:.88rem}}
 </style>

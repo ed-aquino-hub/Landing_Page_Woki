@@ -1,0 +1,20 @@
+---
+interface Props { items: { id: string; label: string }[] }
+const { items } = Astro.props;
+---
+<nav class="section-jump" aria-label="Secciones de la página">
+  <div class="section-jump-inner wrap">
+    {items.map(({ id, label }) => <a href={`#${id}`}>{label}</a>)}
+  </div>
+</nav>
+
+<style>
+  .section-jump{position:sticky;top:calc(var(--bar,64px) + .5rem);z-index:20;padding:.35rem 0;background:transparent}
+  .section-jump-inner{display:flex;gap:.5rem;overflow-x:auto;scrollbar-width:none;scrollbar-color:transparent transparent}
+  .section-jump-inner::-webkit-scrollbar{display:none}
+  .section-jump a{flex:none;padding:.45rem .8rem;border:1px solid color-mix(in srgb,var(--cian) 28%,white);border-radius:999px;background:#fff;color:var(--deep);font-size:.86rem;font-weight:750;text-decoration:none;white-space:nowrap;transition:border-color .18s ease,background-color .18s ease,color .18s ease}
+  .section-jump a:hover{border-color:var(--cian);background:var(--paper);color:var(--deep)}
+  .section-jump a:focus-visible{outline:3px solid var(--pin);outline-offset:2px}
+  @media(max-width:600px){.section-jump{padding:.35rem 0}.section-jump-inner{width:calc(100% - 1rem);gap:.35rem;padding-inline:.1rem;overscroll-behavior-inline:contain}.section-jump a{padding:.42rem .62rem;font-size:.8rem}}
+  @media(prefers-reduced-motion:reduce){.section-jump-inner{scroll-behavior:auto}}
+</style>

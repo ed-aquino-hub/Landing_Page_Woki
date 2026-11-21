@@ -4,54 +4,43 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import OrbitBadges from '../components/OrbitBadges.astro';
 import TopographicBackdrop from '../components/TopographicBackdrop.astro';
-import BenefitStats from '../components/BenefitStats.astro';
-import { benefits, buildSectionJsonLd } from '../data/content';
+import SectionJump from '../components/SectionJump.astro';
+import JourneyRoute from '../components/JourneyRoute.astro';
+import StopsList from '../components/StopsList.astro';
+import FaqList from '../components/FaqList.astro';
+import FinalDestination from '../components/FinalDestination.astro';
+import { benefits, buildSectionJsonLd, passengerFaqs, passengerJourney, passengerJourneySubtitle, passengerJourneyTitle, passengerSafetyTools, passengerSituations, paymentOptions, passengerFinalDestination } from '../data/content';
 import { assets, brand } from '../data/site';
 
 const title = `Seguridad en tus viajes | Woki`;
 const description = `Conoce las herramientas de seguridad para pedir taxi en Cerro de Pasco: conductor verificado, PIN y seguimiento. Revisa cómo te acompaña Woki.`;
-const structuredData = buildSectionJsonLd(Astro.site, '/seguridad', 'Seguridad en Woki', description);
+const structuredData = buildSectionJsonLd(Astro.site, '/seguridad', 'Pasajero en Woki', description);
+const faqStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: passengerFaqs.map(({ question, answer }) => ({ '@type': 'Question', name: question, acceptedAnswer: { '@type': 'Answer', text: answer } })),
+};
+const sections = [
+  { id: 'recorrido', label: 'Recorrido' },
+  { id: 'seguridad-pasajero', label: 'Seguridad' },
+  { id: 'casos', label: 'Situaciones' },
+  { id: 'pago', label: 'Pago' },
+  { id: 'dudas', label: 'Dudas' },
+];
 ---
 <Layout title={title} description={description} image={assets.socialImage} bannerImage={assets.contactBanner} imageAlt="Herramientas de seguridad de Woki para viajes en taxi" ogType="article">
   {structuredData.map((item) => <script type="application/ld+json" set:html={JSON.stringify(item)} slot="head" />)}
+  <script type="application/ld+json" set:html={JSON.stringify(faqStructuredData)} slot="head" />
   <Header solid />
   <main id="main-content">
     <section class="subpage-hero detail-hero safety-hero"><TopographicBackdrop city /><div class="wrap safety-hero-grid"><div class="safety-hero-copy"><p class="eyebrow">Confianza en cada recorrido</p><h1>Viaja con más tranquilidad</h1><p class="lead">Conoce las herramientas de Woki que ayudan a identificar el viaje, seguir el recorrido y mantener el contacto.</p><a class="btn solid safety-hero-cta" href="/#descargar">Viaja como pasajero</a></div><div class="safety-pin-stage"><OrbitBadges items={benefits}/><div class="safety-pin-panel" role="img" aria-label={`PIN de seguridad del viaje: ${brand.demoPin}`}><span>PIN de seguridad</span><strong aria-hidden="true">{[...brand.demoPin].map((digit,index)=><i style={`--digit-index:${index}`}>{digit}</i>)}</strong></div></div></div></section>
-    <BenefitStats title="Beneficios para tu viaje" items={[
-      { value: 4, label: 'momentos del recorrido', description: 'Desde que pides el taxi hasta que calificas el servicio.' },
-      { value: 1, label: 'PIN por viaje', description: 'Confirma con el conductor que el servicio es el correcto.' },
-      { value: 2, label: 'formas de pago', description: 'Efectivo o Yape, según lo disponible en la app.' },
-    ]} />
-    <section class="detail-section safety-coordination" aria-labelledby="safety-coordination-title">
-      <TopographicBackdrop />
-      <div class="wrap detail-two-col">
-        <div><p class="eyebrow dark">Antes de iniciar</p><h2 id="safety-coordination-title">Confirma que el viaje corresponde a tu solicitud</h2><p>Antes de abordar, puedes revisar la información del conductor, el vehículo y la placa que aparecen en la app. El PIN sirve para confirmar el inicio con el conductor que llegó por ese viaje; compártelo solo cuando hayas verificado los datos del servicio.</p><p>Durante el trayecto, el seguimiento en el mapa ayuda a consultar el recorrido. Si necesitas coordinar algo, la aplicación incluye opciones de chat y llamada para comunicarte con el conductor. Estas herramientas acompañan la coordinación y no sustituyen la atención ante una emergencia.</p>
-          <fieldset class="safety-checklist"><legend>Antes de abordar, revisa lo siguiente.</legend><label><input type="checkbox" checked disabled/><span>Conductor</span></label><label><input type="checkbox" checked disabled/><span>Vehículo</span></label><label><input type="checkbox" checked disabled/><span>Placa</span></label></fieldset>
-        </div>
-        <div class="safety-after"><h3>Al terminar el recorrido</h3><p>Después del viaje puedes dejar una calificación y consultar las reseñas de otros pasajeros al elegir un servicio. Revisar los datos disponibles en cada etapa te ayuda a mantener una referencia clara del taxi solicitado, el inicio del recorrido y la comunicación durante el viaje.</p><p>Para ver la secuencia completa, consulta <a href="/como-funciona">cómo funciona un viaje con Woki</a>. Si deseas conocer las funciones para conductores, visita <a href="/conductores">la página para conductores</a> o <a href="/contacto">contáctanos</a>.</p></div>
-      </div>
-    </section>
-    <section class="detail-section safety-flow safety-timeline" aria-labelledby="safety-flow-title">
-      <TopographicBackdrop />
-      <div class="wrap">
-        <header class="about-centered-heading" data-reveal><p class="eyebrow dark">Durante el viaje</p><h2 id="safety-flow-title">Qué puedes revisar en la app</h2></header>
-        <div class="safety-time-rail" aria-hidden="true"><span></span></div>
-        <div class="detail-cards">
-          <article data-reveal><span>01</span><small>Antes de abordar</small><h3>Identifica el servicio</h3><p>Revisa la información del conductor, el vehículo y la placa antes de abordar.</p></article>
-          <article data-reveal><span>02</span><small>Antes de iniciar</small><h3>Confirma el inicio</h3><p>Comparte el PIN del viaje con el conductor para confirmar que corresponde a tu solicitud.</p></article>
-          <article data-reveal><span>03</span><small>Durante el viaje</small><h3>Sigue y coordina</h3><p>Consulta el recorrido y utiliza las opciones de chat o llamada incluidas en la app.</p></article>
-          <article data-reveal><span>04</span><small>Después del viaje</small><h3>Cuéntanos cómo fue</h3><p>Al terminar, puedes dejar una calificación de tu experiencia.</p></article>
-        </div>
-      </div>
-    </section>
-    <section class="detail-section passenger-next-step" aria-labelledby="passenger-next-title">
-      <div class="wrap passenger-next-step-card" data-reveal>
-        <p class="eyebrow dark">¿Necesitas ayuda?</p>
-        <h2 id="passenger-next-title">Estamos para orientarte</h2>
-        <p>Si tienes dudas sobre cómo usar Woki o revisar la información de tu viaje, nuestro equipo puede ayudarte desde la página de contacto.</p>
-        <a class="btn solid" href="/contacto">Contactar a Woki</a>
-      </div>
-    </section>
+    <SectionJump items={sections} />
+    <JourneyRoute id="recorrido" title={passengerJourneyTitle} subtitle={passengerJourneySubtitle} steps={passengerJourney} />
+    <StopsList id="seguridad-pasajero" eyebrow="Herramientas para tu viaje" title="Tu seguridad, herramienta por herramienta" subtitle="Recursos para reconocer el servicio, coordinar el recorrido y compartir una referencia clara." items={passengerSafetyTools} balanced />
+    <StopsList id="casos" eyebrow="En cada momento" title="Pensado para cada situación" subtitle="Información útil para que sepas qué revisar antes y durante el recorrido." items={passengerSituations} dark />
+    <StopsList id="pago" eyebrow="Al llegar a destino" title="Pagar es simple" subtitle="Elige el medio que te resulte más cómodo y coordina los detalles antes de terminar el viaje." items={paymentOptions} featured />
+    <FaqList id="dudas" items={passengerFaqs} subtitle="Respuestas sobre tus viajes como pasajero en Woki." />
+    <FinalDestination {...passengerFinalDestination} />
   </main>
   <Footer />
   <script>import '../scripts/main.ts';</script>
@@ -72,38 +61,7 @@ const structuredData = buildSectionJsonLd(Astro.site, '/seguridad', 'Seguridad e
   .safety-pin-panel strong{display:flex;gap:.13em;color:white;font-size:clamp(3rem,6vw,5rem);font-weight:850;letter-spacing:.14em;line-height:1}
   .safety-pin-panel i{font-style:normal;animation:pin-digit-turn .68s cubic-bezier(.2,.85,.3,1.1) both;animation-delay:calc(var(--digit-index)*80ms);transform-origin:center}
   @keyframes pin-digit-turn{from{opacity:0;transform:perspective(200px) rotateX(-90deg) translateY(8px)}to{opacity:1;transform:perspective(200px) rotateX(0) translateY(0)}}
-  .safety-coordination{position:relative;isolation:isolate;overflow:hidden;background:var(--paper)}
-  .safety-coordination>.wrap{position:relative;z-index:1;align-items:start}
-  .safety-coordination :global(.topographic-backdrop){color:var(--cian);opacity:.09}
-  .safety-coordination h2,.safety-after h3{color:var(--deep);text-wrap:balance}
-  .safety-coordination p,.safety-after p{color:var(--ink);line-height:1.7}
-  .safety-after{padding:1.2rem;border-left:2px solid var(--pin);background:color-mix(in srgb,var(--aqua) 7%,white)}
-  .safety-after a{color:var(--deep);font-weight:750;text-decoration-thickness:1px;text-underline-offset:3px}
-  .safety-checklist{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.55rem;margin:1.5rem 0 0;padding:1rem;border:1px solid color-mix(in srgb,var(--cian) 27%,white);border-radius:var(--r-md);background:#fff}
-  .safety-checklist legend{grid-column:1/-1;padding:0 .35rem;color:var(--deep);font-weight:850}
-  .safety-checklist label{display:flex;align-items:center;gap:.55rem;min-height:48px;padding:.55rem .65rem;border:1px solid color-mix(in srgb,var(--cian) 20%,white);border-radius:12px;background:var(--paper);color:var(--ink);font-size:.9rem;font-weight:750}
-  .safety-checklist input{appearance:none;width:22px;height:22px;flex:none;margin:0;border:2px solid var(--cian);border-radius:5px;background:var(--cian);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m3 8 3 3 7-7' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-position:center;background-size:15px;background-repeat:no-repeat;opacity:1}
-  .safety-flow{position:relative;isolation:isolate;overflow:hidden;background:#fff}
-  .safety-flow>.wrap{position:relative;z-index:1}
-  .safety-time-rail{position:relative;width:100%;height:3px;margin:2.5rem 0 -1.5rem;border-radius:3px;background:color-mix(in srgb,var(--aqua) 28%,white)}
-  .safety-time-rail span{display:block;width:100%;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--cian),var(--aqua),var(--pin));transform-origin:left}
-  .safety-flow .detail-cards{grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem}
-  .safety-flow .detail-cards article{position:relative;min-height:245px;padding:1.25rem;border-color:color-mix(in srgb,var(--cian) 20%,white);border-radius:var(--r-lg);background:linear-gradient(155deg,#fff,var(--paper));box-shadow:0 15px 35px color-mix(in srgb,var(--deep) 9%,transparent)}
-  .safety-flow .detail-cards article>span{width:48px;height:48px;margin-bottom:.8rem;border:5px solid white;border-radius:50%;background:var(--deep);color:white;box-shadow:0 0 0 2px color-mix(in srgb,var(--cian) 40%,white)}
-  .safety-flow .detail-cards article:nth-child(4)>span{background:var(--pin);color:var(--ink)}
-  .safety-flow .detail-cards article>small{display:block;margin-bottom:.55rem;color:var(--cian);font-size:.7rem;font-weight:850;letter-spacing:.09em;text-transform:uppercase}
-  .safety-flow .detail-cards h3{margin:.25rem 0 .55rem;color:var(--deep)}
-  .safety-flow .detail-cards p{color:var(--ink);line-height:1.6}
-  @supports (animation-timeline:view()){
-    .safety-flow .safety-time-rail span{width:0;animation:safety-progress 1s linear both;animation-timeline:view();animation-range:entry 0% exit 100%}
-  }
-  @keyframes safety-progress{to{width:100%}}
-  .passenger-next-step{background:linear-gradient(135deg,var(--paper),#fff)}
-  .passenger-next-step-card{max-width:860px;padding:clamp(1.5rem,4vw,2.6rem);border:1px solid color-mix(in srgb,var(--cian) 23%,white);border-radius:var(--r-lg);background:#fff;box-shadow:0 18px 45px color-mix(in srgb,var(--deep) 9%,transparent);text-align:center}
-  .passenger-next-step-card .eyebrow{justify-content:center}
-  .passenger-next-step-card h2{margin:.2rem 0 .6rem;color:var(--deep)}
-  .passenger-next-step-card>p:not(.eyebrow){max-width:60ch;margin:0 auto 1.2rem;color:#45666b;line-height:1.65}
-  @media(max-width:950px){.safety-hero{padding:7rem 0 2.5rem}.safety-hero>.wrap{grid-template-columns:1fr minmax(240px,.7fr)}.safety-pin-stage{min-height:290px}.safety-flow .detail-cards{grid-template-columns:repeat(2,minmax(0,1fr))}.safety-time-rail{display:none}}
-  @media(max-width:640px){.safety-hero{padding:6.5rem 0 2rem}.safety-hero>.wrap{grid-template-columns:1fr;gap:1rem}.safety-hero-copy h1{font-size:clamp(2.55rem,12vw,3.6rem)}.safety-hero-copy .lead{font-size:1rem}.safety-pin-stage{min-height:250px}.safety-pin-stage :global(.orbit-badges){--orbit-size:min(72vw,300px)}.safety-pin-panel{min-width:190px;padding:1rem 1.25rem}.safety-coordination .detail-two-col{grid-template-columns:1fr;gap:1.5rem}.safety-checklist{grid-template-columns:1fr}.safety-checklist legend{grid-column:auto}.safety-flow .detail-cards{grid-template-columns:1fr}.safety-flow .detail-cards article{min-height:0}}
-  @media(prefers-reduced-motion:reduce){.safety-pin-panel i{animation:none}.safety-time-rail span{animation:none!important;width:100%}}
+  @media(max-width:950px){.safety-hero{padding:7rem 0 2.5rem}.safety-hero>.wrap{grid-template-columns:1fr minmax(240px,.7fr)}.safety-pin-stage{min-height:290px}}
+  @media(max-width:640px){.safety-hero{padding:6.5rem 0 2rem}.safety-hero>.wrap{grid-template-columns:1fr;gap:1rem}.safety-hero-copy h1{font-size:clamp(2.55rem,12vw,3.6rem)}.safety-hero-copy .lead{font-size:1rem}.safety-pin-stage{min-height:250px}.safety-pin-stage :global(.orbit-badges){--orbit-size:min(72vw,300px)}.safety-pin-panel{min-width:190px;padding:1rem 1.25rem}}
+  @media(prefers-reduced-motion:reduce){.safety-pin-panel i{animation:none}}
 </style>

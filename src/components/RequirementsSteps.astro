@@ -1,0 +1,22 @@
+---
+interface Props { id: string; data: { title: string; subtitle: string; requirements: readonly string[]; steps: readonly { title: string; description: string }[] } }
+const { id, data } = Astro.props;
+---
+<section class="requirements-section" id={id} aria-labelledby={`${id}-title`}>
+  <div class="wrap">
+    <header class="requirements-heading"><p class="eyebrow dark">Empieza con claridad</p><h2 id={`${id}-title`}>{data.title}</h2><p>{data.subtitle}</p></header>
+    <div class="requirements-layout">
+      <div class="requirements-list"><h3>Ten a mano</h3><ul>{data.requirements.map((item) => <li><span aria-hidden="true">✓</span>{item}</li>)}</ul></div>
+      <ol class="registration-steps">{data.steps.map((step, index) => <li><span>{String(index + 1).padStart(2, '0')}</span><div><h3>{step.title}</h3><p>{step.description}</p></div></li>)}</ol>
+    </div>
+  </div>
+</section>
+
+<style>
+  .requirements-section{padding:clamp(3rem,6vw,5rem) 0;background:linear-gradient(180deg,var(--paper),#fff)}
+  .requirements-heading{max-width:760px;margin:0 auto 1.8rem;text-align:center}.requirements-heading .eyebrow{justify-content:center}.requirements-heading h2{margin:.45rem 0;color:var(--deep)}.requirements-heading>p:last-child{color:#45666b}
+  .requirements-layout{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(1.2rem,4vw,3rem);max-width:920px;margin:auto}
+  .requirements-list{padding:1.4rem;border-radius:var(--r-lg);background:var(--deep);color:white}.requirements-list h3{margin-bottom:.9rem;color:white}.requirements-list ul{display:grid;gap:.65rem;margin:0;padding:0;list-style:none}.requirements-list li{display:flex;align-items:flex-start;gap:.6rem;color:#e4f3f4}.requirements-list li span{display:grid;place-items:center;width:1.35rem;height:1.35rem;flex:none;border-radius:50%;background:var(--aqua);color:var(--deep);font-weight:900;font-size:.78rem}
+  .registration-steps{display:grid;gap:.75rem;margin:0;padding:0;list-style:none}.registration-steps li{display:grid;grid-template-columns:2.5rem minmax(0,1fr);gap:.8rem;align-items:start;padding:1rem;border:1px solid color-mix(in srgb,var(--cian) 22%,white);border-radius:var(--r-md);background:#fff}.registration-steps li>span{display:grid;place-items:center;width:2.4rem;height:2.4rem;border-radius:50%;background:var(--cian);color:white;font-size:.8rem;font-weight:850}.registration-steps h3{margin:0;color:var(--deep);font-size:1rem}.registration-steps p{margin:.2rem 0 0;color:#45666b;font-size:.92rem}
+  @media(max-width:650px){.requirements-layout{grid-template-columns:1fr}}
+</style>
