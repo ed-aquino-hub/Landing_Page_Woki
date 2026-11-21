@@ -111,9 +111,8 @@ const jsonLd = buildJsonLd(Astro.site);
           <div class="driver-reasons-grid">
             {driverReasons.map((reason, index) => (
               <article class="driver-reason" data-reveal style={`--i:${index}`}>
-                <div class="driver-reason-top"><span class="driver-reason-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={reason.iconPath} /></svg></span></div>
-                <h3>{reason.title}</h3>
-                <p>{reason.description}</p>
+                <span class="driver-reason-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={reason.iconPath} /></svg></span>
+                <div class="driver-reason-copy"><h3>{reason.title}</h3><p>{reason.description}</p></div>
               </article>
             ))}
           </div>

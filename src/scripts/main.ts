@@ -117,7 +117,7 @@ all<HTMLElement>('[data-journey]').forEach((journey) => {
   const images = all<HTMLImageElement>('[data-stage-image]').filter((image) => image.closest('[data-journey]') === journey);
   const placeholder = journey.querySelector<HTMLElement>('[data-image-placeholder]');
   const buttons = all<HTMLButtonElement>('[data-step-button]').filter((button) => button.closest('[data-journey]') === journey);
-  const autoToggle = journey.querySelector<HTMLButtonElement>('[data-journey-toggle]');
+  const autoToggle = journey.closest('.phone-journey-shell')?.querySelector<HTMLButtonElement>('[data-journey-toggle]');
   const progressBars = all<HTMLElement>('.step-progress > span').filter((bar) => bar.closest('[data-journey]') === journey);
   let autoTimer: number | undefined;
   let inViewport = false;
