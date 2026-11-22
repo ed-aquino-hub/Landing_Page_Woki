@@ -77,7 +77,7 @@ export const driverSafety: LabeledItem[] = [
   { title: 'Una plataforma con perfiles revisados', description: 'El equipo revisa tus documentos antes de activarte, y los conductores pasan por la misma validación.' },
   { title: 'Conoces el viaje antes de aceptar', description: 'Recogida, destino, distancia, tiempo y forma de pago a la vista.' },
   { title: 'PIN que confirma el viaje correcto', description: 'Pasajero y conductor comparten la misma referencia antes de iniciar.' },
-  { title: 'Soporte cuando lo necesites', description: 'Escríbenos a soporte@woki.pe.' },
+  { title: 'Soporte ante incidencias', description: 'Si surge un problema durante el servicio, escríbenos a soporte@woki.pe. Atención disponible 24/7.' },
 ];
 
 export const driverRequirements = {
