@@ -2,67 +2,25 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import TopographicBackdrop from '../components/TopographicBackdrop.astro';
+import HowHero from '../components/como-funciona/HowHero.astro';
+import HowLanes from '../components/como-funciona/HowLanes.astro';
+import HowGuides from '../components/como-funciona/HowGuides.astro';
 import { buildSectionJsonLd } from '../data/content';
-import { brand, assets } from '../data/site';
+import { howItWorksPage as page } from '../data/pages';
+import { assets } from '../data/site';
+import '../styles/pages.css';
+import '../styles/como-funciona.css';
 
-const title = `Cómo funciona Woki | Taxi en ${brand.city}`;
-const description = `Descubre cómo pedir un taxi Woki en Cerro de Pasco, revisar cada viaje y conocer su tarifa. Explora los pasos para pasajeros y conductores.`;
-const structuredData = buildSectionJsonLd(Astro.site, '/como-funciona', 'Cómo funciona Woki', description);
+const structuredData = buildSectionJsonLd(Astro.site, page.path, page.jsonLdName, page.description, page.crumb);
 ---
-<Layout title={title} description={description} image={assets.socialImage} bannerImage={assets.aboutBanner} imageAlt="Recorrido de un viaje en Woki" ogType="article">
+<Layout title={page.title} description={page.description} image={assets.socialImage} imageAlt="Recorrido de un viaje en Woki" ogType="article">
   {structuredData.map((item) => <script type="application/ld+json" set:html={JSON.stringify(item)} slot="head" />)}
   <Header solid />
-  <main id="main-content">
-    <section class="subpage-hero detail-hero journey-hero"><TopographicBackdrop city /><div class="wrap"><p class="eyebrow">Tu recorrido, paso a paso</p><h1>¿Cómo funciona Woki?</h1><p class="lead">Una experiencia para pasajeros y conductores, con información del viaje disponible en cada etapa.</p></div></section>
-    <section class="overview-section" aria-labelledby="overview-title">
-      <div class="wrap">
-        <header class="overview-heading"><p class="eyebrow dark">Dos formas de viajar</p><h2 id="overview-title">Una guía para cada lado del viaje</h2><p>Woki conecta a quienes necesitan un taxi con conductores de Cerro de Pasco. Cada perfil tiene una guía propia para consultar el proceso con información útil y clara.</p></header>
-        <div class="audience-grid">
-          <article class="audience-card passenger-card">
-            <span class="audience-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3zM9 12l2 2 4-4"/></svg></span>
-            <p class="eyebrow dark">Para pasajeros</p><h3>Pide, verifica y viaja</h3>
-            <p>Indica tu punto de recogida y destino. Antes de subir, revisa el conductor, el vehículo y la placa. Comparte el PIN cuando confirmes que el taxi coincide con la solicitud. Durante el recorrido puedes seguir el viaje y usar las opciones de contacto disponibles en la app.</p>
-            <a class="btn solid" href="/seguridad">Ver la guía para pasajeros</a>
-          </article>
-          <article class="audience-card driver-card">
-            <span class="audience-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 15l1.5-5h13L20 15v4h-2v-2H6v2H4zM6 10l1.3-3h9.4l1.3 3"/><circle cx="7.5" cy="13" r=".8"/><circle cx="16.5" cy="13" r=".8"/></svg></span>
-            <p class="eyebrow dark">Para conductores</p><h3>Revisa y decide</h3>
-            <p>Cuando te conectas, puedes revisar la recogida, el destino, la distancia, el tiempo y la forma de pago antes de decidir si aceptas una solicitud. También encuentras la información sobre el ajuste de tarifa, tu actividad y los requisitos para enviar tu perfil a revisión.</p>
-            <a class="btn solid" href="/conductores">Ver la guía para conductores</a>
-          </article>
-        </div>
-      </div>
-    </section>
-    <section class="overview-steps" aria-labelledby="overview-steps-title">
-      <div class="wrap">
-        <header class="overview-heading"><p class="eyebrow">La ruta en común</p><h2 id="overview-steps-title">La información acompaña cada etapa</h2><p>Pasajero y conductor tienen distintos pasos, pero comparten una referencia clara para iniciar y completar el viaje.</p></header>
-        <ol class="common-steps">
-          <li><span>01</span><div><h3>Se solicita el servicio</h3><p>El pasajero indica recogida y destino; Woki muestra una solicitud con los datos necesarios para coordinar.</p></div></li>
-          <li><span>02</span><div><h3>Se revisa la información</h3><p>El conductor consulta los detalles antes de aceptar. El pasajero puede comparar los datos del taxi asignado antes de abordar.</p></div></li>
-          <li><span>03</span><div><h3>Se confirma el recorrido</h3><p>El PIN ayuda a confirmar que pasajero y conductor están por iniciar el viaje correcto.</p></div></li>
-          <li><span>04</span><div><h3>El viaje termina</h3><p>Al llegar, el pasajero completa el pago disponible y puede dejar una calificación de su experiencia.</p></div></li>
-        </ol>
-        <p class="overview-note">Los ejemplos de esta guía son ilustrativos; las opciones disponibles se muestran dentro de la aplicación.</p>
-        <p class="overview-contact">¿Tienes una duda sobre las funciones? <a href="/contacto">Escríbenos desde Contacto</a>.</p>
-      </div>
-    </section>
+  <main id="main-content" class="page">
+    <HowHero />
+    <HowLanes />
+    <HowGuides />
   </main>
   <Footer />
   <script>import '../scripts/main.ts';</script>
 </Layout>
-
-<style>
-  .journey-hero{isolation:isolate;background-color:var(--deep)}.journey-hero .wrap{z-index:1}
-  .overview-section,.overview-steps{padding:clamp(3rem,7vw,5rem) 0}
-  .overview-section{background:linear-gradient(180deg,var(--paper),#fff)}
-  .overview-heading{max-width:760px;margin:0 auto 2rem;text-align:center}.overview-heading .eyebrow{justify-content:center}.overview-heading h2{margin:.45rem 0;color:var(--deep);text-wrap:balance}.overview-heading>p:last-child{max-width:66ch;margin-inline:auto;color:#45666b}
-  .audience-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
-  .audience-card{display:flex;flex-direction:column;align-items:flex-start;padding:clamp(1.25rem,3vw,2rem);border:1px solid color-mix(in srgb,var(--cian) 23%,white);border-radius:var(--r-lg);background:#fff;box-shadow:0 15px 38px color-mix(in srgb,var(--deep) 8%,transparent)}
-  .audience-icon{display:grid;place-items:center;width:3.4rem;height:3.4rem;margin-bottom:1rem;border-radius:18px;background:color-mix(in srgb,var(--aqua) 23%,white);color:var(--deep)}.audience-icon svg{width:1.8rem;height:1.8rem;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-  .audience-card .eyebrow{margin:0 0 .3rem}.audience-card h3{margin:0 0 .65rem;color:var(--deep);font-size:1.35rem}.audience-card>p:not(.eyebrow){margin:0 0 1.2rem;color:#45666b;line-height:1.65}.audience-card .btn{margin-top:auto}
-  .overview-steps{position:relative;isolation:isolate;overflow:hidden;background:var(--ink);color:white}.overview-steps>.wrap{position:relative;z-index:1}.overview-steps .overview-heading h2{color:white}.overview-steps .overview-heading>p:last-child{color:#d7ecee}
-  .common-steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.8rem;margin:0;padding:0;list-style:none}.common-steps li{padding:1.1rem;border:1px solid color-mix(in srgb,var(--aqua) 26%,transparent);border-radius:var(--r-md);background:color-mix(in srgb,var(--deep) 55%,transparent)}.common-steps li>span{display:grid;place-items:center;width:2.3rem;height:2.3rem;margin-bottom:.8rem;border-radius:50%;background:var(--pin);color:var(--ink);font-size:.8rem;font-weight:850}.common-steps h3{margin:0 0 .35rem;color:white;font-size:1rem}.common-steps p{color:#d7ecee;font-size:.9rem;line-height:1.55}.overview-note,.overview-contact{margin:1.3rem 0 0;color:#d7ecee;text-align:center}.overview-contact a{color:var(--aqua);font-weight:800}
-  @media(max-width:760px){.common-steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
-  @media(max-width:540px){.audience-grid,.common-steps{grid-template-columns:1fr}.audience-card .btn{width:100%;justify-content:center}}
-</style>
