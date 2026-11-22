@@ -2,9 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import PhoneJourneyPanel from '../components/PhoneJourneyPanel.astro';
 import TopographicBackdrop from '../components/TopographicBackdrop.astro';
-import { buildSectionJsonLd, driverBenefits, driverSteps, passengerSteps } from '../data/content';
+import { buildSectionJsonLd } from '../data/content';
 import { brand, assets } from '../data/site';
 
 const title = `Cómo funciona Woki | Taxi en ${brand.city}`;
@@ -16,39 +15,36 @@ const structuredData = buildSectionJsonLd(Astro.site, '/como-funciona', 'Cómo f
   <Header solid />
   <main id="main-content">
     <section class="subpage-hero detail-hero journey-hero"><TopographicBackdrop city /><div class="wrap"><p class="eyebrow">Tu recorrido, paso a paso</p><h1>¿Cómo funciona Woki?</h1><p class="lead">Una experiencia para pasajeros y conductores, con información del viaje disponible en cada etapa.</p></div></section>
-    <section class="detail-section detail-journey journey-experience how-scroll-track" data-scroll-journey aria-labelledby="journey-detail-title">
-      <div class="how">
-        <TopographicBackdrop />
-        <div class="wrap tabs">
-          <header class="about-centered-heading" data-reveal><p class="eyebrow dark">Dos formas de viajar</p><h2 id="journey-detail-title">Elige tu recorrido</h2><p>Explora los pasos desde el lado del pasajero o del conductor.</p></header>
-          <fieldset class="journey-role-group" aria-label="Elige el perfil del recorrido">
-            <input type="radio" name="rol" id="t-pas" checked />
-            <input type="radio" name="rol" id="t-con" />
-            <div class="tablist">
-              <label for="t-pas"><span>Pasajero</span></label>
-              <label for="t-con"><span>Conductor</span></label>
-            </div>
-            <PhoneJourneyPanel role="pasajero" steps={passengerSteps} />
-            <PhoneJourneyPanel role="conductor" steps={driverSteps} />
-          </fieldset>
-        </div>
-      </div>
-    </section>
-    <section class="detail-section detail-tariff tariff-receipt" aria-labelledby="detail-tariff-title">
-      <TopographicBackdrop city />
-      <div class="wrap detail-two-col">
-        <div><p class="eyebrow dark">Claridad antes de salir</p><h2 id="detail-tariff-title">Revisa los detalles antes de confirmar</h2><p class="lead">La app presenta la recogida, el destino, la distancia, el tiempo y la forma de pago. El conductor puede revisar la tarifa y aceptarla o ajustar su propuesta.</p></div>
-        <ul class="detail-checks">{driverBenefits.map((benefit) => <li><b>{benefit.title}</b><span>{benefit.description}</span></li>)}</ul>
-      </div>
-    </section>
-    <section class="detail-section journey-explainer" aria-labelledby="journey-details-title">
+    <section class="overview-section" aria-labelledby="overview-title">
       <div class="wrap">
-        <header class="about-centered-heading"><p class="eyebrow dark">Una experiencia compartida</p><h2 id="journey-details-title">Cada parte del viaje tiene información útil</h2><p>La app reúne los datos que pasajero y conductor necesitan para coordinar el servicio de taxi.</p></header>
-        <div class="detail-two-col">
-          <article><h3>Para quien solicita el taxi</h3><p>El pasajero indica la recogida y el destino, revisa los datos de la solicitud y comparte el PIN con el conductor para confirmar que ambos se preparan para el mismo viaje. Durante el recorrido puede consultar el seguimiento y usar el chat o la llamada disponibles en la app.</p></article>
-          <article><h3>Para quien conduce</h3><p>El conductor puede revisar la recogida, el destino, la distancia, el tiempo y la forma de pago antes de aceptar. También puede aceptar la tarifa o ajustar su propuesta con las opciones mostradas en la aplicación. Al finalizar, puede consultar su actividad y sus ganancias.</p></article>
+        <header class="overview-heading"><p class="eyebrow dark">Dos formas de viajar</p><h2 id="overview-title">Una guía para cada lado del viaje</h2><p>Woki conecta a quienes necesitan un taxi con conductores de Cerro de Pasco. Cada perfil tiene una guía propia para consultar el proceso con información útil y clara.</p></header>
+        <div class="audience-grid">
+          <article class="audience-card passenger-card">
+            <span class="audience-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3zM9 12l2 2 4-4"/></svg></span>
+            <p class="eyebrow dark">Para pasajeros</p><h3>Pide, verifica y viaja</h3>
+            <p>Indica tu punto de recogida y destino. Antes de subir, revisa el conductor, el vehículo y la placa. Comparte el PIN cuando confirmes que el taxi coincide con la solicitud. Durante el recorrido puedes seguir el viaje y usar las opciones de contacto disponibles en la app.</p>
+            <a class="btn solid" href="/seguridad">Ver la guía para pasajeros</a>
+          </article>
+          <article class="audience-card driver-card">
+            <span class="audience-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 15l1.5-5h13L20 15v4h-2v-2H6v2H4zM6 10l1.3-3h9.4l1.3 3"/><circle cx="7.5" cy="13" r=".8"/><circle cx="16.5" cy="13" r=".8"/></svg></span>
+            <p class="eyebrow dark">Para conductores</p><h3>Revisa y decide</h3>
+            <p>Cuando te conectas, puedes revisar la recogida, el destino, la distancia, el tiempo y la forma de pago antes de decidir si aceptas una solicitud. También encuentras la información sobre el ajuste de tarifa, tu actividad y los requisitos para enviar tu perfil a revisión.</p>
+            <a class="btn solid" href="/conductores">Ver la guía para conductores</a>
+          </article>
         </div>
-        <p class="lead">Conoce las <a href="/seguridad">herramientas de seguridad para el viaje</a> o visita <a href="/conductores">la guía para conducir con Woki</a>.</p>
+      </div>
+    </section>
+    <section class="overview-steps" aria-labelledby="overview-steps-title">
+      <div class="wrap">
+        <header class="overview-heading"><p class="eyebrow">La ruta en común</p><h2 id="overview-steps-title">La información acompaña cada etapa</h2><p>Pasajero y conductor tienen distintos pasos, pero comparten una referencia clara para iniciar y completar el viaje.</p></header>
+        <ol class="common-steps">
+          <li><span>01</span><div><h3>Se solicita el servicio</h3><p>El pasajero indica recogida y destino; Woki muestra una solicitud con los datos necesarios para coordinar.</p></div></li>
+          <li><span>02</span><div><h3>Se revisa la información</h3><p>El conductor consulta los detalles antes de aceptar. El pasajero puede comparar los datos del taxi asignado antes de abordar.</p></div></li>
+          <li><span>03</span><div><h3>Se confirma el recorrido</h3><p>El PIN ayuda a confirmar que pasajero y conductor están por iniciar el viaje correcto.</p></div></li>
+          <li><span>04</span><div><h3>El viaje termina</h3><p>Al llegar, el pasajero completa el pago disponible y puede dejar una calificación de su experiencia.</p></div></li>
+        </ol>
+        <p class="overview-note">Los ejemplos de esta guía son ilustrativos; las opciones disponibles se muestran dentro de la aplicación.</p>
+        <p class="overview-contact">¿Tienes una duda sobre las funciones? <a href="/contacto">Escríbenos desde Contacto</a>.</p>
       </div>
     </section>
   </main>
@@ -57,71 +53,16 @@ const structuredData = buildSectionJsonLd(Astro.site, '/como-funciona', 'Cómo f
 </Layout>
 
 <style>
-  .journey-hero{isolation:isolate;background-color:var(--deep)}
-  .journey-hero .wrap{z-index:1}
-  .journey-experience{position:relative;isolation:isolate;overflow:clip;background:linear-gradient(180deg,var(--paper),#fff 72%)}
-  .journey-experience>.how{position:relative;z-index:1;isolation:isolate}
-  .journey-experience>.how>.topographic-backdrop{z-index:0}
-  .journey-experience>.how>.wrap{position:relative;z-index:1}
-  .journey-experience .about-centered-heading{max-width:700px;margin-inline:auto}
-  .journey-role-group{min-width:0;margin:0;padding:0;border:0}
-  .journey-role-group>input{position:absolute;width:1px;height:1px;clip:rect(0,0,0,0);clip-path:inset(50%);overflow:hidden;white-space:nowrap}
-  .journey-role-group>.tablist{position:relative;isolation:isolate;display:flex;width:min(100%,420px);min-height:54px;margin:1.35rem auto 1.8rem;padding:.3rem;overflow:hidden;border:1px solid color-mix(in srgb,var(--cian) 28%,white);border-radius:999px;background:color-mix(in srgb,var(--aqua) 16%,white);box-shadow:0 10px 28px color-mix(in srgb,var(--deep) 11%,transparent)}
-  .journey-role-group>.tablist::before{content:"";position:absolute;z-index:-1;inset:.3rem auto .3rem .3rem;width:calc(50% - .3rem);border-radius:999px;background:var(--cian);box-shadow:0 6px 18px color-mix(in srgb,var(--deep) 20%,transparent);transition:transform .36s cubic-bezier(.2,.8,.2,1),background-color .36s}
-  #t-con:checked~.tablist::before{transform:translateX(100%);background:var(--deep)}
-  .journey-role-group>.tablist label{position:relative;z-index:1;display:grid;place-items:center;flex:1;min-height:44px;padding:.55rem .85rem;border-radius:999px;color:var(--deep);font-weight:800;cursor:pointer}
-  #t-pas:checked~.tablist label[for="t-pas"],#t-con:checked~.tablist label[for="t-con"]{color:#fff}
-  #t-pas:focus-visible~.tablist label[for="t-pas"],#t-con:focus-visible~.tablist label[for="t-con"]{outline:3px solid var(--pin);outline-offset:-3px}
-  .journey-role-group .panel{margin:0}
-  .tariff-receipt{position:relative;isolation:isolate;overflow:hidden;background:linear-gradient(125deg,var(--deep),var(--ink));color:#fff}
-  .tariff-receipt>.wrap{position:relative;z-index:1}
-  .tariff-receipt h2,.tariff-receipt .lead{color:#fff}
-  .tariff-receipt .eyebrow.dark{color:#fff}
-  .tariff-receipt .detail-two-col{align-items:center;gap:clamp(2rem,6vw,5rem)}
-  .tariff-receipt .detail-checks{position:relative;gap:0;overflow:hidden;padding:1.25rem 1.4rem;border:1px solid color-mix(in srgb,var(--aqua) 36%,transparent);border-radius:20px;background:rgba(244,250,250,.97);color:var(--ink);box-shadow:0 24px 60px color-mix(in srgb,var(--ink) 50%,transparent)}
-  .tariff-receipt .detail-checks li{position:relative;margin:0;padding:1rem .8rem 1rem 1.4rem;border:0;border-bottom:1px dashed color-mix(in srgb,var(--cian) 30%,white);border-radius:0;background:transparent;box-shadow:none}
-  .tariff-receipt .detail-checks li::before{content:"";position:absolute;left:.1rem;top:1.45rem;width:8px;height:8px;border-radius:50%;background:var(--pin);box-shadow:0 0 0 4px color-mix(in srgb,var(--pin) 17%,transparent)}
-  .tariff-receipt .detail-checks li:last-child{border-bottom:0}
-  .journey-explainer{background:#fff}
-  .journey-explainer .detail-two-col article{position:relative;padding:clamp(1.25rem,3vw,2rem);border-top:1px solid color-mix(in srgb,var(--cian) 28%,white)}
-  .journey-explainer .detail-two-col h3{color:var(--deep)}
-  .journey-explainer .detail-two-col p{line-height:1.7}
-  .journey-explainer>.wrap>.lead{margin-top:2rem}
-  .journey-explainer a{color:var(--deep);font-weight:750;text-decoration-thickness:1px;text-underline-offset:3px}
-  @media(min-width:801px) and (min-height:700px) and (prefers-reduced-motion:no-preference){
-    .journey-experience.how-scroll-track{height:240svh}
-    .journey-experience.how-scroll-track>.how{position:sticky;top:0;height:100svh;min-height:100svh;overflow:hidden;display:flex;align-items:center;padding:1svh 0}
-    .journey-experience>.how{min-height:100svh}
-    .journey-experience .journey-role-group{width:100%}
-    .journey-experience .journey-role-group>.tablist{margin:.6rem auto .8rem}
-    .journey-experience :global(.phone-journey){max-height:min(75svh,730px);padding:clamp(.8rem,1.5svh,1.25rem)}
-    .journey-experience :global(.phone-journey-layout){gap:clamp(1rem,4vw,3rem)}
-    .journey-experience :global(.phone-scene){top:calc(50svh - 260px)}
-    .journey-experience :global(.phone-shell){width:min(100%,260px)}
-    .journey-experience :global(.phone-step-list){gap:.65rem}
-    .journey-experience :global(.phone-step){min-height:82px;padding:.7rem}
-    .journey-experience :global(.phone-step-copy>span){font-size:.86rem}
-  }
-  @media(min-width:2000px) and (min-height:700px) and (prefers-reduced-motion:no-preference){
-    .journey-experience.how-scroll-track{height:180svh}
-    .journey-experience :global(.phone-journey){max-height:80svh}
-    .journey-experience :global(.phone-shell){width:min(100%,clamp(320px,14vw,520px))}
-    .journey-experience :global(.phone-step){min-height:clamp(110px,9svh,220px);padding:clamp(.75rem,1.2vw,1.5rem)}
-    .journey-experience :global(.phone-step-number){width:clamp(42px,4svh,64px);height:clamp(42px,4svh,64px)}
-    .journey-experience :global(.phone-step-copy>span){font-size:clamp(.95rem,1.05svh,1.25rem)}
-  }
-  @supports (animation-timeline:view()){
-    .journey-experience{view-timeline-name:--woki-journey;view-timeline-axis:block}
-    .journey-experience :global(.phone-route-progress){stroke-dashoffset:364;animation:draw-journey-route 1s linear both;animation-timeline:--woki-journey;animation-range:entry 0% exit 100%}
-  }
-  @keyframes draw-journey-route{to{stroke-dashoffset:0}}
-  @supports not (animation-timeline:view()){
-    .how-scroll-track{height:auto!important}
-    .journey-experience>.how{position:relative!important;top:auto!important;height:auto!important;min-height:0!important;overflow:visible!important;padding-block:0!important}
-    .journey-experience :global(.phone-scene){display:none}
-    .journey-experience :global(.phone-journey){max-height:none;overflow:visible}
-    .journey-experience :global(.phone-mobile-image){display:block}
-  }
-  @media(max-width:800px){.journey-experience>.how{min-height:0;padding:0}.journey-experience :global(.phone-journey){max-height:none;overflow:visible}}
-  @media(prefers-reduced-motion:reduce){.journey-experience,.journey-experience :global(.phone-route-progress){animation:none!important;view-timeline-name:none}.journey-experience>.how{position:relative!important;top:auto!important;height:auto!important;min-height:0!important;overflow:visible!important;padding-block:0!important}.journey-experience :global(.phone-scene){display:none}.journey-experience :global(.phone-journey){max-height:none;overflow:visible}.journey-experience :global(.phone-mobile-image){display:block}.journey-role-group>.tablist::before{transition:none}}
+  .journey-hero{isolation:isolate;background-color:var(--deep)}.journey-hero .wrap{z-index:1}
+  .overview-section,.overview-steps{padding:clamp(3rem,7vw,5rem) 0}
+  .overview-section{background:linear-gradient(180deg,var(--paper),#fff)}
+  .overview-heading{max-width:760px;margin:0 auto 2rem;text-align:center}.overview-heading .eyebrow{justify-content:center}.overview-heading h2{margin:.45rem 0;color:var(--deep);text-wrap:balance}.overview-heading>p:last-child{max-width:66ch;margin-inline:auto;color:#45666b}
+  .audience-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+  .audience-card{display:flex;flex-direction:column;align-items:flex-start;padding:clamp(1.25rem,3vw,2rem);border:1px solid color-mix(in srgb,var(--cian) 23%,white);border-radius:var(--r-lg);background:#fff;box-shadow:0 15px 38px color-mix(in srgb,var(--deep) 8%,transparent)}
+  .audience-icon{display:grid;place-items:center;width:3.4rem;height:3.4rem;margin-bottom:1rem;border-radius:18px;background:color-mix(in srgb,var(--aqua) 23%,white);color:var(--deep)}.audience-icon svg{width:1.8rem;height:1.8rem;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .audience-card .eyebrow{margin:0 0 .3rem}.audience-card h3{margin:0 0 .65rem;color:var(--deep);font-size:1.35rem}.audience-card>p:not(.eyebrow){margin:0 0 1.2rem;color:#45666b;line-height:1.65}.audience-card .btn{margin-top:auto}
+  .overview-steps{position:relative;isolation:isolate;overflow:hidden;background:var(--ink);color:white}.overview-steps>.wrap{position:relative;z-index:1}.overview-steps .overview-heading h2{color:white}.overview-steps .overview-heading>p:last-child{color:#d7ecee}
+  .common-steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.8rem;margin:0;padding:0;list-style:none}.common-steps li{padding:1.1rem;border:1px solid color-mix(in srgb,var(--aqua) 26%,transparent);border-radius:var(--r-md);background:color-mix(in srgb,var(--deep) 55%,transparent)}.common-steps li>span{display:grid;place-items:center;width:2.3rem;height:2.3rem;margin-bottom:.8rem;border-radius:50%;background:var(--pin);color:var(--ink);font-size:.8rem;font-weight:850}.common-steps h3{margin:0 0 .35rem;color:white;font-size:1rem}.common-steps p{color:#d7ecee;font-size:.9rem;line-height:1.55}.overview-note,.overview-contact{margin:1.3rem 0 0;color:#d7ecee;text-align:center}.overview-contact a{color:var(--aqua);font-weight:800}
+  @media(max-width:760px){.common-steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media(max-width:540px){.audience-grid,.common-steps{grid-template-columns:1fr}.audience-card .btn{width:100%;justify-content:center}}
 </style>

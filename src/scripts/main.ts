@@ -83,9 +83,30 @@ if (header && burger) {
   const setMenu = (open: boolean) => {
     header.classList.toggle('open', open);
     burger.setAttribute('aria-expanded', String(open));
+    if (!open) all<HTMLElement>('[data-nav-dropdown]').forEach((item) => {
+      item.classList.remove('expanded');
+      item.querySelector('[data-nav-trigger]')?.setAttribute('aria-expanded', 'false');
+    });
   };
   burger.addEventListener('click', () => setMenu(!header.classList.contains('open')));
   all<HTMLAnchorElement>('#menu a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+  all<HTMLButtonElement>('[data-nav-trigger]').forEach((button) => button.addEventListener('click', () => {
+    const dropdown = button.closest<HTMLElement>('[data-nav-dropdown]');
+    const open = !dropdown?.classList.contains('expanded');
+    all<HTMLElement>('[data-nav-dropdown]').forEach((item) => {
+      item.classList.toggle('expanded', item === dropdown && open);
+      item.querySelector('[data-nav-trigger]')?.setAttribute('aria-expanded', String(item === dropdown && open));
+    });
+  }));
+  document.addEventListener('click', (event) => {
+    if (header && !header.contains(event.target as Node)) setMenu(false);
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      setMenu(false);
+      burger.focus();
+    }
+  });
 }
 
 // Las etapas cambian la escena ilustrada según el rol seleccionado.
@@ -96,6 +117,12 @@ all<HTMLElement>('[data-journey]').forEach((journey) => {
   const images = all<HTMLImageElement>('[data-stage-image]').filter((image) => image.closest('[data-journey]') === journey);
   const placeholder = journey.querySelector<HTMLElement>('[data-image-placeholder]');
   const buttons = all<HTMLButtonElement>('[data-step-button]').filter((button) => button.closest('[data-journey]') === journey);
+  const autoToggle = journey.closest('.phone-journey-shell')?.querySelector<HTMLButtonElement>('[data-journey-toggle]');
+  const progressBars = all<HTMLElement>('.step-progress > span').filter((bar) => bar.closest('[data-journey]') === journey);
+  let autoTimer: number | undefined;
+  let inViewport = false;
+  let userPaused = reduceMotion;
+  if (reduceMotion && autoToggle) autoToggle.hidden = true;
   const showStage = (button: HTMLButtonElement) => {
     const titleText = button.dataset.title ?? '';
     const stepIndex = Number(button.dataset.step ?? 0);
@@ -122,46 +149,125 @@ all<HTMLElement>('[data-journey]').forEach((journey) => {
   }));
   const initial = buttons.find((button) => button.getAttribute('aria-pressed') === 'true');
   if (initial) showStage(initial);
+  const roleInput = document.querySelector<HTMLInputElement>(journey.dataset.role === 'pasajero' ? '#t-pas' : '#t-con');
+  const isRoleActive = () => !roleInput || roleInput.checked;
+  const canAutoplay = () => journey.hasAttribute('data-autoplay') && !reduceMotion && !userPaused && inViewport && !document.hidden && isRoleActive();
+  const stopAutoplay = () => {
+    if (autoTimer !== undefined) window.clearTimeout(autoTimer);
+    autoTimer = undefined;
+    journey.removeAttribute('data-playing');
+  };
+  const startAutoplay = () => {
+    stopAutoplay();
+    if (!canAutoplay()) return;
+    journey.setAttribute('data-playing', '');
+    autoTimer = window.setTimeout(() => {
+      const activeIndex = buttons.findIndex((button) => button.getAttribute('aria-pressed') === 'true');
+      const next = buttons[(activeIndex + 1) % buttons.length];
+      if (next) {
+        buttons.forEach((item) => item.setAttribute('aria-pressed', String(item === next)));
+        showStage(next);
+      }
+      startAutoplay();
+    }, 4000);
+  };
+  if (journey.hasAttribute('data-autoplay')) {
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(([entry]) => {
+        inViewport = entry.isIntersecting;
+        startAutoplay();
+      }, { threshold: 0.2 });
+      observer.observe(journey);
+    } else inViewport = true;
+    autoToggle?.addEventListener('click', () => {
+      userPaused = !userPaused;
+      autoToggle.setAttribute('aria-pressed', String(userPaused));
+      autoToggle.textContent = userPaused ? 'Reanudar recorrido' : 'Pausar recorrido';
+      startAutoplay();
+    });
+    document.addEventListener('visibilitychange', startAutoplay);
+    roleInput?.addEventListener('change', () => {
+      if (isRoleActive()) startAutoplay();
+      else stopAutoplay();
+    });
+  }
   buttons.forEach((button) => {
     button.addEventListener('click', () => {
       buttons.forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
       showStage(button);
+      if (journey.hasAttribute('data-autoplay')) {
+        progressBars.forEach((bar) => { bar.style.animation = 'none'; void bar.offsetWidth; bar.style.animation = ''; });
+        startAutoplay();
+      }
     });
   });
 });
-
-// En escritorio, cada tramo de scroll dentro de Cómo funciona avanza una etapa.
-const journeyTrack = document.querySelector<HTMLElement>('[data-scroll-journey]');
-const pinnedJourneyEnabled = window.matchMedia('(min-width: 801px) and (min-height: 700px) and (prefers-reduced-motion: no-preference)');
-if (journeyTrack) {
-  let journeyFrame = 0;
-  const syncJourneyStage = () => {
-    if (!pinnedJourneyEnabled.matches || journeyFrame) return;
-    journeyFrame = requestAnimationFrame(() => {
-      journeyFrame = 0;
-      const travel = journeyTrack.offsetHeight - window.innerHeight;
-      if (travel <= 0) return;
-      const progress = Math.min(Math.max(-journeyTrack.getBoundingClientRect().top / travel, 0), 0.999999);
-      const step = Math.min(Math.floor(progress * 4), 3);
-      const activeJourney = all<HTMLElement>('[data-journey]').find((journey) => journey.getClientRects().length > 0);
-      const buttons = activeJourney ? all<HTMLButtonElement>('[data-step-button]').filter((button) => button.closest('[data-journey]') === activeJourney) : [];
-      const current = buttons.find((button) => button.getAttribute('aria-pressed') === 'true');
-      const next = buttons[step];
-      if (next && current !== next) next.click();
-    });
-  };
-  window.addEventListener('scroll', syncJourneyStage, { passive: true });
-  window.addEventListener('resize', syncJourneyStage);
-  all<HTMLInputElement>('[name="rol"]').forEach((input) => input.addEventListener('change', syncJourneyStage));
-  syncJourneyStage();
-}
 
 // El formulario solo se activa con un endpoint configurado.
 const contactForm = document.querySelector<HTMLFormElement>('[data-contact-form]');
 if (contactForm) {
   const status = contactForm.querySelector<HTMLElement>('[data-form-status]');
+  const fields = all<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>('[data-contact-field]').filter((field) => field.closest('[data-contact-form]') === contactForm);
+  const clearFieldError = (field: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement) => {
+    const name = field.dataset.contactField;
+    field.removeAttribute('aria-invalid');
+    field.classList.remove('is-invalid');
+    const error = name && contactForm.querySelector<HTMLElement>(`[data-field-error="${name}"]`);
+    if (error) {
+      error.hidden = true;
+      error.textContent = '';
+    }
+    if (field instanceof HTMLInputElement || field instanceof HTMLTextAreaElement) {
+      field.placeholder = field.dataset.defaultPlaceholder ?? '';
+    }
+    if (field instanceof HTMLSelectElement) {
+      const placeholderOption = field.options[0];
+      if (placeholderOption) placeholderOption.textContent = 'Elige una opción';
+    }
+  };
+  const setFieldError = (field: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement, message: string) => {
+    const name = field.dataset.contactField;
+    field.setAttribute('aria-invalid', 'true');
+    field.classList.add('is-invalid');
+    const error = name && contactForm.querySelector<HTMLElement>(`[data-field-error="${name}"]`);
+    if (error) {
+      error.textContent = message;
+      error.hidden = false;
+    }
+    if (field instanceof HTMLInputElement || field instanceof HTMLTextAreaElement) field.placeholder = message;
+    if (field instanceof HTMLSelectElement && field.options[0]) field.options[0].textContent = 'Falta elegir una opción';
+  };
+  const validateForm = () => {
+    let firstInvalid: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | undefined;
+    const mark = (field: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | undefined, message: string) => {
+      if (!field) return;
+      setFieldError(field, message);
+      firstInvalid ??= field;
+    };
+    const field = (name: string) => fields.find((item) => item.dataset.contactField === name);
+    const name = field('nombre');
+    const contact = field('contacto');
+    const message = field('mensaje');
+    const consent = field('consentimiento');
+
+    if (name && !name.value.trim()) mark(name, 'Falta ingresar tu nombre.');
+    if (contact) {
+      const value = contact.value.trim();
+      const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+      if (!isEmail) mark(contact, 'Ingresa un correo electrónico válido.');
+    }
+    if (message && !message.value.trim()) mark(message, 'Falta escribir tu mensaje.');
+    if (consent instanceof HTMLInputElement && !consent.checked) mark(consent, 'Acepta el uso de tus datos para responderte.');
+    firstInvalid?.focus();
+    return !firstInvalid;
+  };
+
+  fields.forEach((field) => {
+    field.addEventListener(field instanceof HTMLSelectElement || (field instanceof HTMLInputElement && field.type === 'checkbox') ? 'change' : 'input', () => clearFieldError(field));
+  });
   contactForm.addEventListener('submit', async (event) => {
     event.preventDefault();
+    if (!validateForm()) return;
     const data = new FormData(contactForm);
     if (data.get('website')) return;
     const endpoint = contactForm.dataset.endpoint;
@@ -178,6 +284,17 @@ if (contactForm) {
       return;
     }
 
-    if (status) status.textContent = 'El formulario de contacto estará disponible pronto.';
+    const recipient = contactForm.dataset.recipient;
+    if (!recipient) {
+      if (status) status.textContent = 'No se pudo preparar el correo. Escríbenos a soporte@woki.pe.';
+      return;
+    }
+    const name = String(data.get('nombre') ?? '').trim();
+    const email = String(data.get('contacto') ?? '').trim();
+    const messageText = String(data.get('mensaje') ?? '').trim();
+    const subject = `Consulta desde woki.pe — ${name}`;
+    const body = `Hola, quisiera hacer una consulta.\n\nNombre: ${name}\nCorreo para responderme: ${email}\n\nMensaje:\n${messageText}`;
+    if (status) status.textContent = `Se abrirá tu aplicación de correo para enviar la consulta a ${recipient}.`;
+    window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   });
 }

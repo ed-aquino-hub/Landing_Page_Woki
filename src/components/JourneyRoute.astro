@@ -1,0 +1,142 @@
+---
+import Taxi from './Taxi.astro';
+import type { JourneyStep } from '../data/content';
+
+interface Props { title: string; subtitle: string; steps: JourneyStep[]; id: string }
+const { title, subtitle, steps, id } = Astro.props;
+---
+<section class="route-section" id={id} aria-labelledby={`${id}-title`} data-route>
+  <div class="wrap">
+    <header class="route-heading">
+      <p class="eyebrow dark">Un recorrido claro</p>
+      <h2 id={`${id}-title`}>{title}</h2>
+      <p>{subtitle}</p>
+    </header>
+    <div class="route-track" data-route-track>
+      <span class="route-line" aria-hidden="true"></span>
+      <span class="route-line-fill" aria-hidden="true" data-route-fill></span>
+      <span class="route-taxi" aria-hidden="true" data-route-taxi>
+        <Taxi />
+      </span>
+      <ol class="route-list">
+      {steps.map((step, index) => {
+        const visual = step.visual;
+        return <li class="route-step" data-route-step>
+        <span class="route-node" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+        <article aria-labelledby={`${id}-step-${index + 1}`}>
+          <p class="route-kicker" data-route-kicker>Paso {index + 1}</p>
+          <h3 id={`${id}-step-${index + 1}`}>{step.title}</h3>
+          <p class="route-description">{step.description}</p>
+          {visual && <div class="route-visual">
+            {visual.type === 'pills' && <ul class="route-pills">{visual.items.map((item) => <li>{item}</li>)}</ul>}
+            {visual.type === 'checks' && <ul class="route-pills">{visual.items.map((item) => <li class="checked"><span aria-hidden="true">✓</span>{item}</li>)}</ul>}
+            {visual.type === 'pin' && <div class="route-pin"><small>{visual.label}</small><b>{visual.value}</b></div>}
+            {visual.type === 'fare' && <div class="fare-example" data-fare data-base={visual.base} data-currency={visual.currency}><small>{visual.label}</small><output aria-live="polite" data-fare-total>{visual.currency} {visual.base.toFixed(2)}</output><div role="group" aria-label="Ajustes de ejemplo">{visual.adjustments.map((amount) => <button type="button" data-adjustment={amount} aria-pressed="false">+{visual.currency}{amount}</button>)}</div></div>}
+            {visual.type === 'earnings' && <ul class="route-pills">{visual.items.map((item) => <li>{item}</li>)}</ul>}
+          </div>}
+          {step.detail && <details class="route-detail"><summary>Ver detalle</summary><p>{step.detail}</p></details>}
+        </article>
+      </li>;
+      })}
+      </ol>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-route]').forEach((route) => {
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const track = route.querySelector<HTMLElement>('[data-route-track]');
+    const fill = route.querySelector<HTMLElement>('[data-route-fill]');
+    const taxi = route.querySelector<HTMLElement>('[data-route-taxi]');
+    const steps = [...route.querySelectorAll<HTMLElement>('[data-route-step]')];
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      if (!track || !fill || !taxi) return;
+      const rect = track.getBoundingClientRect();
+      const viewportCenter = window.innerHeight / 2;
+      const stepCenters = steps.map((step) => {
+        const stepRect = step.getBoundingClientRect();
+        return stepRect.top + stepRect.height / 2;
+      });
+      const taxiStartCenter = parseFloat(getComputedStyle(taxi).top) + taxi.offsetHeight / 2;
+      const lastCenter = Math.min(stepCenters[stepCenters.length - 1] - rect.top, track.clientHeight - taxiStartCenter);
+      const positionOnTrack = Math.max(taxiStartCenter, Math.min(lastCenter, viewportCenter - rect.top));
+      const travel = Math.max(0, positionOnTrack - taxiStartCenter);
+      fill.style.height = `${travel}px`;
+      taxi.style.transform = `translateY(${travel}px)`;
+      const currentIndex = stepCenters.reduce((nearest, center, index) =>
+        Math.abs(center - viewportCenter) < Math.abs(stepCenters[nearest] - viewportCenter) ? index : nearest, 0);
+      steps.forEach((step, index) => {
+        const active = index === currentIndex;
+        step.classList.toggle('is-current', active);
+        const article = step.querySelector<HTMLElement>('article');
+        if (active) article?.setAttribute('aria-current', 'step');
+        else article?.removeAttribute('aria-current');
+      });
+    };
+    const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
+    route.setAttribute('data-enhanced', '');
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule, { passive: true });
+    schedule();
+  }
+  });
+  document.querySelectorAll<HTMLElement>('[data-fare]').forEach((fare) => {
+    const total = fare.querySelector<HTMLOutputElement>('[data-fare-total]');
+    const buttons = [...fare.querySelectorAll<HTMLButtonElement>('[data-adjustment]')];
+    const base = Number(fare.dataset.base || 8);
+    const currency = fare.dataset.currency || 'S/';
+    buttons.forEach((button) => button.addEventListener('click', () => {
+      const active = button.getAttribute('aria-pressed') === 'true';
+      buttons.forEach((item) => item.setAttribute('aria-pressed', String(item === button && !active)));
+      const adjustment = active ? 0 : Number(button.dataset.adjustment || 0);
+      if (total) total.textContent = `${currency} ${(base + adjustment).toFixed(2)}`;
+    }));
+  });
+</script>
+
+<style>
+  .route-section{padding:clamp(2.7rem,6vw,5rem) 0;background:linear-gradient(180deg,var(--paper),#fff)}
+  .route-heading{max-width:760px;margin:0 auto clamp(1.5rem,3vw,2.4rem);text-align:center}
+  .route-heading .eyebrow{justify-content:center;margin-bottom:.55rem}
+  .route-heading h2{margin:0 0 .55rem;color:var(--deep);text-wrap:balance}
+  .route-heading>p:last-child{margin-inline:auto;color:#45666b;font-size:1.05rem}
+  .route-track{position:relative;max-width:930px;margin:0 auto;padding-left:4rem}
+  .route-list{position:relative;display:grid;gap:1rem;margin:0;padding:0;list-style:none}
+  .route-line,.route-line-fill{position:absolute;top:2.5rem;bottom:2.5rem;left:1.15rem;width:3px;border-radius:9px}
+  .route-line{background:repeating-linear-gradient(to bottom,color-mix(in srgb,var(--cian) 50%,white) 0 5px,transparent 5px 12px)}
+  .route-line-fill{height:calc(100% - 5rem);bottom:auto;background:linear-gradient(var(--cian),var(--pin));transition:height .12s linear}
+  .route-taxi{position:absolute;top:auto;bottom:1.5rem;left:-.55rem;z-index:2;width:3.3rem;height:2rem;display:grid;place-items:center;transform:none;filter:drop-shadow(0 5px 6px #00303728)}
+  .route-section[data-enhanced] .route-taxi{top:1.5rem;bottom:auto;transition:transform .12s linear}
+  .route-taxi :global(.taxi){position:static;width:100%;height:100%;animation:none;overflow:visible}
+  .route-step{position:relative;min-width:0}
+  .route-node{position:absolute;top:1.25rem;left:-4rem;z-index:3;display:grid;place-items:center;width:2.5rem;height:2.5rem;border:2px solid var(--cian);border-radius:50%;background:#fff;color:var(--deep);font-size:.8rem;font-weight:850;transition:background-color .2s,color .2s,transform .2s}
+  .route-step article{padding:1.1rem 1.2rem;border:1px solid color-mix(in srgb,var(--cian) 22%,white);border-radius:var(--r-md);background:#fff;box-shadow:0 12px 30px color-mix(in srgb,var(--deep) 7%,transparent);transition:border-color .2s,background-color .2s,box-shadow .2s}
+  .route-step.is-current .route-node{background:var(--cian);color:white;transform:scale(1.08)}
+  .route-step.is-current article{border-color:var(--cian);background:color-mix(in srgb,var(--aqua) 13%,white);box-shadow:0 14px 32px color-mix(in srgb,var(--deep) 10%,transparent)}
+  .route-kicker{margin:0 0 .2rem;color:var(--cian);font-size:.7rem;font-weight:850;letter-spacing:.1em;text-transform:uppercase}
+  .route-step h3{margin:0;color:var(--deep);font-size:1.15rem}
+  .route-description{margin:.25rem 0 0;color:var(--ink)}
+  .route-visual{margin-top:.85rem}
+  .route-pills{display:flex;flex-wrap:wrap;gap:.45rem;margin:0;padding:0;list-style:none}
+  .route-pills li{display:inline-flex;align-items:center;gap:.35rem;padding:.38rem .65rem;border:1px solid color-mix(in srgb,var(--cian) 20%,white);border-radius:999px;background:var(--paper);color:var(--deep);font-size:.82rem;font-weight:750}
+  .route-pills .checked span{color:var(--cian);font-weight:900}
+  .route-pin,.fare-example{display:flex;align-items:center;gap:.8rem;width:max-content;max-width:100%;padding:.65rem .9rem;border-radius:12px;background:var(--ink);color:#fff}
+  .route-pin small,.fare-example small{color:var(--aqua);font-weight:750}
+  .route-pin b{font-size:1.45rem;letter-spacing:.22em}
+  .fare-example{flex-wrap:wrap;background:var(--paper);color:var(--ink)}
+  .fare-example b{color:var(--deep);font-size:1.2rem}
+  .fare-example div{display:flex;gap:.35rem}
+  .fare-example button{padding:.25rem .5rem;border:1px solid color-mix(in srgb,var(--cian) 22%,white);border-radius:999px;background:#fff;color:var(--deep);font:inherit;font-size:.8rem;font-weight:800;cursor:pointer}
+  .fare-example button[aria-pressed="true"]{border-color:var(--cian);background:var(--cian);color:white}
+  .fare-example button:focus-visible{outline:3px solid var(--pin);outline-offset:2px}
+  .route-detail{margin-top:.75rem;padding:0;border:0;background:transparent}
+  .route-detail summary{display:inline-flex;align-items:center;gap:.35rem;color:var(--deep);font-size:.85rem;font-weight:800}
+  .route-detail summary::after{content:'+';color:var(--cian);font-size:1.1rem}
+  .route-detail[open] summary::after{content:'−'}
+  .route-detail p{max-width:68ch;margin:.5rem 0 0;color:#45666b;font-size:.92rem}
+  @media(max-width:600px){.route-track{padding-left:3.2rem}.route-list{gap:.75rem}.route-line,.route-line-fill{left:.9rem}.route-taxi{left:-.45rem;width:2.8rem;height:1.7rem}.route-node{left:-3.2rem;width:2rem;height:2rem;top:1.25rem;font-size:.72rem}.route-step article{padding:.95rem}.route-step h3{font-size:1.05rem}.route-description{font-size:.93rem}}
+  @media(prefers-reduced-motion:reduce){.route-line-fill{height:100%!important}.route-taxi{top:auto;bottom:1.5rem;transform:none!important;transition:none}.route-node,.route-step article{transition:none}}
+</style>

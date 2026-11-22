@@ -1,17 +1,18 @@
 import images from './images';
-import { getContactEmail, getSiteConfig } from './site-config.mjs';
+import { getSiteConfig } from './site-config.mjs';
 
 const runtimeEnv = typeof process === 'undefined' ? {} : process.env;
 const siteConfig = getSiteConfig({ ...import.meta.env, ...runtimeEnv });
 
 export const brand = {
   name: 'Woki',
-  legalName: 'Woki Mobility S.A.C.',
+  projectName: 'Woki App',
   city: 'Cerro de Pasco',
   region: 'Pasco',
   country: 'Perú',
-  email: getContactEmail(siteConfig.requestedSiteUrl),
-  emailIsTemporary: true,
+  email: 'soporte@woki.pe',
+  legalEmail: 'legal@woki.pe',
+  emailIsTemporary: false,
   whatsapp: '+51 900 000 000',
   whatsappIsTemporary: true,
   siteUrl: siteConfig.siteUrl,
@@ -38,7 +39,9 @@ export const routes = {
   contact: '/contacto',
   accountDeletion: '/eliminar-cuenta',
   terms: '/terminos',
+  driverTerms: '/terminos-conductor',
   privacy: '/privacidad',
+  cookies: '/cookies',
 } as const;
 
 export const assets = {
@@ -50,9 +53,10 @@ export const assets = {
 
 export const navigation = [
   { href: routes.home, label: 'Inicio' },
-  { href: routes.howItWorks, label: 'Cómo funciona' },
-  { href: routes.safety, label: 'Pasajero' },
-  { href: routes.drivers, label: 'Conductores' },
+  { href: routes.howItWorks, label: 'Cómo funciona', children: [
+    { href: routes.safety, label: 'Pasajero' },
+    { href: routes.drivers, label: 'Conductor' },
+  ] },
   { href: routes.about, label: 'Nosotros' },
   { href: routes.contact, label: 'Contáctanos' },
 ] as const;
@@ -64,7 +68,17 @@ export const footerNavigation = [
 
 export const legalNavigation = [
   { href: routes.legalNotice, label: 'Información del sitio' },
-  { href: routes.terms, label: 'Términos' },
-  { href: routes.privacy, label: 'Privacidad' },
+  { href: routes.terms, label: 'Términos del pasajero' },
+  { href: routes.driverTerms, label: 'Términos del conductor' },
+  { href: routes.privacy, label: 'Política de privacidad' },
+  { href: routes.cookies, label: 'Política de cookies' },
   { href: routes.accountDeletion, label: 'Eliminar cuenta' },
+] as const;
+
+export const legalDocuments = [
+  { href: routes.legalNotice, label: 'Información del sitio' },
+  { href: routes.terms, label: 'T&C Pasajero' },
+  { href: routes.driverTerms, label: 'T&C Conductor' },
+  { href: routes.privacy, label: 'Privacidad' },
+  { href: routes.cookies, label: 'Cookies' },
 ] as const;

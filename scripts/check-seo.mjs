@@ -29,7 +29,7 @@ function metaContent(html, expression) {
 }
 
 const outputFiles = await filesUnder(dist);
-const htmlFiles = outputFiles.filter((file) => file.endsWith('.html'));
+const htmlFiles = outputFiles.filter((file) => file.endsWith('.html') && !/^google[\da-f]+\.html$/i.test(path.basename(file)));
 assert(htmlFiles.length > 0, 'No se encontraron páginas HTML compiladas en dist.');
 
 const pages = [];
@@ -117,7 +117,7 @@ for (const file of htmlFiles) {
 assert(new Set(pages.map((page) => page.html.match(/<title>(.*?)<\/title>/is)?.[1]?.replace(/\s+/g, ' ').trim() ?? '')).size === pages.length, 'Los titles deben ser únicos entre páginas.');
 assert(new Set(pages.map((page) => metaContent(page.html, /<meta\s+name="description"\s+content="([^"]*)"/i))).size === pages.length, 'Las meta descriptions deben ser únicas entre páginas.');
 
-const expectedPagePaths = ['/', '/como-funciona', '/seguridad', '/conductores', '/nosotros', '/contacto', '/aviso-legal', '/privacidad', '/terminos'];
+const expectedPagePaths = ['/', '/como-funciona', '/seguridad', '/conductores', '/nosotros', '/contacto', '/aviso-legal', '/privacidad', '/terminos', '/terminos-conductor', '/cookies'];
 if (!siteConfig.isNoIndex) {
   const sitemapPath = path.join(dist, 'sitemap.xml');
   let sitemap = '';
@@ -161,7 +161,7 @@ if (env.PUBLIC_CONTACT_FORM_ENDPOINT?.trim()) {
   assert(Boolean(contact && /id="contact-form-unavailable"/.test(contact.html) && /<button[^>]*type="submit"[^>]*disabled/.test(contact.html)), 'Sin endpoint, el formulario debe explicar que no está disponible y desactivar el envío.');
 }
 
-for (const page of pages) assert(!/href=["']mailto:/i.test(page.html), `${page.relative}: contiene un enlace de correo temporal.`);
+for (const page of pages) assert(!/href=["']mailto:[^"']+@(example\.(?:com|org)|localhost)(?:["'])/i.test(page.html), `${page.relative}: contiene un enlace de correo de ejemplo.`);
 for (const page of pages) assert(!/href=["']https:\/\/wa\.me\//i.test(page.html), `${page.relative}: contiene un enlace de WhatsApp temporal.`);
 
 for (const page of pages) {
