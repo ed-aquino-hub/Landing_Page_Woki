@@ -1,8 +1,8 @@
 ---
-interface Props { playUrl?: string }
-const { playUrl = import.meta.env.PUBLIC_GOOGLE_PLAY_URL } = Astro.props;
+interface Props { playUrl?: string; location?: string }
+const { playUrl = import.meta.env.PUBLIC_GOOGLE_PLAY_URL, location = 'general' } = Astro.props;
 ---
-{playUrl ? <a class="store" href={playUrl} target="_blank" rel="noopener noreferrer" aria-label="Disponible en Google Play">
+{playUrl ? <a class="store" href={playUrl} target="_blank" rel="noopener noreferrer" aria-label="Disponible en Google Play" data-track="store_click" data-track-label="google_play" data-track-location={location}>
   <svg class="store-ic" viewBox="0 0 512 512" aria-hidden="true">
     <path fill="#00c3ff" d="M70 36 296 256 70 476z"/>
     <path fill="#00f076" d="M70 36 380 206 330 256 296 256z"/>

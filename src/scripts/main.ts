@@ -48,18 +48,25 @@ if (!('IntersectionObserver' in window)) {
   }
 
   // Enlace activo del menú según la sección visible
+  // Cada enlace se asocia a una sección: por hash en la misma página o, en el
+  // inicio, por data-section (p. ej. Seguridad → #seguridad aunque apunte a /seguridad).
   const links = all<HTMLAnchorElement>('#menu a');
+  const sectionFor = (a: HTMLAnchorElement) => {
+    if (a.hash && a.pathname === location.pathname) return a.hash.slice(1);
+    return location.pathname === '/' ? a.dataset.section : undefined;
+  };
   const spy = new IntersectionObserver(
     (entries) => {
       for (const e of entries) {
         if (!e.isIntersecting) continue;
-        links.forEach((a) => a.classList.toggle('on', a.hash === `#${e.target.id}`));
+        links.forEach((a) => a.classList.toggle('on', sectionFor(a) === e.target.id));
       }
     },
     { rootMargin: '-45% 0px -50% 0px' },
   );
   links.forEach((a) => {
-    const target = a.hash && a.pathname === location.pathname ? document.querySelector(a.hash) : null;
+    const id = sectionFor(a);
+    const target = id ? document.getElementById(id) : null;
     if (target) spy.observe(target);
   });
 }
@@ -298,3 +305,32 @@ if (contactForm) {
     window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   });
 }
+
+// Analítica: eventos al dataLayer de GTM, solo si el usuario aceptó la analítica
+// (AnalyticsConsent carga GTM y marca window.wokiGtmLoaded). En GTM se crean
+// activadores de "Evento personalizado" para cta_click, store_click,
+// contact_click y faq_open, y una etiqueta de evento GA4 que use las variables
+// de capa de datos cta_label, cta_location y page_path.
+type TrackPayload = Record<string, string | number | undefined>;
+const analyticsWindow = window as Window & { dataLayer?: TrackPayload[]; wokiGtmLoaded?: boolean };
+const track = (event: string, payload: TrackPayload) => {
+  if (!analyticsWindow.wokiGtmLoaded) return;
+  analyticsWindow.dataLayer = analyticsWindow.dataLayer || [];
+  analyticsWindow.dataLayer.push({ event, page_path: location.pathname, ...payload });
+};
+
+document.addEventListener('click', (event) => {
+  const target = (event.target as Element | null)?.closest<HTMLElement>('[data-track]');
+  if (!target) return;
+  track(target.dataset.track ?? 'cta_click', {
+    cta_label: target.dataset.trackLabel,
+    cta_location: target.dataset.trackLocation,
+    link_url: target instanceof HTMLAnchorElement ? target.href : undefined,
+  });
+});
+
+all<HTMLDetailsElement>('details[data-faq]').forEach((item) => {
+  item.addEventListener('toggle', () => {
+    if (item.open) track('faq_open', { cta_label: item.dataset.faq, cta_location: 'faq' });
+  });
+});

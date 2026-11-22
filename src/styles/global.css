@@ -341,6 +341,22 @@ footer{margin-top:var(--sky)}
 .top.scrolled .pide{height:36px;background:var(--cian);color:#fff}
 .top.scrolled .pide .arr{width:26px;height:26px;background:#fff;color:var(--cian)}
 @media(max-width:1000px){.bar>.pide{margin-left:auto;height:38px;font-size:.85rem;padding-left:.9rem}.top.scrolled .bar>.pide{height:34px}}
+/* Acciones del header: conducir (secundaria) + descargar (principal) */
+.bar-actions{display:flex;align-items:center;gap:.5rem;flex:none}
+.pide-ghost{display:inline-flex;align-items:center;height:42px;padding:0 1.1rem;border-radius:999px;border:1.5px solid #ffffff8c;font-weight:700;font-size:.92rem;text-decoration:none;white-space:nowrap;color:inherit;transition:background .3s,color .3s,border-color .3s,height .35s}
+.pide-ghost:hover{background:#ffffff26}
+.top.scrolled .pide-ghost{height:36px;border-color:var(--cian);color:var(--deep)}
+.top.scrolled .pide-ghost:hover{background:#e3f3f4}
+.top nav .nav-cta-mobile{display:none}
+@media(max-width:1180px){.top nav a{padding-inline:.8rem}.bar{gap:1rem}}
+@media(max-width:1000px){
+  .bar-actions{margin-left:auto}
+  .pide-ghost{display:none}
+  .bar-actions .pide{height:38px;font-size:.85rem;padding-left:.9rem}
+  .top.scrolled .bar-actions .pide{height:34px}
+  .top nav .nav-cta-mobile{display:flex;justify-content:center;margin-top:.4rem;border:1.5px solid var(--cian);color:var(--deep);font-weight:700}
+}
+@media(max-width:380px){.bar-actions .pide{padding-left:.75rem;font-size:.8rem}}
 .store-ic{width:26px;height:26px;flex:none}
 
 

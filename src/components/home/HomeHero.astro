@@ -1,0 +1,65 @@
+---
+import StoreButtons from '../StoreButtons.astro';
+import { homeHero, homeDemoTrip } from '../../data/home';
+import { brand } from '../../data/site';
+const { driver } = homeDemoTrip;
+---
+<section class="h-hero" id="inicio" aria-labelledby="h-hero-title">
+  <div class="streets" aria-hidden="true"></div>
+  <svg class="h-hero-lines" viewBox="0 0 1440 760" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path d="M-20 520C260 470 380 610 640 560s400-140 820-90" />
+    <path d="M-20 600C240 560 420 690 700 640s400-120 760-80" />
+    <path d="M-20 440C300 380 420 520 660 470s360-140 800-90" />
+  </svg>
+
+  <div class="wrap h-hero-grid">
+    <div class="h-hero-copy">
+      <p class="h-pill">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6-7-11a7 7 0 0114 0c0 5-7 11-7 11z" /><circle cx="12" cy="10" r="2.5" /></svg>
+        {homeHero.eyebrow}
+      </p>
+      <h1 id="h-hero-title">{homeHero.titleLead}<br /><span>{homeHero.titleAccent}</span></h1>
+      <p class="h-hero-lead">{homeHero.lead}</p>
+      <div class="h-hero-actions">
+        <StoreButtons location="hero" />
+      </div>
+      <a class="h-hero-driver" href={homeHero.driverLink.href} data-track="cta_click" data-track-label="quiero_conducir" data-track-location="hero">{homeHero.driverLink.label} <span aria-hidden="true">→</span></a>
+      <ul class="h-trust" aria-label="Por qué viajar con Woki">
+        {homeHero.trust.map((item) => (
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d={item.iconPath} /></svg>{item.label}</li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="h-phone-wrap" aria-hidden="true">
+      <div class="h-phone">
+        <div class="h-phone-screen">
+          <svg class="h-map" viewBox="0 0 296 340" preserveAspectRatio="xMidYMid slice">
+            <rect width="296" height="340" fill="#e3eff0" />
+            <g fill="#cfe3e5"><rect x="14" y="20" width="70" height="56" rx="6" /><rect x="100" y="20" width="84" height="56" rx="6" /><rect x="200" y="20" width="82" height="56" rx="6" /><rect x="14" y="96" width="70" height="80" rx="6" /><rect x="200" y="96" width="82" height="80" rx="6" /><rect x="14" y="196" width="120" height="70" rx="6" /><rect x="154" y="196" width="128" height="70" rx="6" /><rect x="14" y="286" width="70" height="50" rx="6" /><rect x="100" y="286" width="182" height="50" rx="6" /></g>
+            <rect x="100" y="96" width="84" height="80" rx="6" fill="#a9d6da" />
+            <path d="M60 330V186H192V84" fill="none" stroke="#218e97" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+            <circle class="h-map-ring" cx="192" cy="84" r="10" />
+            <circle cx="192" cy="84" r="10" fill="#218e97" stroke="#fff" stroke-width="3" />
+            <circle r="9" fill="#fff" stroke="#005b66" stroke-width="4"><animateMotion dur="6s" repeatCount="indefinite" path="M60 330V186H192V90" /></circle>
+          </svg>
+          <div class="h-sheet">
+            <div class="h-sheet-top"><span class="h-tag">{homeDemoTrip.status}</span><small>{homeDemoTrip.eta}</small></div>
+            <div class="h-driver">
+              <span class="h-avatar">{driver.initials}</span>
+              <div><b>{driver.name} <i>★</i> {driver.rating}</b><small>{driver.car}</small></div>
+              <span class="h-plate">{driver.plate}</span>
+            </div>
+            <div class="h-pin"><small>Dale este PIN al conductor</small><b data-slot={brand.demoPin}>{brand.demoPin}</b></div>
+            <div class="h-sheet-actions"><span>Chat</span><span>Llamar</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="h-float h-float-a">
+        <span class="h-float-ic"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3zM9 12l2 2 4-4" /></svg></span>
+        <span>Conductor verificado<small>Licencia y SOAT al día</small></span>
+      </div>
+      <div class="h-float h-float-b"><small>Tarifa confirmada</small><b>{homeDemoTrip.fare} · sin sorpresas</b></div>
+    </div>
+  </div>
+</section>

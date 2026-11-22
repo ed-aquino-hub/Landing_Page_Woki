@@ -35,6 +35,7 @@ export const routes = {
   drivers: '/conductores',
   legalNotice: '/aviso-legal',
   download: '/#descargar',
+  help: '/#ayuda',
   about: '/nosotros',
   contact: '/contacto',
   accountDeletion: '/eliminar-cuenta',
@@ -52,18 +53,25 @@ export const assets = {
 } as const;
 
 export const navigation = [
-  { href: routes.home, label: 'Inicio' },
-  { href: routes.howItWorks, label: 'Cómo funciona', children: [
-    { href: routes.safety, label: 'Pasajero' },
-    { href: routes.drivers, label: 'Conductor' },
-  ] },
-  { href: routes.about, label: 'Nosotros' },
-  { href: routes.contact, label: 'Contáctanos' },
+  { href: routes.home, label: 'Inicio', section: 'inicio' },
+  { href: routes.safety, label: 'Seguridad', section: 'seguridad' },
+  { href: routes.howItWorks, label: 'Cómo funciona', section: 'como-funciona' },
+  { href: routes.drivers, label: 'Conductores', section: 'conductores' },
+  { href: routes.help, label: 'Ayuda', section: 'ayuda' },
 ] as const;
 
+export const headerActions = {
+  driver: { href: routes.drivers, label: 'Quiero conducir' },
+  download: { href: routes.download, label: 'Descargar app' },
+} as const;
+
 export const footerNavigation = [
-  navigation[0],
-  ...navigation.slice(1),
+  { href: routes.home, label: 'Inicio' },
+  { href: routes.howItWorks, label: 'Cómo funciona' },
+  { href: routes.safety, label: 'Seguridad' },
+  { href: routes.drivers, label: 'Conductores' },
+  { href: routes.about, label: 'Nosotros' },
+  { href: routes.contact, label: 'Contáctanos' },
 ] as const;
 
 export const legalNavigation = [

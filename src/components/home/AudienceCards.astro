@@ -1,0 +1,18 @@
+---
+import { audienceCards } from '../../data/home';
+---
+<section class="h-audience" aria-label="Elige cómo usar Woki">
+  <div class="wrap h-audience-grid">
+    {audienceCards.map((card, index) => (
+      <article class:list={['h-audience-card', `is-${card.tone}`]} data-reveal style={`--i:${index}`} aria-labelledby={`h-aud-${card.id}`}>
+        <span class="h-audience-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={card.iconPath} /></svg></span>
+        <div>
+          <p class="h-kicker">{card.eyebrow}</p>
+          <h2 id={`h-aud-${card.id}`}>{card.title}</h2>
+          <p>{card.description}</p>
+          <a href={card.cta.href} data-track="cta_click" data-track-label={card.cta.track} data-track-location="audiencias">{card.cta.label} <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+    ))}
+  </div>
+</section>

@@ -1,0 +1,25 @@
+---
+// Las preguntas vienen de `faqs`, la misma fuente que genera el JSON-LD FAQPage:
+// el contenido visible y los datos estructurados siempre coinciden.
+import { faqs } from '../../data/content';
+import { brand, routes } from '../../data/site';
+---
+<section class="h-section h-faq" id="ayuda" aria-labelledby="h-faq-title">
+  <div class="wrap h-faq-grid">
+    <header data-reveal>
+      <p class="h-kicker">Ayuda</p>
+      <h2 id="h-faq-title">Preguntas frecuentes</h2>
+      <p class="h-lead">¿No encuentras tu respuesta? Escríbenos y te ayudamos.</p>
+      <a class="h-faq-mail" href={`mailto:${brand.email}`} data-track="contact_click" data-track-label="email_soporte" data-track-location="faq">{brand.email}</a>
+      <a class="h-btn h-btn-outline" href={routes.contact} data-track="cta_click" data-track-label="contacto" data-track-location="faq">Ir a contacto</a>
+    </header>
+    <div class="h-faq-list">
+      {faqs.map(({ question, answer }, index) => (
+        <details data-reveal style={`--i:${index}`} open={index === 0} data-faq={question}>
+          <summary>{question}</summary>
+          <p>{answer}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

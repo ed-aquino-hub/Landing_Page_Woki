@@ -1,0 +1,28 @@
+---
+import { rideSteps } from '../../data/home';
+import { brand, routes } from '../../data/site';
+const lastIndex = rideSteps.length - 1;
+---
+<section class="h-section h-steps" id="como-funciona" aria-labelledby="h-steps-title">
+  <div class="wrap">
+    <header class="h-center-head" data-reveal>
+      <p class="h-kicker">Cómo funciona</p>
+      <h2 id="h-steps-title">Tu viaje en cuatro paradas</h2>
+      <p class="h-lead">Pensado para las calles de {brand.city}: con referencias locales y sin complicaciones.</p>
+    </header>
+    <ol class="h-steps-list">
+      {rideSteps.map((step, index) => (
+        <li data-reveal style={`--i:${index}`}>
+          <span class:list={['h-step-dot', { 'is-pin': index === lastIndex }]} aria-hidden="true">
+            {index === lastIndex
+              ? <svg viewBox="0 0 24 30"><path d="M12 1a8 8 0 0 0-8 8c0 6 8 16 8 16s8-10 8-16a8 8 0 0 0-8-8z" /><circle cx="12" cy="9" r="3" /></svg>
+              : index + 1}
+          </span>
+          <h3><span class="sr-only">Paso {index + 1}: </span>{step.title}</h3>
+          <p>{step.description}</p>
+        </li>
+      ))}
+    </ol>
+    <a class="h-btn h-btn-outline h-center" href={routes.howItWorks} data-track="cta_click" data-track-label="ver_como_funciona" data-track-location="como_funciona">Ver el recorrido completo</a>
+  </div>
+</section>
