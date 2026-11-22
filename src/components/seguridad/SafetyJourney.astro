@@ -1,0 +1,44 @@
+---
+// Selector de etapas: main.ts ([data-journey]) cambia `data-step` de la escena
+// según el botón pulsado; el CSS muestra el panel correspondiente.
+import { passengerJourney, passengerJourneySubtitle, passengerJourneyTitle } from '../../data/content';
+import { safetyPage } from '../../data/pages';
+const { initialStep, kicker } = safetyPage.journey;
+---
+<section class="p-section sg-journey" id="recorrido" aria-labelledby="recorrido-title">
+  <div class="wrap">
+    <header class="p-head" data-reveal>
+      <p class="p-kicker">{kicker}</p>
+      <h2 id="recorrido-title">{passengerJourneyTitle}</h2>
+      <p class="p-lead">{passengerJourneySubtitle}</p>
+    </header>
+    <div class="sg-journey-grid" data-journey>
+      <ol class="sg-steps">
+        {passengerJourney.map((step, index) => (
+          <li data-reveal style={`--i:${index}`}>
+            <button type="button" class="sg-step" data-step-button data-step={index} aria-pressed={index === initialStep ? 'true' : 'false'} aria-controls="sg-scene">
+              <span class="sg-step-num" aria-hidden="true">{index + 1}</span>
+              <span><b>{step.title}</b><span>{step.description}</span></span>
+            </button>
+          </li>
+        ))}
+      </ol>
+      <div class="sg-scene-wrap" data-reveal style="--i:2">
+        <div class="sg-phone">
+          <div class="sg-scene" id="sg-scene" data-ride-scene data-step={initialStep} aria-live="polite">
+            {passengerJourney.map((step, index) => {
+              const visual = step.visual;
+              return (
+                <div class="sg-panel" data-panel={index}>
+                  <span class="sg-panel-tag">Paso {index + 1}</span>
+                  <p class="sg-panel-text">{step.detail}</p>
+                  {visual?.type === 'pin' && <div class="sg-panel-pin" aria-hidden="true">{[...visual.value].map((digit) => <span>{digit}</span>)}</div>}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

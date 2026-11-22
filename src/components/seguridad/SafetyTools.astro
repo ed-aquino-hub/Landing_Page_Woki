@@ -1,0 +1,32 @@
+---
+import { passengerSafetyTools } from '../../data/content';
+import { safetyPage } from '../../data/pages';
+import { brand } from '../../data/site';
+const { tools } = safetyPage;
+// La herramienta destacada (PIN) abre la cuadrícula en una tarjeta doble.
+const ordered = [...passengerSafetyTools].sort((a, b) => Number(b.title === tools.featured) - Number(a.title === tools.featured));
+---
+<section class="p-section is-soft sg-tools" id="herramientas" aria-labelledby="herramientas-title">
+  <div class="wrap">
+    <header class="p-split-head" data-reveal>
+      <div>
+        <p class="p-kicker">{tools.kicker}</p>
+        <h2 id="herramientas-title">{tools.title}</h2>
+      </div>
+      <p class="p-lead">{tools.lead}</p>
+    </header>
+    <ul class="sg-tools-grid">
+      {ordered.map((tool, index) => {
+        const featured = tool.title === tools.featured;
+        return (
+          <li class:list={['sg-tool', { 'is-featured': featured }]} data-reveal style={`--i:${index}`}>
+            <span class="p-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={tool.iconPath} /></svg></span>
+            <h3>{tool.title}</h3>
+            <p>{tool.description}</p>
+            {featured && <b class="sg-tool-pin" aria-hidden="true" data-slot={brand.demoPin}>{brand.demoPin}</b>}
+          </li>
+        );
+      })}
+    </ul>
+  </div>
+</section>

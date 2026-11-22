@@ -1,0 +1,17 @@
+---
+import { safetyPage } from '../../data/pages';
+import { brand } from '../../data/site';
+const { mismatch } = safetyPage;
+---
+<section class="sg-mismatch" id="si-algo-no-coincide" aria-labelledby="si-algo-no-coincide-title">
+  <div class="wrap">
+    <div class="sg-mismatch-box" data-reveal>
+      <span class="sg-mismatch-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l9 16H3zM12 10v4M12 17h.01" /></svg></span>
+      <div>
+        <h2 id="si-algo-no-coincide-title">{mismatch.title}</h2>
+        <p>{mismatch.text}</p>
+      </div>
+      <a class="p-btn p-btn-aqua" href={`mailto:${brand.email}`} data-track="contact_click" data-track-label="email_soporte" data-track-location="seguridad_si_algo_no_coincide">{mismatch.action}</a>
+    </div>
+  </div>
+</section>
