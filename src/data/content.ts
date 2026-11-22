@@ -1,4 +1,4 @@
-import { brand } from './site';
+import { brand, breadcrumbLabels } from './site';
 
 export interface ContentItem {
   title: string;
@@ -25,10 +25,10 @@ export interface LabeledItem extends ContentItem { iconPath?: string; bullets?: 
 export const passengerJourneyTitle = 'Así es un viaje con Woki';
 export const passengerJourneySubtitle = 'Desde que pides el taxi hasta que llegas, sabes qué sigue en cada momento.';
 export const passengerJourney: JourneyStep[] = [
-  { title: 'Pides en segundos', description: 'Dices dónde estás y a dónde vas. Nada más.', detail: 'Puedes añadir una referencia, por ejemplo “frente al grifo”, para que el conductor te ubique mejor.', visual: { type: 'pills', items: ['Recogida', 'Destino', 'Referencia opcional'] } },
-  { title: 'Verificas antes de subir', description: 'Compara con lo que ves en tu pantalla.', detail: 'Ves nombre, vehículo y placa del conductor asignado. Si algo no coincide, no subas.', visual: { type: 'checks', items: ['Conductor', 'Vehículo', 'Placa'] } },
-  { title: 'Confirmas con tu PIN', description: 'Solo el conductor correcto puede iniciar tu viaje.', detail: 'El PIN es único para cada viaje. Dáselo al conductor para confirmar que es el viaje correcto.', visual: { type: 'pin', label: 'PIN de ejemplo', value: brand.demoPin } },
-  { title: 'Llegas, pagas y calificas', description: 'Efectivo o Yape. Tu reseña ayuda a otros.', detail: 'Puedes seguir el recorrido, escribir o llamar desde la app. Al terminar, calificas al conductor.', visual: { type: 'pills', items: ['Efectivo', 'Yape', '★★★★★'] } },
+  { title: 'Pides en segundos', description: 'Dices dónde estás y a dónde vas. Nada más.', detail: 'Añade una referencia, como “frente al grifo”, para que el conductor te ubique.', visual: { type: 'pills', items: ['Recogida', 'Destino', 'Referencia opcional'] } },
+  { title: 'Verificas antes de subir', description: 'Compara con lo que ves en tu pantalla.', detail: 'Ves nombre, vehículo y placa. Si algo no coincide, no subas.', visual: { type: 'checks', items: ['Conductor', 'Vehículo', 'Placa'] } },
+  { title: 'Confirmas con tu PIN', description: 'Solo el conductor correcto puede iniciar tu viaje.', detail: 'El viaje empieza solo cuando el conductor ingresa tu PIN.', visual: { type: 'pin', label: 'PIN de ejemplo', value: brand.demoPin } },
+  { title: 'Llegas, pagas y calificas', description: 'Efectivo o Yape. Tu reseña ayuda a otros.', detail: 'Sigue el recorrido, escribe o llama desde la app y, al final, califica al conductor.', visual: { type: 'pills', items: ['Efectivo', 'Yape', '★★★★★'] } },
 ];
 
 export const passengerSafetyTools: LabeledItem[] = [
@@ -39,15 +39,9 @@ export const passengerSafetyTools: LabeledItem[] = [
   { title: 'Reseñas reales', description: 'Consulta las calificaciones de otros pasajeros.', iconPath: 'M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z' },
 ];
 
-export const passengerSituations: LabeledItem[] = [
-  { title: 'Antes de subir', description: 'Compara conductor, vehículo y placa. Confirma con el PIN antes de iniciar el viaje.' },
-  { title: 'Durante el recorrido', description: 'Sigue el trayecto en el mapa y revisa cuánto falta para llegar.' },
-  { title: 'Al llegar a destino', description: 'Termina el viaje con la información del recorrido a la vista.' },
-];
-
 export const paymentOptions: LabeledItem[] = [
-  { title: 'Efectivo', description: 'Paga directamente al conductor al finalizar el viaje. Ten listo el monto acordado para cerrar el recorrido con facilidad.', iconPath: 'M3 7.5h18v11H3zM3 7.5l2-3h14l2 3M16 13h2M7 11v4' },
-  { title: 'Billetera digital', description: 'Yape, Plin y otros. Coordina con el conductor qué billetera digital está disponible antes de iniciar el viaje.', iconPath: 'M7 2.75h10a1.5 1.5 0 011.5 1.5v15.5a1.5 1.5 0 01-1.5 1.5H7a1.5 1.5 0 01-1.5-1.5V4.25A1.5 1.5 0 017 2.75zM9 6h6M10 18h4' },
+  { title: 'Efectivo', description: 'Paga directamente al conductor al finalizar el viaje. Ten listo el monto acordado.', iconPath: 'M3 7.5h18v11H3zM3 7.5l2-3h14l2 3M16 13h2M7 11v4' },
+  { title: 'Billetera digital', description: 'Yape, Plin y otros. Coordina con el conductor cuál está disponible antes de iniciar.', iconPath: 'M7 2.75h10a1.5 1.5 0 011.5 1.5v15.5a1.5 1.5 0 01-1.5 1.5H7a1.5 1.5 0 01-1.5-1.5V4.25A1.5 1.5 0 017 2.75zM9 6h6M10 18h4' },
 ];
 
 export const driverPaymentOptions: LabeledItem[] = [
@@ -56,28 +50,25 @@ export const driverPaymentOptions: LabeledItem[] = [
 ];
 
 export const passengerFaqs: QuestionItem[] = [
-  { question: `¿Dónde funciona ${brand.name}?`, answer: `${brand.name} está disponible en ${brand.city} y alrededores. Pronto llegaremos a más ciudades.` },
-  { question: '¿Cómo sé que mi conductor es de confianza?', answer: 'Todos los conductores son verificados: licencia, SOAT y datos del vehículo. Además, cada viaje usa un PIN de seguridad y puedes ver las reseñas de otros pasajeros.' },
-  { question: '¿Cómo pago mi viaje?', answer: 'Puedes pagar en efectivo o con Yape directamente al conductor.' },
+  { question: '¿Cómo sé que mi conductor es de confianza?', answer: 'Todos los conductores son verificados: licencia, SOAT y datos del vehículo. Además, cada viaje usa un PIN y puedes ver las reseñas de otros pasajeros.' },
+  { question: '¿Qué hago si algo no coincide?', answer: `No subas. Revisa conductor, vehículo y placa en la app y escríbenos a ${brand.email}.` },
   { question: '¿Puedo seguir mi viaje?', answer: 'Sí. Ves al conductor en el mapa y el tiempo de llegada.' },
   { question: '¿Puedo hablar con mi conductor?', answer: 'Sí, por chat o llamada desde la app.' },
-  { question: '¿Qué hago si algo no coincide?', answer: 'No subas. Revisa conductor, vehículo y placa en la app y escríbenos a soporte@woki.pe.' },
+  { question: '¿Cómo pago mi viaje?', answer: 'Puedes pagar en efectivo o con Yape directamente al conductor.' },
 ];
 
-export const driverJourneyTitle = 'Así se ve tu día con Woki';
-export const driverJourneySubtitle = 'Tú decides cuándo conectarte, qué solicitudes aceptar y cómo organizar tus viajes.';
 export const driverJourney: JourneyStep[] = [
   { title: 'Te conectas cuando quieras', description: 'Activas “En línea” y recibes solicitudes cerca de ti.', detail: 'Puedes conectarte y desconectarte cuando quieras. No hay horarios fijos.', visual: { type: 'pills', items: ['En línea', 'Sin horarios fijos'] } },
-  { title: 'Ves el viaje completo', description: 'Antes de aceptar, todo está a la vista.', detail: 'Recogida, destino, distancia, tiempo y forma de pago, antes de decidir si aceptas.', visual: { type: 'pills', items: ['Recogida', 'Destino', 'Distancia', 'Tiempo', 'Forma de pago'] } },
+  { title: 'Ves el viaje completo', description: 'Antes de aceptar, todo está a la vista.', detail: 'Recogida, destino, distancia, tiempo y forma de pago, antes de decidir si aceptas.', visual: { type: 'pills', items: ['Recogida', 'Destino', 'Distancia', 'Pago'] } },
   { title: 'Participas en tu tarifa', description: 'Acepta la propuesta o súmale un poco.', detail: 'Revisa la propuesta y elige si la aceptas o ajustas con las opciones disponibles.', visual: { type: 'fare', base: 8, currency: 'S/', adjustments: [1, 2, 3], label: 'Tarifa de ejemplo' } },
   { title: 'Cierras con tus números', description: 'Lo ganado hoy y tu porcentaje de aceptación, a la vista.', detail: 'Consultas lo ganado en el día y tu porcentaje de aceptación.', visual: { type: 'earnings', items: ['Ganado hoy', '% aceptación'] } },
 ];
 
 export const driverSafety: LabeledItem[] = [
-  { title: 'Una plataforma con perfiles revisados', description: 'El equipo revisa tus documentos antes de activarte, y los conductores pasan por la misma validación.' },
-  { title: 'Conoces el viaje antes de aceptar', description: 'Recogida, destino, distancia, tiempo y forma de pago a la vista.' },
-  { title: 'PIN que confirma el viaje correcto', description: 'Pasajero y conductor comparten la misma referencia antes de iniciar.' },
-  { title: 'Soporte ante incidencias', description: 'Si surge un problema durante el servicio, escríbenos a soporte@woki.pe. Atención disponible 24/7.' },
+  { title: 'Perfiles revisados', description: 'El equipo revisa los documentos antes de activar cada perfil.' },
+  { title: 'Conoces el viaje antes', description: 'Recogida, destino, distancia, tiempo y forma de pago a la vista.' },
+  { title: 'PIN compartido', description: 'Pasajero y conductor confirman la misma referencia antes de iniciar.' },
+  { title: 'Soporte 24/7', description: `Si surge un problema, escribe a ${brand.email}.` },
 ];
 
 export const driverRequirements = {
@@ -85,75 +76,29 @@ export const driverRequirements = {
   subtitle: 'Prepara estos datos para enviar tu perfil a revisión.',
   requirements: ['Licencia de conducir', 'DNI', 'SOAT vigente', 'Inspección técnica vehicular', 'Tarjeta de propiedad'],
   steps: [
-    { title: 'Elige perfil', description: 'Selecciona el perfil de conductor en la app.' },
-    { title: 'Envía documentos', description: 'Completa los datos y adjunta la información solicitada.' },
-    { title: 'Espera validación equipo', description: 'El equipo revisa el perfil antes de activarlo.' },
+    { title: 'Elige perfil de conductor', description: 'Selecciónalo al crear tu cuenta en la app.' },
+    { title: 'Envía tus documentos', description: 'Completa tus datos y adjunta la información solicitada.' },
+    { title: 'Te validamos y activamos', description: 'El equipo revisa tu perfil antes de activarlo.' },
   ],
 } as const;
 
 export const driverFaqs: QuestionItem[] = [
   { question: '¿Cómo me registro como conductor?', answer: 'Descarga la app, elige la opción de conductor y sube tus documentos. Nuestro equipo los revisa y te activa.' },
-  { question: '¿Qué documentos necesito?', answer: 'Necesitas DNI, licencia de conducir, SOAT vigente, inspección técnica vehicular y tarjeta de propiedad.' },
-  { question: '¿Cuánto cobra Woki?', answer: 'Las condiciones aplicables se informan en la app antes de que empieces a conducir.' },
-  { question: '¿Cuándo recibo mi pago?', answer: 'Las formas de pago disponibles se muestran en la app al revisar cada solicitud.' },
   { question: '¿Puedo elegir mis viajes?', answer: 'Sí. Puedes revisar la información de cada solicitud y decidir si la aceptas.' },
   { question: '¿Puedo ajustar la tarifa?', answer: 'Puedes aceptar la propuesta o elegir un ajuste entre las opciones que muestre la app.' },
   { question: '¿Puedo conectarme a cualquier hora?', answer: 'Puedes conectarte cuando quieras; no hay horarios fijos.' },
+  { question: '¿Cuándo recibo mi pago?', answer: 'El pasajero te paga directamente, en efectivo o con Yape, al terminar el viaje.' },
 ];
 
 export const passengerFinalDestination = {
   eyebrow: 'Tu siguiente viaje',
   title: 'Cuando quieras moverte, Woki está cerca',
-  text: 'Descubre cómo funciona el recorrido y revisa los detalles antes de pedir tu taxi.',
+  text: 'Descubre el recorrido completo antes de pedir tu taxi.',
   primaryLabel: 'Ver cómo funciona',
   primaryHref: '/como-funciona',
   secondaryLabel: 'Contactar a Woki',
   secondaryHref: '/contacto',
 } as const;
-
-export const driverFinalDestination = {
-  eyebrow: 'Tu próximo paso',
-  title: 'Conoce Woki y prepara tu registro',
-  text: 'Revisa los requisitos para conducir y contáctanos si necesitas orientación.',
-  primaryLabel: 'Ver requisitos',
-  primaryHref: '/conductores#registro-conductor',
-  secondaryLabel: 'Contactar a Woki',
-  secondaryHref: '/contacto',
-} as const;
-
-export const benefits: IconItem[] = [
-  { title: 'Viajes seguros', description: 'Conductores verificados con documentos y vehículo al día.', iconPath: 'M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3zM9 12l2 2 4-4' },
-  { title: 'Rápido', description: 'Solicita tu taxi en segundos y mira cuánto tarda en llegar.', iconPath: 'M13 2L4 14h7l-1 8 9-12h-7l1-8z' },
-  { title: 'Confiable', description: 'Seguimiento del viaje en tiempo real, de principio a fin.', iconPath: 'M12 21s-7-6-7-11a7 7 0 0114 0c0 5-7 11-7 11zM12 10m-2 0a2 2 0 104 0 2 2 0 10-4 0' },
-  { title: 'Acompañamiento', description: 'Información clara para ayudarte durante la experiencia de viaje.', iconPath: 'M4 14v-2a8 8 0 0116 0v2M4 14h3v5H4zM17 14h3v5h-3zM20 19c0 2-3 2-6 2' },
-];
-
-export const passengerSteps: JourneyStep[] = [
-  { title: 'Pide tu taxi', description: 'Indica dónde estás y a dónde vas. Añade una referencia si la necesitas.' },
-  { title: 'Te asignamos conductor', description: `${brand.name} conecta contigo al taxi verificado más cercano.` },
-  { title: 'Comparte tu PIN y viaja', description: 'Dale el PIN al conductor para confirmar que es el viaje correcto.' },
-  { title: 'Paga y califica', description: 'Paga en efectivo o con Yape y deja tu reseña del conductor.' },
-];
-
-export const driverSteps: JourneyStep[] = [
-  { title: 'Conéctate', description: 'Activa “En línea” y mira las solicitudes que tienes cerca.' },
-  { title: 'Revisa el viaje', description: 'Ves recogida, destino, distancia, tiempo y forma de pago.' },
-  { title: 'Acepta tu tarifa', description: 'Acepta la tarifa o súmale S/1, S/2 o S/3 en un toque.' },
-  { title: 'Gana más', description: 'Controla lo ganado hoy y tu porcentaje de aceptación.' },
-];
-
-export const driverBenefits: ContentItem[] = [
-  { title: 'Cada viaje, claro desde el inicio', description: 'Consulta recogida, destino, distancia, tiempo y forma de pago antes de aceptar la solicitud.' },
-  { title: 'Participa en tu tarifa', description: 'Acepta la propuesta o ajústala con +S/1, +S/2 o +S/3.' },
-  { title: 'Tus ganancias a la vista', description: 'Revisa cuánto llevas en el día y consulta tu porcentaje de aceptación.' },
-  { title: 'Conéctate a tu ritmo', description: 'Activa “En línea” cuando estés listo para recibir solicitudes cerca de ti.' },
-];
-
-export const driverReasons: IconItem[] = [
-  { title: 'Movilidad local, de verdad', description: `Woki nace en ${brand.city} para acercar a quienes conocen sus calles con las personas que necesitan moverse por la ciudad.`, iconPath: 'M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6M8 9h.01M12 9h.01M16 9h.01' },
-  { title: 'La confianza se construye entre ambos', description: 'El PIN de seguridad confirma el inicio del viaje correcto y ayuda a que pasajero y conductor compartan la misma referencia.', iconPath: 'M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3zM9 12l2 2 4-4' },
-  { title: 'Una experiencia pensada para el taxi urbano', description: 'Las herramientas de Woki acompañan el servicio desde que te conectas hasta que completas cada recorrido.', iconPath: 'M4 12h16M13 5l7 7-7 7M4 5v14' },
-];
 
 export const faqs: { question: string; answer: string }[] = [
   { question: `¿Dónde funciona ${brand.name}?`, answer: `${brand.name} está disponible en ${brand.city} y alrededores. Pronto llegaremos a más ciudades.` },
@@ -162,15 +107,6 @@ export const faqs: { question: string; answer: string }[] = [
   { question: '¿Puedo seguir mi viaje en tiempo real?', answer: 'Sí. Ves al conductor en el mapa, su placa, su vehículo y el tiempo de llegada. También puedes escribirle o llamarlo desde la app.' },
   { question: '¿Cómo me registro como conductor?', answer: 'Descarga la app, elige la opción de conductor y sube tus documentos. Nuestro equipo los revisa y te activa.' },
 ];
-
-export const edificios: [number, number, number][] = [[0,60,70],[60,44,110],[104,70,80],[174,50,130],[224,80,95],[304,46,60],[350,70,120],[420,56,85],[476,90,140],[566,50,75],[616,74,100],[690,60,125],[750,50,70]];
-export const ventanas = edificios.flatMap(([x, w, h], i) => {
-  const out: { x: number; y: number; d: number }[] = [];
-  for (let y = 660 - h * 1.4 + 22, r = 0; y < 648; y += 24, r++)
-    for (let cx = x + 8, c = 0; cx < x + w - 7; cx += 13, c++)
-      if ((i * 7 + r * 3 + c * 5) % 4 !== 0) out.push({ x: cx, y, d: ((i + r + c) % 7) * 0.6 });
-  return out;
-});
 
 const casaColores = ['#0b7480', '#1f95a0', '#65d9dd', '#e9f7f8', '#2a8a94', '#f5a524'];
 export const casas = Array.from({ length: 34 }, (_, i) => {
@@ -210,12 +146,12 @@ export function buildJsonLd(_site?: URL, page: StructuredPage = 'home') {
   if (playUrl) structuredData.push({ '@context': 'https://schema.org', '@type': 'MobileApplication', name: brand.projectName, operatingSystem: 'Android', applicationCategory: 'TravelApplication', url: playUrl, downloadUrl: playUrl, isPartOf: { '@id': websiteId } });
 
   if (page === 'home') {
-    structuredData.push({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map(({ question, answer }) => ({ '@type': 'Question', name: question, acceptedAnswer: { '@type': 'Answer', text: answer } })) });
+    structuredData.push(buildFaqJsonLd(faqs));
     return structuredData;
   }
 
   const pagePath = page === 'about' ? '/nosotros' : '/contacto';
-  const pageName = page === 'about' ? 'Nosotros' : 'Contáctanos';
+  const pageName = page === 'about' ? breadcrumbLabels.about : breadcrumbLabels.contact;
   const pageUrl = new URL(pagePath, base).href;
   structuredData.push({ '@context': 'https://schema.org', '@type': page === 'about' ? 'AboutPage' : 'ContactPage', '@id': `${pageUrl}#page`, name: `${pageName} | ${brand.name}`, url: pageUrl, isPartOf: { '@id': websiteId }, mainEntity: { '@id': organizationId } });
   structuredData.push({
@@ -229,16 +165,25 @@ export function buildJsonLd(_site?: URL, page: StructuredPage = 'home') {
   return structuredData;
 }
 
-export function buildSectionJsonLd(_site: URL | undefined, path: string, name: string, description: string) {
+export function buildSectionJsonLd(_site: URL | undefined, path: string, name: string, description: string, crumb = name) {
   const base = new URL(brand.siteUrl);
   const url = new URL(path, base).href;
   return [
     { '@context': 'https://schema.org', '@type': 'WebPage', name, description, url, isPartOf: { '@id': `${base.href}#website` }, about: { '@id': `${base.href}#organization` }, inLanguage: 'es-PE' },
     { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Inicio', item: base.href },
-      { '@type': 'ListItem', position: 2, name, item: url },
+      { '@type': 'ListItem', position: 2, name: crumb, item: url },
     ] },
   ];
+}
+
+/** JSON-LD FAQPage a partir de la misma lista que se muestra en la página. */
+export function buildFaqJsonLd(items: QuestionItem[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: items.map(({ question, answer }) => ({ '@type': 'Question', name: question, acceptedAnswer: { '@type': 'Answer', text: answer } })),
+  };
 }
 
 export const contacto = {
@@ -249,14 +194,6 @@ export const contacto = {
   whatsapp: brand.whatsapp,
   whatsappIsTemporary: brand.whatsappIsTemporary,
 };
-
-export const features: IconItem[] = [
-  { title: 'PIN de seguridad', description: 'Cada viaje tiene un código único. Solo el conductor correcto puede iniciarlo.', iconPath: 'M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3zM9.5 12.5V11a2.5 2.5 0 015 0v1.5M9 12.5h6v4H9z' },
-  { title: 'Seguimiento en tiempo real', description: 'Mira el recorrido en el mapa y cuánto falta para llegar.', iconPath: 'M12 21s-7-6-7-11a7 7 0 0114 0c0 5-7 11-7 11zM12 10m-2.5 0a2.5 2.5 0 105 0 2.5 2.5 0 10-5 0' },
-  { title: 'Chat y llamada', description: 'Habla con tu conductor sin salir de la app.', iconPath: 'M5 5h14a2 2 0 012 2v8a2 2 0 01-2 2h-7l-5 4v-4H5a2 2 0 01-2-2V7a2 2 0 012-2z' },
-  { title: 'Pago en efectivo o Yape', description: 'Elige cómo pagar antes de pedir tu taxi.', iconPath: 'M3 7a2 2 0 012-2h13v4M3 7v10a2 2 0 002 2h14a1 1 0 001-1v-8a1 1 0 00-1-1H5a2 2 0 01-2-2zM16 14h2' },
-  { title: 'Reseñas reales', description: 'Consulta la calificación y los comentarios de otros pasajeros.', iconPath: 'M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z' },
-];
 
 export const values: IconItem[] = [
   { title: 'Confianza', description: 'Conductores verificados y un PIN en cada viaje para que viajes tranquilo.', iconPath: 'M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3zM9 12l2 2 4-4' },
