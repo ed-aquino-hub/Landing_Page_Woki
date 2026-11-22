@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Woki · Conductores móvil</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#ffffff}
+a{color:#005b66}a:hover{color:#0a2a2e}
+details summary{list-style:none;cursor:pointer}
+details summary::-webkit-details-marker{display:none}
+</style>
+</helmet>
+<div style="position: relative; width: 390px; font-family: 'Open Sans', system-ui, sans-serif; color: #0a2a2e; background: #ffffff; overflow: hidden">
+  <header style="background: #ffffff; border-bottom: 1px solid #dceeee; padding: 12px 16px; display: flex; align-items: center; gap: 10px">
+    <a href="#inicio" aria-label="Woki, inicio" style="text-decoration: none; color: #218e97; font-size: 26px; font-weight: 800; letter-spacing: -0.8px">Woki</a>
+    <a href="#descargar" style="margin-left: auto; display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border-radius: 999px; background: #005b66; color: #ffffff; text-decoration: none; font-weight: 700; font-size: 13px">Descargar app</a>
+    <button type="button" aria-label="Abrir menú" style="width: 44px; height: 44px; border: 0; background: transparent; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" viewBox="0 0 24 24" style="width: 22px; height: 22px"><path d="M4 7h16M4 12h16M4 17h16" stroke="#0a2a2e" stroke-width="2" stroke-linecap="round"></path></svg></button>
+  </header>
+
+  <section style="background: #0a2a2e; color: #ffffff; padding: 22px 16px 28px">
+    <nav aria-label="Ruta de navegación" style="font-size: 13px; color: #9cc3c6; margin-bottom: 16px"><a href="#inicio" style="color: #c7e3e5">Inicio</a> / Conductores</nav>
+    <p style="margin: 0 0 10px; font-size: 12px; font-weight: 800; letter-spacing: 1.3px; text-transform: uppercase; color: #65d9dd">Para quienes conducen</p>
+    <h1 style="margin: 0 0 12px; font-size: 38px; line-height: 1.06; font-weight: 800; letter-spacing: -1.2px">Conduce con Woki <span style="color: #65d9dd">a tu manera.</span></h1>
+    <p style="margin: 0 0 18px; font-size: 16px; line-height: 1.6; color: #c7e3e5">Conéctate cuando quieras, revisa cada solicitud y elige tu plan.</p>
+    <img src="/_blob/db121778b6686816a8670dd1fe258ccf" alt="Conductor de Woki sonriendo al volante de su taxi" style="display: block; width: 100%; height: 220px; object-fit: cover; object-position: 30% center; border-radius: 20px; margin-bottom: 16px">
+    <a href="#registro" style="display: flex; align-items: center; justify-content: center; min-height: 54px; border-radius: 14px; background: #65d9dd; color: #0a2a2e; text-decoration: none; font-weight: 800; font-size: 16px; margin-bottom: 10px">Regístrate como conductor</a>
+    <a href="#planes" style="display: flex; align-items: center; justify-content: center; min-height: 50px; border-radius: 14px; border: 1.5px solid rgba(255,255,255,0.45); color: #ffffff; text-decoration: none; font-weight: 700">Ver planes</a>
+  </section>
+
+  <nav aria-label="En esta página" style="display: flex; gap: 8px; overflow-x: auto; padding: 12px 16px; border-bottom: 1px solid #e3f0f1; font-size: 13px; font-weight: 700; white-space: nowrap">
+    <a href="#dia" style="padding: 8px 12px; border-radius: 999px; background: #005b66; color: #ffffff; text-decoration: none">Tu día</a>
+    <a href="#planes" style="padding: 8px 12px; border-radius: 999px; background: #eef7f7; color: #005b66; text-decoration: none">Planes</a>
+    <a href="#registro" style="padding: 8px 12px; border-radius: 999px; background: #eef7f7; color: #005b66; text-decoration: none">Requisitos</a>
+    <a href="#dudas" style="padding: 8px 12px; border-radius: 999px; background: #eef7f7; color: #005b66; text-decoration: none">Preguntas</a>
+  </nav>
+
+  <section id="dia" style="padding: 40px 16px">
+    <h2 style="margin: 0 0 18px; font-size: 28px; line-height: 1.12; font-weight: 800; letter-spacing: -0.7px">Tú decides cuándo y qué viajes</h2>
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <article style="background: #eef7f7; border-radius: 18px; padding: 16px 18px; display: flex; gap: 14px"><b style="color: #005b66; font-size: 13px; width: 22px">01</b><div><h3 style="margin: 0 0 4px; font-size: 17px; font-weight: 800">Te conectas cuando quieras</h3><p style="margin: 0; font-size: 14px; line-height: 1.55; color: #3d5d61">Activas “En línea” y recibes solicitudes cerca.</p></div></article>
+      <article style="background: #eef7f7; border-radius: 18px; padding: 16px 18px; display: flex; gap: 14px"><b style="color: #005b66; font-size: 13px; width: 22px">02</b><div><h3 style="margin: 0 0 4px; font-size: 17px; font-weight: 800">Ves el viaje completo</h3><p style="margin: 0; font-size: 14px; line-height: 1.55; color: #3d5d61">Recogida, destino, distancia y pago antes de aceptar.</p></div></article>
+      <article style="background: #eef7f7; border-radius: 18px; padding: 16px 18px; display: flex; gap: 14px"><b style="color: #005b66; font-size: 13px; width: 22px">03</b><div><h3 style="margin: 0 0 4px; font-size: 17px; font-weight: 800">Participas en tu tarifa</h3><p style="margin: 0; font-size: 14px; line-height: 1.55; color: #3d5d61">Acepta o súmale +S/1, +S/2 o +S/3.</p></div></article>
+      <article style="background: #eef7f7; border-radius: 18px; padding: 16px 18px; display: flex; gap: 14px"><b style="color: #005b66; font-size: 13px; width: 22px">04</b><div><h3 style="margin: 0 0 4px; font-size: 17px; font-weight: 800">Cierras con tus números</h3><p style="margin: 0; font-size: 14px; line-height: 1.55; color: #3d5d61">Ganado hoy y % de aceptación a la vista.</p></div></article>
+    </div>
+  </section>
+
+  <section id="planes" style="background: #005b66; color: #ffffff; padding: 40px 16px">
+    <h2 style="margin: 0 0 8px; font-size: 28px; line-height: 1.12; font-weight: 800; letter-spacing: -0.7px">Elige cómo pagar por usar Woki</h2>
+    <p style="margin: 0 0 20px; font-size: 15px; line-height: 1.55; color: #d8f1f2">Dos modelos simples, sin letra chica.</p>
+    <article style="background: #ffffff; color: #0a2a2e; border-radius: 22px; padding: 22px; margin-bottom: 14px"><p style="margin: 0; font-size: 14px; font-weight: 700; color: #3d5d61">Comisión por viaje</p><p style="margin: 4px 0; font-size: 44px; font-weight: 800; letter-spacing: -1.5px">15 %</p><p style="margin: 0 0 14px; font-size: 14px; color: #3d5d61">Pagas solo por viaje completado. Ideal si conduces de vez en cuando.</p><a href="#registro" style="display: flex; justify-content: center; align-items: center; min-height: 48px; border-radius: 12px; border: 2px solid #005b66; color: #005b66; text-decoration: none; font-weight: 800">Empezar con 15 %</a></article>
+    <article style="background: #0a2a2e; border: 2px solid #65d9dd; border-radius: 22px; padding: 22px"><span style="display: inline-block; background: #65d9dd; color: #0a2a2e; font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 999px; margin-bottom: 8px">Si manejas a diario</span><p style="margin: 0; font-size: 14px; font-weight: 700; color: #c7e3e5">Plan mensual</p><p style="margin: 4px 0; font-size: 44px; font-weight: 800; letter-spacing: -1.5px">S/ 50</p><p style="margin: 0 0 14px; font-size: 14px; color: #c7e3e5">Cuota fija al cierre de mes.</p><a href="#registro" style="display: flex; justify-content: center; align-items: center; min-height: 48px; border-radius: 12px; background: #65d9dd; color: #0a2a2e; text-decoration: none; font-weight: 800">Empezar con plan mensual</a></article>
+  </section>
+
+  <section id="registro" style="padding: 40px 16px">
+    <h2 style="margin: 0 0 16px; font-size: 28px; line-height: 1.12; font-weight: 800; letter-spacing: -0.7px">Ten listos estos documentos</h2>
+    <ul style="list-style: none; margin: 0 0 24px; padding: 0; display: flex; flex-direction: column; gap: 8px; font-size: 15px; font-weight: 700">
+      <li style="background: #eef7f7; border-radius: 14px; padding: 12px 16px">✓ Licencia de conducir</li>
+      <li style="background: #eef7f7; border-radius: 14px; padding: 12px 16px">✓ DNI</li>
+      <li style="background: #eef7f7; border-radius: 14px; padding: 12px 16px">✓ SOAT vigente</li>
+      <li style="background: #eef7f7; border-radius: 14px; padding: 12px 16px">✓ Inspección técnica vehicular</li>
+      <li style="background: #eef7f7; border-radius: 14px; padding: 12px 16px">✓ Tarjeta de propiedad</li>
+    </ul>
+    <div style="background: #0a2a2e; color: #ffffff; border-radius: 22px; padding: 22px">
+      <h3 style="margin: 0 0 14px; font-size: 20px; font-weight: 800">Regístrate en 3 pasos</h3>
+      <ol style="margin: 0 0 18px; padding-left: 20px; display: flex; flex-direction: column; gap: 10px; font-size: 15px; color: #c7e3e5"><li><b style="color: #ffffff">Elige perfil de conductor</b> en la app.</li><li><b style="color: #ffffff">Envía tus documentos.</b></li><li><b style="color: #ffffff">Te validamos y activamos.</b></li></ol>
+      <a href="#descargar" style="display: flex; justify-content: center; align-items: center; min-height: 52px; border-radius: 12px; background: #65d9dd; color: #0a2a2e; text-decoration: none; font-weight: 800">Descargar la app</a>
+    </div>
+  </section>
+
+  <section id="dudas" style="background: #eef7f7; padding: 40px 16px">
+    <h2 style="margin: 0 0 16px; font-size: 26px; line-height: 1.15; font-weight: 800">Preguntas de conductores</h2>
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <details open style="background: #ffffff; border-radius: 14px; padding: 14px 16px"><summary style="display: flex; justify-content: space-between; gap: 12px; font-size: 15px; font-weight: 800">¿Cómo me registro?<span aria-hidden="true" style="color: #005b66">−</span></summary><p style="margin: 8px 0 0; font-size: 14px; line-height: 1.55; color: #3d5d61">Descarga la app, elige conductor y sube tus documentos.</p></details>
+      <details style="background: #ffffff; border-radius: 14px; padding: 14px 16px"><summary style="display: flex; justify-content: space-between; gap: 12px; font-size: 15px; font-weight: 800">¿Puedo elegir mis viajes?<span aria-hidden="true" style="color: #005b66">+</span></summary></details>
+      <details style="background: #ffffff; border-radius: 14px; padding: 14px 16px"><summary style="display: flex; justify-content: space-between; gap: 12px; font-size: 15px; font-weight: 800">¿Puedo ajustar la tarifa?<span aria-hidden="true" style="color: #005b66">+</span></summary></details>
+    </div>
+  </section>
+
+  <div style="position: absolute; left: 0; right: 0; top: 764px; padding: 12px 16px; background: rgba(255,255,255,0.97); border-top: 1px solid #d3ecee; display: flex; align-items: center; gap: 10px; box-shadow: 0 -8px 24px rgba(0,40,45,0.1)">
+    <span style="flex: 1; font-size: 13px; line-height: 1.3"><b style="display: block; font-size: 14px">15 % o S/ 50 al mes</b>Tú eliges tu plan</span>
+    <a href="#registro" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 12px; background: #005b66; color: #ffffff; text-decoration: none; font-weight: 800; font-size: 14px">Quiero conducir</a>
+  </div>
+
+  <footer style="background: #0a2a2e; color: #c7e3e5; padding: 28px 16px; font-size: 13px"><b style="color: #ffffff; font-size: 22px">Woki</b><p style="margin: 6px 0 0">Footer compartido del sitio</p></footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":5600}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

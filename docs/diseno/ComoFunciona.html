@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Woki · Cómo funciona</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#ffffff}
+a{color:#005b66}a:hover{color:#0a2a2e}
+</style>
+</helmet>
+<div style="font-family: 'Open Sans', system-ui, sans-serif; color: #0a2a2e; background: #ffffff; width: 100%; overflow: hidden">
+
+  <header style="background: #ffffff; border-bottom: 1px solid #dceeee">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; gap: 24px; flex-wrap: wrap">
+      <a href="#inicio" aria-label="Woki, inicio" style="text-decoration: none; color: #218e97; font-size: 30px; font-weight: 800; letter-spacing: -1px">Woki</a>
+      <nav aria-label="Navegación principal" style="display: flex; gap: 4px; flex-wrap: wrap; margin-left: auto; font-size: 15px; font-weight: 600">
+        <a href="#inicio" style="padding: 8px 14px; border-radius: 999px; color: #2f4f53; text-decoration: none">Inicio</a>
+        <a href="#seguridad" style="padding: 8px 14px; border-radius: 999px; color: #2f4f53; text-decoration: none">Seguridad</a>
+        <a href="#como-funciona" aria-current="page" style="padding: 8px 14px; border-radius: 999px; color: #005b66; background: #e3f3f4; text-decoration: none">Cómo funciona</a>
+        <a href="#conductores" style="padding: 8px 14px; border-radius: 999px; color: #2f4f53; text-decoration: none">Conductores</a>
+        <a href="#ayuda" style="padding: 8px 14px; border-radius: 999px; color: #2f4f53; text-decoration: none">Ayuda</a>
+      </nav>
+      <div style="display: flex; gap: 8px">
+        <a href="#conductores" style="display: inline-flex; align-items: center; min-height: 40px; padding: 0 16px; border-radius: 999px; border: 1.5px solid #218e97; color: #005b66; text-decoration: none; font-weight: 700; font-size: 14px">Quiero conducir</a>
+        <a href="#descargar" style="display: inline-flex; align-items: center; min-height: 40px; padding: 0 18px; border-radius: 999px; background: #005b66; color: #ffffff; text-decoration: none; font-weight: 700; font-size: 14px">Descargar app</a>
+      </div>
+    </div>
+  </header>
+
+  <section style="position: relative; background: #005b66; color: #ffffff; padding: 48px 0 140px; text-align: center; overflow: hidden">
+    <svg aria-hidden="true" viewBox="0 0 1440 500" preserveAspectRatio="xMidYMid slice" style="position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.16"><g fill="none" stroke="#65d9dd" stroke-width="1.2"><path d="M-20 380C260 330 380 470 640 420s400-140 820-90"></path><path d="M-20 300C300 240 420 380 660 330s360-140 800-90"></path></g></svg>
+    <div style="position: relative; max-width: 860px; margin: 0 auto; padding: 0 24px">
+      <nav aria-label="Ruta de navegación" style="font-size: 14px; color: #b9e2e4; margin-bottom: 28px"><a href="#inicio" style="color: #d8f1f2">Inicio</a> <span aria-hidden="true">/</span> Cómo funciona</nav>
+      <p style="margin: 0 0 14px; font-size: 13px; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase; color: #65d9dd">Tu recorrido, paso a paso</p>
+      <h1 style="margin: 0 0 18px; font-size: 58px; line-height: 1.05; font-weight: 800; letter-spacing: -2px">¿Cómo funciona Woki?</h1>
+      <p style="margin: 0 auto; max-width: 620px; font-size: 19px; line-height: 1.6; color: #d8f1f2">Un mismo viaje, dos lados. Mira qué hace el pasajero, qué hace el conductor y cómo el PIN los une en el momento clave.</p>
+    </div>
+  </section>
+
+  <!-- DOS CARRILES -->
+  <section aria-labelledby="carriles" style="position: relative; z-index: 2; margin-top: -96px; padding-bottom: 96px">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 24px">
+      <h2 id="carriles" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0)">El viaje desde ambos lados</h2>
+      <div style="background: #ffffff; border-radius: 32px; box-shadow: 0 30px 70px rgba(0,50,55,0.14); padding: 40px">
+        <div style="display: grid; grid-template-columns: minmax(0,1fr) 160px minmax(0,1fr); gap: 0; align-items: stretch">
+          <div style="display: flex; align-items: center; gap: 12px; padding-bottom: 24px"><span style="width: 44px; height: 44px; border-radius: 14px; background: #e3f3f4; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" viewBox="0 0 24 24" style="width: 24px; height: 24px"><circle cx="12" cy="7" r="3.2" fill="none" stroke="#005b66" stroke-width="2"></circle><path d="M5.5 20v-1.8a6.5 6.5 0 0113 0V20" fill="none" stroke="#005b66" stroke-width="2"></path></svg></span><h3 style="margin: 0; font-size: 22px; font-weight: 800">Pasajero</h3></div>
+          <div></div>
+          <div style="display: flex; align-items: center; gap: 12px; justify-content: flex-end; padding-bottom: 24px"><h3 style="margin: 0; font-size: 22px; font-weight: 800">Conductor</h3><span style="width: 44px; height: 44px; border-radius: 14px; background: #0a2a2e; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" viewBox="0 0 24 24" style="width: 24px; height: 24px"><path d="M4 15l1.5-5h13L20 15v4h-2v-2H6v2H4zM6 10l1.3-3h9.4l1.3 3" fill="none" stroke="#65d9dd" stroke-width="2" stroke-linejoin="round"></path></svg></span></div>
+
+          <div style="background: #eef7f7; border-radius: 18px; padding: 18px 20px; margin-bottom: 14px"><b style="display: block; font-size: 17px">Pide el viaje</b><span style="font-size: 15px; color: #3d5d61">Recogida, destino y una referencia local.</span></div>
+          <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 14px"><span style="width: 44px; height: 44px; border-radius: 50%; background: #005b66; color: #ffffff; font-weight: 800; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 8px #e3f3f4">1</span><small style="margin-top: 10px; font-size: 12px; font-weight: 700; color: #3d5d61">Solicitud</small></div>
+          <div style="background: #eef7f7; border-radius: 18px; padding: 18px 20px; margin-bottom: 14px; text-align: right"><b style="display: block; font-size: 17px">Recibe la solicitud</b><span style="font-size: 15px; color: #3d5d61">Ve recogida, destino, distancia, tiempo y pago.</span></div>
+
+          <div style="background: #eef7f7; border-radius: 18px; padding: 18px 20px; margin-bottom: 14px"><b style="display: block; font-size: 17px">Ve la tarifa</b><span style="font-size: 15px; color: #3d5d61">Sabe cuánto pagará antes de confirmar.</span></div>
+          <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 14px"><span style="width: 44px; height: 44px; border-radius: 50%; background: #005b66; color: #ffffff; font-weight: 800; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 8px #e3f3f4">2</span><small style="margin-top: 10px; font-size: 12px; font-weight: 700; color: #3d5d61">Revisión</small></div>
+          <div style="background: #eef7f7; border-radius: 18px; padding: 18px 20px; margin-bottom: 14px; text-align: right"><b style="display: block; font-size: 17px">Acepta o ajusta</b><span style="font-size: 15px; color: #3d5d61">Acepta la propuesta o suma +S/1, +S/2 o +S/3.</span></div>
+
+          <div style="background: #eef7f7; border-radius: 18px; padding: 18px 20px; margin-bottom: 14px"><b style="display: block; font-size: 17px">Verifica y comparte el PIN</b><span style="font-size: 15px; color: #3d5d61">Compara conductor, vehículo y placa antes de subir.</span></div>
+          <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 14px"><span style="padding: 10px 14px; border-radius: 16px; background: #218e97; color: #ffffff; font-weight: 800; font-size: 20px; letter-spacing: 4px; box-shadow: 0 0 0 8px #d3ecee">4827</span><small style="margin-top: 10px; font-size: 12px; font-weight: 800; color: #005b66">PIN compartido</small></div>
+          <div style="background: #eef7f7; border-radius: 18px; padding: 18px 20px; margin-bottom: 14px; text-align: right"><b style="display: block; font-size: 17px">Ingresa el PIN</b><span style="font-size: 15px; color: #3d5d61">Solo así se inicia el viaje correcto.</span></div>
+
+          <div style="background: #eef7f7; border-radius: 18px; padding: 18px 20px"><b style="display: block; font-size: 17px">Llega, paga y califica</b><span style="font-size: 15px; color: #3d5d61">Efectivo o billetera digital, directo al conductor.</span></div>
+          <div style="display: flex; flex-direction: column; align-items: center; justify-content: center"><span style="width: 44px; height: 44px; border-radius: 50%; background: #0a2a2e; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 8px #e3f3f4"><svg aria-hidden="true" viewBox="0 0 24 30" style="width: 16px; height: 20px"><path d="M12 1a8 8 0 0 0-8 8c0 6 8 16 8 16s8-10 8-16a8 8 0 0 0-8-8z" fill="#65d9dd"></path><circle cx="12" cy="9" r="3" fill="#0a2a2e"></circle></svg></span><small style="margin-top: 10px; font-size: 12px; font-weight: 700; color: #3d5d61">Destino</small></div>
+          <div style="background: #eef7f7; border-radius: 18px; padding: 18px 20px; text-align: right"><b style="display: block; font-size: 17px">Cobra y suma a su día</b><span style="font-size: 15px; color: #3d5d61">Ve lo ganado hoy y su % de aceptación.</span></div>
+        </div>
+        <p style="margin: 28px 0 0; text-align: center; font-size: 14px; color: #3d5d61">Los ejemplos son ilustrativos; las opciones disponibles se muestran dentro de la aplicación.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- GUIAS -->
+  <section style="background: #eef7f7; padding: 88px 0">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 24px">
+      <div style="text-align: center; max-width: 680px; margin: 0 auto 40px"><p style="margin: 0 0 12px; font-size: 13px; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase; color: #005b66">Guías detalladas</p><h2 style="margin: 0; font-size: 42px; line-height: 1.1; font-weight: 800; letter-spacing: -1.2px">Elige tu lado del viaje</h2></div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 20px">
+        <a href="#seguridad" style="display: flex; flex-direction: column; gap: 12px; background: #ffffff; border-radius: 28px; padding: 34px; text-decoration: none; color: #0a2a2e"><span style="font-size: 13px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; color: #005b66">Para pasajeros</span><h3 style="margin: 0; font-size: 28px; font-weight: 800">Pide, verifica y viaja</h3><p style="margin: 0; font-size: 16px; line-height: 1.6; color: #3d5d61">Herramientas de seguridad, pagos y qué hacer si algo no coincide.</p><span style="margin-top: 8px; font-weight: 800; color: #005b66">Ver la guía para pasajeros →</span></a>
+        <a href="#conductores" style="display: flex; flex-direction: column; gap: 12px; background: #0a2a2e; border-radius: 28px; padding: 34px; text-decoration: none; color: #ffffff"><span style="font-size: 13px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; color: #65d9dd">Para conductores</span><h3 style="margin: 0; font-size: 28px; font-weight: 800">Revisa y decide</h3><p style="margin: 0; font-size: 16px; line-height: 1.6; color: #c7e3e5">Planes 15 % o S/ 50, requisitos y cómo registrarte.</p><span style="margin-top: 8px; font-weight: 800; color: #65d9dd">Ver la guía para conductores →</span></a>
+      </div>
+      <p style="margin: 32px 0 0; text-align: center; font-size: 16px; color: #3d5d61">¿Tienes una duda sobre las funciones? <a href="#contacto" style="font-weight: 800">Escríbenos desde Contacto</a></p>
+    </div>
+  </section>
+
+  <footer style="background: #0a2a2e; color: #c7e3e5; padding: 40px 0">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; font-size: 14px"><b style="color: #ffffff; font-size: 22px">Woki</b><span>Footer compartido del sitio (sin cambios)</span></div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>
