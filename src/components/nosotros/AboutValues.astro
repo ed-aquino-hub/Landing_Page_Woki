@@ -1,0 +1,22 @@
+---
+import { values } from '../../data/content';
+import { aboutPage } from '../../data/pages';
+const { values: heading } = aboutPage;
+---
+<section class="p-section ab-values" aria-labelledby="ab-values-title">
+  <div class="wrap">
+    <header class="p-head" data-reveal>
+      <p class="p-kicker is-light">{heading.kicker}</p>
+      <h2 id="ab-values-title">{heading.title}</h2>
+    </header>
+    <ol class="ab-values-grid">
+      {values.map((value, index) => (
+        <li data-reveal style={`--i:${index}`}>
+          <span class="ab-values-num" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+          <h3>{value.title}</h3>
+          <p>{value.description}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

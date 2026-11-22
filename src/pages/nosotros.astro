@@ -2,74 +2,28 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { buildJsonLd, companyPillars, companyPurpose, values } from '../data/content';
-import { assets, brand } from '../data/site';
+import PageCta from '../components/PageCta.astro';
+import AboutHero from '../components/nosotros/AboutHero.astro';
+import AboutPurpose from '../components/nosotros/AboutPurpose.astro';
+import AboutValues from '../components/nosotros/AboutValues.astro';
+import AboutPrinciples from '../components/nosotros/AboutPrinciples.astro';
+import { buildJsonLd } from '../data/content';
+import { aboutPage as page } from '../data/pages';
+import { assets } from '../data/site';
+import '../styles/pages.css';
+import '../styles/nosotros.css';
+
 const structuredData = buildJsonLd(Astro.site, 'about');
 ---
-<Layout title={`Nosotros | ${brand.name}`} description={`Conoce Woki, plataforma de taxi urbano en Cerro de Pasco. Descubre nuestra misión y visión, y cómo conectamos a pasajeros con conductores locales.`} image={assets.aboutBanner} imageAlt="Banner de Woki y su propuesta de movilidad local en Cerro de Pasco" ogType="website">
+<Layout title={page.title} description={page.description} image={assets.aboutBanner} imageAlt="Banner de Woki y su propuesta de movilidad local en Cerro de Pasco" ogType="website">
   {structuredData.map((item) => <script type="application/ld+json" set:html={JSON.stringify(item)} slot="head" />)}
   <Header solid />
-  <main id="main-content">
-    <section class="subpage-hero about-hero"><div class="wrap"><p class="eyebrow">Quiénes somos</p><h1>La ciudad se mueve mejor cuando nos acercamos.</h1><p class="lead">{brand.name} conecta pasajeros y conductores de taxi urbano en {brand.city} con una experiencia sencilla, cercana y pensada para la vida local.</p></div></section>
-    <section class="about"><div class="wrap about-grid"><div><p class="eyebrow dark">Nuestra idea</p><h2>Tecnología útil, hecha para moverse por aquí</h2><p class="lead">Creemos que pedir un taxi puede ser claro desde el primer toque: saber quién viene, compartir los datos del viaje y llegar con más tranquilidad. Por eso construimos {brand.name} para conectar a la comunidad con herramientas digitales prácticas.</p><p class="about-note">{brand.projectName} · {brand.city}, {brand.country}</p></div><ul class="values">{values.map((value) => <li><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={value.iconPath} /></svg></span><h3>{value.title}</h3><p>{value.description}</p></li>)}</ul></div></section>
-    <section class="about-who" aria-labelledby="about-who-title">
-      <div class="wrap">
-        <header class="about-centered-heading" data-reveal>
-          <p class="eyebrow dark">Nuestra esencia</p>
-          <h2 id="about-who-title">¿Quiénes somos?</h2>
-          <p>{companyPurpose.introduction}</p>
-        </header>
-        <div class="about-mission-grid">
-          <article class="about-mission-card" data-reveal>
-            <h3 class="about-mission-label">Misión</h3>
-            <p>{companyPurpose.mission}</p>
-          </article>
-          <article class="about-mission-card" data-reveal>
-            <h3 class="about-mission-label">Visión</h3>
-            <p>{companyPurpose.vision}</p>
-          </article>
-        </div>
-      </div>
-    </section>
-    <section class="about-location" aria-labelledby="about-location-title">
-      <div class="wrap about-location-grid">
-        <div class="about-location-copy" data-reveal>
-          <p class="eyebrow">Nuestra zona</p>
-          <h2 id="about-location-title">¿Dónde operamos?</h2>
-          <p>Woki comienza en Cerro de Pasco, conectando a la comunidad con una nueva forma de pedir y coordinar sus viajes urbanos.</p>
-          <span class="about-location-tag"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>Cerro de Pasco · Pasco, Perú</span>
-        </div>
-        <div class="peru-map-wrap" data-reveal>
-          <svg class="peru-map" viewBox="0 0 620 360" data-peru-map role="img" aria-labelledby="peru-map-title peru-map-description">
-            <title id="peru-map-title">Perú con Cerro de Pasco resaltado</title>
-            <desc id="peru-map-description">Silueta de Perú con un marcador aproximado en Cerro de Pasco, en la región Pasco.</desc>
-            <defs><radialGradient id="peru-map-glow"><stop stop-color="#f5a524" stop-opacity=".62" /><stop offset="1" stop-color="#f5a524" stop-opacity="0" /></radialGradient></defs>
-            <g data-map-art>
-              <path d="M316.9 96.3 L299.9 95.5 297.4 98.1 281.9 101.4 260.4 113 259 121 254.2 126.9 256.1 136.1 244.7 141 244.8 148.2 239.8 151.4 247.6 166.7 258.1 177.1 254.1 184.4 266.6 185.4 273.7 194.5 290.3 195 305.8 184.9 304.5 210.8 313.1 212.8 323.7 209.8 340 237.3 336 243.1 335 255.1 334.7 269.6 327.3 278.1 330.7 284.4 326.4 290.2 334.5 304.5 322.6 322.9 317.5 331.6 307.8 336 289 326.2 287.3 319.2 250 302.1 216.2 283.4 201.7 272.9 193.9 258.8 197 253.9 181.1 231.5 162.5 200 144.7 166.1 137 158.3 131.1 145.7 116.4 134.6 103 127.7 109.1 120.1 100 103.8 105.9 91.9 120.9 81.1 123.1 88.2 117.7 92.3 118.2 98.5 126 97.2 133.6 99 141.5 107.6 152.2 100.6 155.7 89.1 167.3 74.2 189.9 67.5 210.5 49.7 216.3 38.6 213.7 25.6 218.7 24 231.2 32.1 237.2 40.1 246 44.5 257 62.4 271.1 64.5 281.4 60 288.2 63 299.5 61.5 314 69.5 301.8 86.9 307.4 87.3 316.9 96.3Z" fill="#6acbd0" fill-opacity=".86" stroke="#c8f5f4" stroke-width="2.5" stroke-linejoin="round" />
-              <circle cx="197.1" cy="205.2" r="31" fill="url(#peru-map-glow)" /><circle cx="197.1" cy="205.2" r="12" fill="#f5a524" fill-opacity=".3" stroke="#ffd36c" stroke-width="2" /><circle cx="197.1" cy="205.2" r="5.5" fill="#f5a524" stroke="#fff" stroke-width="2.5" />
-            </g>
-            <path d="M207 205.2h162" fill="none" stroke="#fff" stroke-opacity=".82" stroke-width="2" /><circle cx="369" cy="205.2" r="4" fill="#f5a524" />
-            <rect x="382" y="177" width="202" height="58" rx="17" fill="#fff" /><text x="400" y="201" fill="#218e97" font-size="11" font-family="Open Sans, sans-serif" font-weight="700" letter-spacing="1.5">ZONA WOKI</text><text x="400" y="221" fill="#0d2f34" font-size="15" font-family="Open Sans, sans-serif" font-weight="800">Cerro de Pasco</text>
-          </svg>
-        </div>
-      </div>
-    </section>
-    <section class="about-how" aria-labelledby="about-how-title">
-      <div class="wrap">
-        <header class="about-centered-heading" data-reveal>
-          <p class="eyebrow dark">Nuestro compromiso</p>
-          <h2 id="about-how-title">¿Cómo trabajamos?</h2>
-          <p>Cuatro principios orientan la forma en que conectamos cada viaje.</p>
-        </header>
-        <ul class="about-pillars">
-          {companyPillars.map((pillar) => <li data-reveal>
-            <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={pillar.iconPath} /></svg></span>
-            <h3>{pillar.title}</h3>
-            <p>{pillar.description}</p>
-          </li>)}
-        </ul>
-      </div>
-    </section>
+  <main id="main-content" class="page">
+    <AboutHero />
+    <AboutPurpose />
+    <AboutValues />
+    <AboutPrinciples />
+    <PageCta titleLead={page.cta.title} actions={page.cta.actions} location="nosotros_cta_final" store />
   </main>
   <Footer />
   <script>import '../scripts/main.ts';</script>
