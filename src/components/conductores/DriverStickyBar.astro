@@ -1,0 +1,9 @@
+---
+// Barra fija en móvil con el resumen de planes. main.ts la muestra al dejar atrás el hero.
+import { driversPage } from '../../data/pages';
+const { stickyBar } = driversPage;
+---
+<aside class="dr-sticky p-scope" aria-label="Planes para conductores" data-sticky-cta>
+  <p><b>{stickyBar.title}</b>{stickyBar.text}</p>
+  <a class="p-btn p-btn-solid" href={stickyBar.action.href} data-track="cta_click" data-track-label={stickyBar.action.track} data-track-location="conductores_barra_movil">{stickyBar.action.label}</a>
+</aside>

@@ -2,48 +2,37 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import AudienceHero from '../components/AudienceHero.astro';
-import SectionJump from '../components/SectionJump.astro';
-import JourneyRoute from '../components/JourneyRoute.astro';
-import StopsList from '../components/StopsList.astro';
-import RequirementsSteps from '../components/RequirementsSteps.astro';
-import FaqList from '../components/FaqList.astro';
-import FinalDestination from '../components/FinalDestination.astro';
-import { buildSectionJsonLd, driverReasons, driverFaqs, driverJourney, driverJourneySubtitle, driverJourneyTitle, driverSafety, driverPaymentOptions, driverRequirements, driverFinalDestination } from '../data/content';
-import { assets, brand } from '../data/site';
+import PageNav from '../components/PageNav.astro';
+import PageFaq from '../components/PageFaq.astro';
+import PageCta from '../components/PageCta.astro';
+import DriverHero from '../components/conductores/DriverHero.astro';
+import DriverDay from '../components/conductores/DriverDay.astro';
+import DriverPlanCards from '../components/conductores/DriverPlanCards.astro';
+import DriverRegister from '../components/conductores/DriverRegister.astro';
+import DriverSafety from '../components/conductores/DriverSafety.astro';
+import DriverStickyBar from '../components/conductores/DriverStickyBar.astro';
+import { buildFaqJsonLd, buildSectionJsonLd, driverFaqs } from '../data/content';
+import { driversPage as page } from '../data/pages';
+import { assets } from '../data/site';
+import '../styles/pages.css';
+import '../styles/conductores.css';
 
-const title = `Conduce con Woki en ${brand.city}`;
-const description = `Conduce taxi con Woki en Cerro de Pasco: revisa solicitudes, tarifas y actividad desde la app. Conoce los pasos para empezar.`;
-const structuredData = buildSectionJsonLd(Astro.site, '/conductores', 'Conduce con Woki', description);
-const faqStructuredData = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: driverFaqs.map(({ question, answer }) => ({ '@type': 'Question', name: question, acceptedAnswer: { '@type': 'Answer', text: answer } })),
-};
-const sections = [
-  { id: 'recorrido', label: 'Recorrido' },
-  { id: 'seguridad-conductor', label: 'Seguridad' },
-  { id: 'ganancias', label: 'Ganancias' },
-  { id: 'registro-conductor', label: 'Registro' },
-  { id: 'local', label: 'Por qué Woki' },
-  { id: 'dudas', label: 'Dudas' },
-];
+const structuredData = [...buildSectionJsonLd(Astro.site, page.path, page.jsonLdName, page.description, page.crumb), buildFaqJsonLd(driverFaqs)];
 ---
-<Layout title={title} description={description} image={assets.driverPhoto} bannerImage={assets.driverPhoto} imageAlt="Conductor de taxi revisando sus viajes en la app de Woki" ogType="article">
+<Layout title={page.title} description={page.description} image={assets.driverPhoto} imageAlt="Conductor de taxi revisando sus viajes en la app de Woki" ogType="article">
   {structuredData.map((item) => <script type="application/ld+json" set:html={JSON.stringify(item)} slot="head" />)}
-  <script type="application/ld+json" set:html={JSON.stringify(faqStructuredData)} slot="head" />
   <Header solid />
-  <main id="main-content">
-    <AudienceHero eyebrow="Para quienes conducen" title="Conduce con Woki a tu manera" description="Conoce las funciones que te ayudan a revisar cada solicitud y mantener a la vista la información de tus viajes." action="Regístrate como conductor" actionHref="#registro-conductor" image={assets.driverPhoto} imageAlt="Conductor de taxi en Cerro de Pasco" />
-    <SectionJump items={sections} />
-    <JourneyRoute id="recorrido" title={driverJourneyTitle} subtitle={driverJourneySubtitle} steps={driverJourney} />
-    <StopsList id="seguridad-conductor" eyebrow="Un viaje claro para ambos" title="Tu seguridad como conductor" subtitle="Una secuencia de apoyo desde que te activas hasta que completas cada recorrido." items={driverSafety} dark sequence />
-    <StopsList id="ganancias" eyebrow="Opciones para conductores" title="Elige cómo pagar por usar Woki" subtitle="Escoge el modelo que mejor encaje con la frecuencia con la que conduces." items={driverPaymentOptions} featured />
-    <RequirementsSteps id="registro-conductor" data={driverRequirements} />
-    <StopsList id="local" eyebrow="Una plataforma local" title="Por qué conducir con Woki" subtitle="Una propuesta cercana a la movilidad de Cerro de Pasco, creada para conectar conductores y pasajeros de la ciudad." items={driverReasons} />
-    <FaqList id="dudas" items={driverFaqs} subtitle="Respuestas sobre el registro y la experiencia de conducir con Woki." />
-    <FinalDestination {...driverFinalDestination} />
+  <main id="main-content" class="page">
+    <DriverHero />
+    <PageNav items={page.nav} location="conductores_en_esta_pagina" />
+    <DriverDay />
+    <DriverPlanCards />
+    <DriverRegister />
+    <DriverSafety />
+    <PageFaq {...page.faq} items={driverFaqs} location="conductores_faq" tone="white" />
+    <PageCta titleLead={page.cta.titleLead} titleAccent={page.cta.titleAccent} text={page.cta.text} actions={page.cta.actions} location="conductores_cta_final" tone="ink" store />
   </main>
+  <DriverStickyBar />
   <Footer />
   <script>import '../scripts/main.ts';</script>
 </Layout>

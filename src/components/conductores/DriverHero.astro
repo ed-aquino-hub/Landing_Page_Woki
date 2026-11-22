@@ -1,0 +1,43 @@
+---
+import { Picture } from 'astro:assets';
+import PageHero from '../PageHero.astro';
+import { driversPage } from '../../data/pages';
+import { assets } from '../../data/site';
+const { hero } = driversPage;
+const location = 'conductores_hero';
+---
+<PageHero id="dr-hero-title" crumb={driversPage.crumb} tone="ink" class="dr-hero">
+  <div class="p-hero-grid dr-hero-grid">
+    <div class="p-hero-copy dr-hero-copy">
+      <p class="p-kicker is-light">{hero.eyebrow}</p>
+      <h1 id="dr-hero-title">{hero.titleLead}<br /><span>{hero.titleAccent}</span></h1>
+      <p class="p-hero-lead">{hero.lead}</p>
+      <div class="p-hero-actions">
+        <a class="p-btn p-btn-aqua" href={hero.primary.href} data-track="cta_click" data-track-label={hero.primary.track} data-track-location={location}>{hero.primary.label}</a>
+        <a class="p-btn p-btn-ghost" href={hero.secondary.href} data-track="cta_click" data-track-label={hero.secondary.track} data-track-location={location}>{hero.secondary.label}</a>
+      </div>
+      <ul class="dr-hero-stats">
+        {hero.stats.map((stat) => <li><small>{stat.label}</small><b>{stat.value}</b></li>)}
+      </ul>
+    </div>
+    <div class="dr-hero-media">
+      <Picture
+        src={assets.driverPhoto}
+        formats={['avif', 'webp']}
+        widths={[360, 540, 720, 960]}
+        sizes="(min-width: 900px) 42vw, 100vw"
+        alt={hero.imageAlt}
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+        class="dr-hero-img"
+      />
+      <div class="dr-request" aria-hidden="true">
+        <div class="dr-request-top"><span>{hero.request.tag}</span><b>{hero.request.fare}</b></div>
+        <p class="dr-request-place">{hero.request.place}</p>
+        <p class="dr-request-meta">{hero.request.meta}</p>
+        <div class="dr-request-actions"><span>{hero.request.accept}</span>{hero.request.adjustments.map((item) => <span>{item}</span>)}</div>
+      </div>
+    </div>
+  </div>
+</PageHero>
