@@ -8,7 +8,7 @@ const { solid = false } = Astro.props;
   <div class="bar">
     <a href={routes.home} aria-label="Woki, inicio"><Logo /></a>
     <nav id="menu" aria-label="Navegación principal">
-      {navigation.map((item) => item.children ? (
+      {navigation.map((item) => 'children' in item ? (
         <div class="nav-dropdown" data-nav-dropdown>
           <button class="nav-dropdown-trigger" type="button" aria-expanded="false" aria-controls="how-menu" data-nav-trigger>
             {item.label}<svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3 6 5 5 5-5"/></svg>
