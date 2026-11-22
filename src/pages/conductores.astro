@@ -7,11 +7,10 @@ import TopographicBackdrop from '../components/TopographicBackdrop.astro';
 import SectionJump from '../components/SectionJump.astro';
 import JourneyRoute from '../components/JourneyRoute.astro';
 import StopsList from '../components/StopsList.astro';
-import RequestTicket from '../components/RequestTicket.astro';
 import RequirementsSteps from '../components/RequirementsSteps.astro';
 import FaqList from '../components/FaqList.astro';
 import FinalDestination from '../components/FinalDestination.astro';
-import { buildSectionJsonLd, driverReasons, driverFaqs, driverJourney, driverJourneySubtitle, driverJourneyTitle, driverRequestExample, driverSafety, driverPaymentOptions, driverRequirements, driverFinalDestination } from '../data/content';
+import { buildSectionJsonLd, driverReasons, driverFaqs, driverJourney, driverJourneySubtitle, driverJourneyTitle, driverSafety, driverPaymentOptions, driverRequirements, driverFinalDestination } from '../data/content';
 import { assets, brand } from '../data/site';
 
 const title = `Conduce con Woki en ${brand.city}`;
@@ -24,7 +23,6 @@ const faqStructuredData = {
 };
 const sections = [
   { id: 'recorrido', label: 'Recorrido' },
-  { id: 'solicitud', label: 'Solicitud' },
   { id: 'seguridad-conductor', label: 'Seguridad' },
   { id: 'ganancias', label: 'Ganancias' },
   { id: 'registro-conductor', label: 'Registro' },
@@ -40,8 +38,7 @@ const sections = [
     <section class="subpage-hero detail-hero driver-hero"><TopographicBackdrop city /><div class="wrap driver-hero-grid"><div class="driver-hero-copy"><p class="eyebrow">Para quienes conducen</p><h1>Conduce con Woki a tu manera</h1><p class="lead">Conoce las funciones que te ayudan a revisar cada solicitud y mantener a la vista la información de tus viajes.</p><a class="btn solid driver-hero-cta" href="#registro-conductor">Regístrate como conductor</a></div><div class="driver-hero-visual"><Picture src={assets.driverPhoto} formats={['avif', 'webp']} widths={[360, 540, 720, 960, 1200]} sizes="(min-width: 1000px) 46vw, 100vw" alt="Conductor de taxi en Cerro de Pasco" loading="eager" fetchpriority="high" decoding="async"/></div></div></section>
     <SectionJump items={sections} />
     <JourneyRoute id="recorrido" title={driverJourneyTitle} subtitle={driverJourneySubtitle} steps={driverJourney} />
-    <RequestTicket id="solicitud" data={driverRequestExample} />
-    <StopsList id="seguridad-conductor" eyebrow="Un viaje claro para ambos" title="Tu seguridad como conductor" subtitle="Herramientas e información para confirmar el servicio y pedir ayuda cuando la necesites." items={driverSafety} dark />
+    <StopsList id="seguridad-conductor" eyebrow="Un viaje claro para ambos" title="Tu seguridad como conductor" subtitle="Una secuencia de apoyo desde que te activas hasta que completas cada recorrido." items={driverSafety} dark sequence />
     <StopsList id="ganancias" eyebrow="Opciones para conductores" title="Elige cómo pagar por usar Woki" subtitle="Escoge el modelo que mejor encaje con la frecuencia con la que conduces." items={driverPaymentOptions} featured />
     <RequirementsSteps id="registro-conductor" data={driverRequirements} />
     <StopsList id="local" eyebrow="Una plataforma local" title="Por qué conducir con Woki" subtitle="Una propuesta cercana a la movilidad de Cerro de Pasco, creada para conectar conductores y pasajeros de la ciudad." items={driverReasons} />

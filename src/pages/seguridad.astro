@@ -37,7 +37,7 @@ const sections = [
     <SectionJump items={sections} />
     <JourneyRoute id="recorrido" title={passengerJourneyTitle} subtitle={passengerJourneySubtitle} steps={passengerJourney} />
     <StopsList id="seguridad-pasajero" eyebrow="Herramientas para tu viaje" title="Tu seguridad, herramienta por herramienta" subtitle="Recursos para reconocer el servicio, coordinar el recorrido y compartir una referencia clara." items={passengerSafetyTools} balanced />
-    <StopsList id="casos" eyebrow="En cada momento" title="Pensado para cada situación" subtitle="Información útil para que sepas qué revisar antes y durante el recorrido." items={passengerSituations} dark />
+    <StopsList id="casos" eyebrow="En cada momento" title="Pensado para cada situación" subtitle="Una secuencia clara para acompañarte antes, durante y al terminar el viaje." items={passengerSituations} dark sequence />
     <StopsList id="pago" eyebrow="Al llegar a destino" title="Pagar es simple" subtitle="Elige el medio que te resulte más cómodo y coordina los detalles antes de terminar el viaje." items={paymentOptions} featured />
     <FaqList id="dudas" items={passengerFaqs} subtitle="Respuestas sobre tus viajes como pasajero en Woki." />
     <FinalDestination {...passengerFinalDestination} />

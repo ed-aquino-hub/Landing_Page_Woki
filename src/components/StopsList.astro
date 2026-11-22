@@ -1,13 +1,13 @@
 ---
 import type { LabeledItem } from '../data/content';
-interface Props { id: string; eyebrow: string; title: string; subtitle: string; items: LabeledItem[]; dark?: boolean; featured?: boolean; balanced?: boolean }
-const { id, eyebrow, title, subtitle, items, dark = false, featured = false, balanced = false } = Astro.props;
+interface Props { id: string; eyebrow: string; title: string; subtitle: string; items: LabeledItem[]; dark?: boolean; featured?: boolean; balanced?: boolean; sequence?: boolean }
+const { id, eyebrow, title, subtitle, items, dark = false, featured = false, balanced = false, sequence = false } = Astro.props;
 ---
-<section class:list={['stops-section', { 'stops-dark': dark, 'stops-featured': featured, 'stops-balanced': balanced }]} id={id} aria-labelledby={`${id}-title`}>
+<section class:list={['stops-section', { 'stops-dark': dark, 'stops-featured': featured, 'stops-balanced': balanced, 'stops-sequence': sequence }]} id={id} aria-labelledby={`${id}-title`}>
   <div class="wrap">
     <header class="stops-heading"><p class="eyebrow">{eyebrow}</p><h2 id={`${id}-title`}>{title}</h2><p>{subtitle}</p></header>
-    <ul class="stops-grid">
-      {items.map((item, index) => <li>
+    <ul class="stops-grid" style={sequence ? `--sequence-count:${items.length}` : undefined}>
+      {items.map((item, index) => <li style={sequence ? `--step-index:${index}` : undefined}>
         <span class="stop-icon" aria-hidden="true">
           {item.iconPath ? <svg viewBox="0 0 24 24"><path d={item.iconPath}/></svg> : <b>{String(index + 1).padStart(2, '0')}</b>}
         </span>
@@ -51,8 +51,17 @@ const { id, eyebrow, title, subtitle, items, dark = false, featured = false, bal
   .stops-balanced .stops-grid>li{grid-column:span 2}
   .stops-balanced .stops-grid>li:nth-child(4){grid-column:2 / span 2}
   .stops-balanced .stops-grid>li:nth-child(5){grid-column:4 / span 2}
+  .stops-sequence .stops-grid{grid-template-columns:repeat(var(--sequence-count),minmax(0,1fr));align-items:start;gap:clamp(.75rem,1.6vw,1.25rem);padding-bottom:3rem}
+  .stops-sequence .stops-grid>li{grid-template-columns:2.8rem minmax(0,1fr);align-items:start;gap:.85rem;min-height:12rem;padding:1.2rem;transform:translateY(calc(var(--step-index)*1rem));transition:transform .2s ease,border-color .2s ease}
+  .stops-sequence .stop-icon{width:2.65rem;height:2.65rem;border:2px solid color-mix(in srgb,var(--aqua) 45%,transparent);border-radius:50%;background:color-mix(in srgb,var(--cian) 48%,var(--deep));color:white}
+  .stops-sequence .stop-icon b{font-size:.9rem;font-weight:850}
+  .stops-sequence .stops-grid h3{margin-top:.15rem;font-size:1.05rem;line-height:1.35}
+  .stops-sequence .stops-grid p{font-size:.93rem}
   @media(max-width:520px){.stops-grid{grid-template-columns:1fr}.stops-grid>li{padding:1rem}}
   @media(max-width:680px){.stops-featured .stops-grid{grid-template-columns:1fr}.stops-featured .stops-grid>li{grid-template-columns:3.5rem minmax(0,1fr);min-height:0;padding:1.2rem}.stops-featured .stop-icon{width:3.5rem;height:3.5rem;border:0;border-radius:0;background:transparent}.stops-featured .stop-icon svg{width:2.35rem;height:2.35rem}}
   @media(max-width:760px){.stops-balanced .stops-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.stops-balanced .stops-grid>li,.stops-balanced .stops-grid>li:nth-child(4),.stops-balanced .stops-grid>li:nth-child(5){grid-column:auto}.stops-balanced .stops-grid>li:nth-child(5){grid-column:1 / -1;width:calc(50% - .5rem);justify-self:center}}
   @media(max-width:520px){.stops-balanced .stops-grid{grid-template-columns:1fr}.stops-balanced .stops-grid>li:nth-child(5){grid-column:auto;width:auto}}
+  @media(max-width:900px){.stops-sequence .stops-grid{grid-template-columns:repeat(2,minmax(0,1fr));padding-bottom:0}.stops-sequence .stops-grid>li{transform:none}.stops-sequence .stops-grid>li:nth-child(3):last-child{grid-column:1 / -1;width:calc(50% - .5rem);justify-self:center}}
+  @media(max-width:600px){.stops-sequence .stops-grid{grid-template-columns:1fr;gap:.75rem}.stops-sequence .stops-grid>li,.stops-sequence .stops-grid>li:nth-child(3):last-child{grid-column:auto;width:auto;min-height:0;justify-self:stretch}.stops-sequence .stops-grid>li{grid-template-columns:2.6rem minmax(0,1fr);padding:1rem}.stops-sequence .stop-icon{width:2.4rem;height:2.4rem}}
+  @media(prefers-reduced-motion:reduce){.stops-sequence .stops-grid>li{transition:none}}
 </style>

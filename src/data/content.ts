@@ -40,9 +40,9 @@ export const passengerSafetyTools: LabeledItem[] = [
 ];
 
 export const passengerSituations: LabeledItem[] = [
-  { title: 'Si viajas de noche', description: 'Compara conductor, vehículo y placa, y confirma con el PIN antes de subir.' },
-  { title: 'Si es tu primera vez', description: 'Ves los datos del viaje antes de confirmar. Sin sorpresas.' },
-  { title: 'Si alguien te espera', description: 'El seguimiento te dice cuánto falta para llegar.' },
+  { title: 'Antes de subir', description: 'Compara conductor, vehículo y placa. Confirma con el PIN antes de iniciar el viaje.' },
+  { title: 'Durante el recorrido', description: 'Sigue el trayecto en el mapa y revisa cuánto falta para llegar.' },
+  { title: 'Al llegar a destino', description: 'Termina el viaje con la información del recorrido a la vista.' },
 ];
 
 export const paymentOptions: LabeledItem[] = [
@@ -73,33 +73,17 @@ export const driverJourney: JourneyStep[] = [
   { title: 'Cierras con tus números', description: 'Lo ganado hoy y tu porcentaje de aceptación, a la vista.', detail: 'Consultas lo ganado en el día y tu porcentaje de aceptación.', visual: { type: 'earnings', items: ['Ganado hoy', '% aceptación'] } },
 ];
 
-export const driverRequestExample = {
-  title: 'Lo que ves en cada solicitud',
-  subtitle: 'Revisa los datos del viaje antes de decidir si lo aceptas.',
-  tag: 'Solicitud de ejemplo',
-  rows: [
-    { label: 'Recogida', value: 'A 1 km de ti' },
-    { label: 'Destino', value: 'Terminal terrestre' },
-    { label: 'Distancia', value: '3 km' },
-    { label: 'Tiempo', value: '8 min' },
-    { label: 'Forma de pago', value: 'Efectivo' },
-    { label: 'Tarifa propuesta', value: 'S/8' },
-  ],
-  noteTitle: 'Tú decides',
-  note: 'Revisa la información y la tarifa propuesta. Puedes aceptar la solicitud o ajustar tu propuesta antes de confirmar.',
-} as const;
-
 export const driverSafety: LabeledItem[] = [
   { title: 'Una plataforma con perfiles revisados', description: 'El equipo revisa tus documentos antes de activarte, y los conductores pasan por la misma validación.' },
-  { title: 'PIN que confirma el viaje correcto', description: 'Pasajero y conductor comparten la misma referencia antes de iniciar.' },
   { title: 'Conoces el viaje antes de aceptar', description: 'Recogida, destino, distancia, tiempo y forma de pago a la vista.' },
+  { title: 'PIN que confirma el viaje correcto', description: 'Pasajero y conductor comparten la misma referencia antes de iniciar.' },
   { title: 'Soporte cuando lo necesites', description: 'Escríbenos a soporte@woki.pe.' },
 ];
 
 export const driverRequirements = {
   title: 'Requisitos y registro',
   subtitle: 'Prepara estos datos para enviar tu perfil a revisión.',
-  requirements: ['Licencia de conducir', 'SOAT vigente', 'Datos del vehículo', 'Celular con app Woki'],
+  requirements: ['Licencia de conducir', 'DNI', 'SOAT vigente', 'Inspección técnica vehicular', 'Tarjeta de propiedad'],
   steps: [
     { title: 'Elige perfil', description: 'Selecciona el perfil de conductor en la app.' },
     { title: 'Envía documentos', description: 'Completa los datos y adjunta la información solicitada.' },
@@ -109,7 +93,7 @@ export const driverRequirements = {
 
 export const driverFaqs: QuestionItem[] = [
   { question: '¿Cómo me registro como conductor?', answer: 'Descarga la app, elige la opción de conductor y sube tus documentos. Nuestro equipo los revisa y te activa.' },
-  { question: '¿Qué documentos necesito?', answer: 'Necesitas licencia de conducir, SOAT vigente y los datos de tu vehículo.' },
+  { question: '¿Qué documentos necesito?', answer: 'Necesitas DNI, licencia de conducir, SOAT vigente, inspección técnica vehicular y tarjeta de propiedad.' },
   { question: '¿Cuánto cobra Woki?', answer: 'Las condiciones aplicables se informan en la app antes de que empieces a conducir.' },
   { question: '¿Cuándo recibo mi pago?', answer: 'Las formas de pago disponibles se muestran en la app al revisar cada solicitud.' },
   { question: '¿Puedo elegir mis viajes?', answer: 'Sí. Puedes revisar la información de cada solicitud y decidir si la aceptas.' },
