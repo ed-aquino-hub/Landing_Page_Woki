@@ -247,7 +247,6 @@ if (contactForm) {
     const field = (name: string) => fields.find((item) => item.dataset.contactField === name);
     const name = field('nombre');
     const contact = field('contacto');
-    const reason = field('motivo');
     const message = field('mensaje');
     const consent = field('consentimiento');
 
@@ -255,11 +254,8 @@ if (contactForm) {
     if (contact) {
       const value = contact.value.trim();
       const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-      const digits = value.replace(/\D/g, '');
-      const isPhone = digits.length >= 7 && digits.length <= 15 && /^[+\d\s().-]+$/.test(value);
-      if (!isEmail && !isPhone) mark(contact, 'Ingresa un correo o teléfono válido.');
+      if (!isEmail) mark(contact, 'Ingresa un correo electrónico válido.');
     }
-    if (reason && !reason.value.trim()) mark(reason, 'Selecciona el tema de tu consulta.');
     if (message && !message.value.trim()) mark(message, 'Falta escribir tu mensaje.');
     if (consent instanceof HTMLInputElement && !consent.checked) mark(consent, 'Acepta el uso de tus datos para responderte.');
     firstInvalid?.focus();
@@ -288,6 +284,17 @@ if (contactForm) {
       return;
     }
 
-    if (status) status.textContent = 'El formulario está validado, pero el envío web aún no está conectado. Escríbenos a soporte@woki.pe.';
+    const recipient = contactForm.dataset.recipient;
+    if (!recipient) {
+      if (status) status.textContent = 'No se pudo preparar el correo. Escríbenos a soporte@woki.pe.';
+      return;
+    }
+    const name = String(data.get('nombre') ?? '').trim();
+    const email = String(data.get('contacto') ?? '').trim();
+    const messageText = String(data.get('mensaje') ?? '').trim();
+    const subject = `Consulta desde woki.pe — ${name}`;
+    const body = `Hola, quisiera hacer una consulta.\n\nNombre: ${name}\nCorreo para responderme: ${email}\n\nMensaje:\n${messageText}`;
+    if (status) status.textContent = `Se abrirá tu aplicación de correo para enviar la consulta a ${recipient}.`;
+    window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   });
 }

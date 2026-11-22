@@ -64,6 +64,7 @@ const { id, eyebrow, title, subtitle, items, dark = false, featured = false, bal
   .stops-balanced .stops-grid>li:nth-child(5){grid-column:4 / span 2}
   .stops-sequence .stops-grid{--sequence-gap:clamp(.75rem,1.6vw,1.25rem);position:relative;grid-template-columns:repeat(var(--sequence-count),minmax(0,1fr));align-items:stretch;gap:var(--sequence-gap);padding-bottom:0}
   .stops-sequence .stops-grid>li{position:relative;z-index:1;grid-template-columns:2.8rem minmax(0,1fr);align-items:start;gap:.85rem;min-height:15rem;padding:1.2rem;transition:border-color .2s ease}
+  .stops-sequence-three .stops-grid>li{min-height:0;padding:1rem}
   .stops-sequence .stops-grid>li:not(:last-child)::after{position:absolute;top:2.48rem;left:100%;z-index:2;width:var(--sequence-gap);border-top:2px dashed color-mix(in srgb,var(--aqua) 62%,transparent);content:""}
   .stops-sequence .stop-icon{width:2.65rem;height:2.65rem;border:2px solid color-mix(in srgb,var(--aqua) 45%,transparent);border-radius:50%;background:color-mix(in srgb,var(--cian) 48%,var(--deep));color:white}
   .stops-sequence .stop-icon b{font-size:.9rem;font-weight:850}

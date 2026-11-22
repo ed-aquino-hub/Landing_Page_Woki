@@ -181,7 +181,7 @@ html.js [data-reveal].in{opacity:1;transform:none}
 .cta-box .road{position:absolute;left:0;right:0;bottom:0;z-index:0}
 
 
-footer{position:relative;margin-top:90px;background-color:var(--deep);background-image:var(--starfield),linear-gradient(180deg,var(--deep),#00444d);background-size:240px 190px,auto;background-repeat:repeat,no-repeat;color:#fff;font-size:.93rem}
+footer{position:relative;margin-top:90px;background:linear-gradient(180deg,var(--deep),#00444d);color:#fff;font-size:.93rem}
 .cloud{position:absolute;top:14px;left:0;width:90px;height:26px;border-radius:99px;background:#65d9dd33;animation:cloud 40s linear infinite}
 .cloud.b{top:40px;width:60px;height:18px;animation-duration:60s;animation-delay:-25s}
 .foot{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr 1.2fr;gap:2rem;padding-top:3rem}
