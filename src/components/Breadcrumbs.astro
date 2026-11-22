@@ -1,0 +1,13 @@
+---
+// Ruta de navegación visible. Usa los mismos nombres que el JSON-LD
+// BreadcrumbList (`breadcrumbLabels` / título del documento legal).
+import { breadcrumbLabels } from '../data/site';
+interface Props { current: string; tone?: 'light' | 'dark' }
+const { current, tone = 'light' } = Astro.props;
+---
+<nav class:list={['p-crumbs', `is-${tone}`]} aria-label="Ruta de navegación">
+  <ol>
+    <li><a href="/">{breadcrumbLabels.home}</a></li>
+    <li aria-current="page">{current}</li>
+  </ol>
+</nav>

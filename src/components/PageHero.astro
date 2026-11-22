@@ -1,0 +1,16 @@
+---
+import Breadcrumbs from './Breadcrumbs.astro';
+interface Props { id: string; crumb: string; tone?: 'deep' | 'ink'; class?: string }
+const { id, crumb, tone = 'deep', class: className } = Astro.props;
+---
+<section class:list={['p-hero', `is-${tone}`, className]} aria-labelledby={id}>
+  <svg class="p-hero-lines" viewBox="0 0 1440 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path d="M-20 420C260 370 380 510 640 460s400-140 820-90" />
+    <path d="M-20 500C240 460 420 590 700 540s400-120 760-80" />
+    <path d="M-20 330C300 270 420 410 660 360s360-140 800-90" />
+  </svg>
+  <div class="wrap p-hero-inner">
+    <Breadcrumbs current={crumb} tone="dark" />
+    <slot />
+  </div>
+</section>

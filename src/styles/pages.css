@@ -1,0 +1,126 @@
+/* Subpáginas (Seguridad, Conductores, Cómo funciona, Nosotros, Contacto y legales).
+   Piezas compartidas con prefijo p-: hero, ruta de navegación, "En esta página",
+   encabezados, botones, FAQ y CTA final. Reutiliza tokens, keyframes (rise, float,
+   bobY, ping, shine, dash, drive, routeflow), [data-reveal] y .road/.taxi de global.css. */
+
+.page,.p-scope{--p-ink:#0a2a2e;--p-text:#3d5d61;--p-soft:#eef7f7;--p-line:#d3ecee;--p-on-dark:#c7e3e5;--p-on-deep:#d8f1f2;--p-star:#b7791f}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* ---------- Tipografía y botones ---------- */
+.p-kicker{margin:0 0 .75rem;font-size:.82rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--deep)}
+.p-kicker.is-light{color:var(--aqua)}
+.page h2{font-size:clamp(1.9rem,4vw,2.75rem);line-height:1.1;letter-spacing:-.03em;margin:0}
+.page h3{margin:0}
+.p-lead{font-size:clamp(1rem,1.6vw,1.13rem);line-height:1.6;color:var(--p-text);margin:0}
+.p-section{padding:clamp(4rem,8vw,6rem) 0}
+.p-section.is-soft{background:var(--p-soft)}
+.p-head{max-width:46rem;margin-bottom:2.75rem}
+.p-head h2{margin-bottom:.8rem}
+.p-head.is-center{margin-inline:auto;text-align:center}
+.p-split-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:1.25rem 2rem;margin-bottom:2.75rem}
+.p-split-head>div{flex:1 1 28rem}
+.p-split-head .p-lead{flex:1 1 20rem;max-width:27rem}
+
+.p-btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:52px;padding:0 1.5rem;border-radius:14px;font-weight:800;font-size:1rem;line-height:1.2;text-align:center;text-decoration:none;transition:transform .2s,background .25s,color .25s,border-color .25s,box-shadow .25s}
+.p-btn:hover{transform:translateY(-2px)}
+.p-btn-solid{background:var(--deep);color:#fff;box-shadow:0 10px 24px #005b6633}
+.p-btn-solid:hover{background:var(--p-ink)}
+.p-btn-outline{border:2px solid var(--deep);color:var(--deep)}
+.p-btn-outline:hover{background:var(--deep);color:#fff}
+.p-btn-aqua{background:var(--aqua);color:var(--p-ink)}
+.p-btn-aqua:hover{background:#fff}
+.p-btn-ink{background:var(--p-ink);color:#fff}
+.p-btn-ink:hover{background:#000}
+.p-btn-ghost{border:1.5px solid #ffffffa6;color:#fff}
+.p-btn-ghost:hover{background:#fff;border-color:#fff;color:var(--p-ink)}
+
+.p-ic{flex:none;display:grid;place-items:center;width:48px;height:48px;border-radius:14px;background:#e3f3f4}
+.p-ic svg{width:24px;height:24px}
+.p-ic path{fill:none;stroke:var(--deep);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.p-plate{display:inline-block;font-size:.8rem;font-weight:800;border:2px solid var(--p-ink);border-radius:7px;padding:.05rem .45rem;letter-spacing:.02em;color:var(--p-ink);background:#fff}
+
+/* ---------- Ruta de navegación ---------- */
+.p-crumbs ol{display:flex;flex-wrap:wrap;gap:.35rem;margin:0 0 1.75rem;padding:0;list-style:none;font-size:.9rem;font-weight:600}
+.p-crumbs li+li::before{content:"/";margin-right:.35rem;opacity:.7}
+.p-crumbs a{text-underline-offset:3px}
+.p-crumbs.is-dark{color:#b9e2e4}
+.p-crumbs.is-dark a{color:#fff}
+.p-crumbs.is-light{color:var(--p-text)}
+.p-crumbs.is-light a{color:var(--deep)}
+
+/* ---------- Hero ---------- */
+.p-hero{position:relative;overflow:hidden;background:var(--deep);color:#fff;padding:clamp(6.75rem,11vw,8rem) 0 clamp(3.5rem,7vw,4.75rem)}
+.p-hero.is-ink{background:var(--p-ink)}
+.p-hero-lines{position:absolute;inset:0;width:100%;height:100%;max-width:none;opacity:.16;pointer-events:none}
+.p-hero-lines path{fill:none;stroke:var(--aqua);stroke-width:1.2}
+.p-hero-inner{position:relative;z-index:1}
+.p-hero-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(2rem,5vw,3.5rem);align-items:center}
+.p-hero h1{font-size:clamp(2.3rem,4.6vw,3.5rem);line-height:1.05;letter-spacing:-.035em;margin:0 0 1.1rem;text-wrap:balance}
+.p-hero h1 span{color:var(--aqua)}
+.p-hero-lead{max-width:33rem;margin:0 0 1.8rem;font-size:clamp(1.02rem,1.6vw,1.15rem);line-height:1.6;color:var(--p-on-deep)}
+.p-hero.is-ink .p-hero-lead{color:var(--p-on-dark)}
+.p-hero-actions{display:flex;flex-wrap:wrap;gap:.75rem;align-items:center}
+.p-hero-actions .store{min-height:54px;padding-inline:1.25rem;background:var(--p-ink);border-color:#ffffff2e}
+.p-hero.is-ink .p-hero-actions .store{background:#000}
+.p-hero-copy>*{animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
+.p-hero-copy>:nth-child(2){animation-delay:.1s}
+.p-hero-copy>:nth-child(3){animation-delay:.2s}
+.p-hero-copy>:nth-child(n+4){animation-delay:.3s}
+
+/* ---------- En esta página ---------- */
+.p-pagenav{position:relative;z-index:2;background:#fff;border-bottom:1px solid #e3f0f1;box-shadow:0 8px 20px #0032370d}
+.p-pagenav-inner{display:flex;align-items:center;gap:.75rem;padding:.7rem 0}
+.p-pagenav-label{flex:none;font-size:.9rem;font-weight:600;color:var(--p-text)}
+.p-pagenav ul{display:flex;flex-wrap:wrap;gap:.5rem;min-width:0;margin:0;padding:0;list-style:none}
+.p-pagenav a{display:inline-flex;align-items:center;min-height:40px;padding:0 .95rem;border-radius:999px;background:var(--p-soft);color:var(--deep);font-size:.9rem;font-weight:700;text-decoration:none;white-space:nowrap;transition:background .25s,color .25s}
+.p-pagenav a:hover{background:#d9eff0}
+.p-pagenav a.is-on{background:var(--deep);color:#fff}
+
+/* ---------- FAQ ---------- */
+.p-faq-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:clamp(2rem,5vw,3.5rem);align-items:start}
+.p-faq-grid header h2{margin-bottom:.8rem}
+.p-faq.is-soft{background:var(--p-soft)}
+.p-faq-list{display:flex;flex-direction:column;gap:.7rem}
+.p-faq-list details{margin:0;background:#fff;border-radius:18px;padding:1.1rem 1.35rem}
+.p-faq.is-white .p-faq-list details{background:var(--p-soft)}
+.p-faq-list summary{display:flex;justify-content:space-between;align-items:center;gap:1rem;min-height:30px;font-size:1.05rem;font-weight:800;cursor:pointer;list-style:none}
+.p-faq-list summary::-webkit-details-marker{display:none}
+.p-faq-list summary::after{flex:none;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--p-soft);color:var(--deep);font-size:1.25rem;font-weight:700}
+.p-faq.is-white .p-faq-list summary::after{background:#fff}
+.p-faq-list p{margin:.75rem 0 0;font-size:.97rem;line-height:1.6;color:var(--p-text)}
+
+/* ---------- CTA final ---------- */
+.p-cta{padding:0 0 clamp(4rem,8vw,6rem)}
+.p-section+.p-cta,.p-faq+.p-cta{padding-top:clamp(4rem,8vw,6rem)}
+.p-cta-box{position:relative;overflow:hidden;display:flex;flex-wrap:wrap;gap:2rem;align-items:center;justify-content:space-between;padding:clamp(2.25rem,5vw,3.5rem) clamp(1.5rem,4vw,3.5rem) 5.5rem;border-radius:32px;background:var(--cian);color:#fff}
+.p-cta-box.is-ink{background:var(--p-ink)}
+.p-cta-pin{position:absolute;right:-40px;top:-70px;width:300px;height:380px;max-width:none;opacity:.12;pointer-events:none}
+.p-cta-pin path{fill:#fff}
+.p-cta-pin circle{fill:var(--cian)}
+.is-ink .p-cta-pin circle{fill:var(--p-ink)}
+.p-cta-copy{position:relative;flex:1 1 24rem}
+.page .p-cta-copy h2{font-size:clamp(1.8rem,3.6vw,2.5rem);margin-bottom:.7rem;text-wrap:balance}
+.p-cta-copy h2 span{color:var(--aqua)}
+.p-cta-box.is-cian .p-cta-copy h2 span{color:#fff}
+.p-cta-copy p{margin:0;max-width:32rem;font-size:1.08rem;line-height:1.6;font-weight:600}
+.p-cta-box.is-ink .p-cta-copy p{color:var(--p-on-dark);font-weight:400}
+.p-cta-actions{position:relative;display:flex;flex-wrap:wrap;gap:.75rem;align-items:center}
+.p-cta-actions .store{min-height:54px;background:#000}
+.p-cta-box .road{position:absolute;left:0;right:0;bottom:0;background:#00000024}
+
+/* ---------- Responsive ---------- */
+@media(max-width:900px){
+  .p-hero-grid,.p-faq-grid{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .p-hero{padding-top:6.25rem}
+  .p-hero-actions>*,.p-hero-actions .store{width:100%;justify-content:center}
+  .p-pagenav-label{display:none}
+  .p-pagenav ul{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-block:.1rem}
+  .p-pagenav ul::-webkit-scrollbar{display:none}
+  .p-cta-actions,.p-cta-actions>*{width:100%}
+  .p-cta-actions .store{justify-content:center}
+}
+@media(prefers-reduced-motion:reduce){
+  .p-hero-copy>*{animation:none}
+}

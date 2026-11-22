@@ -1,0 +1,26 @@
+---
+// CTA final de las subpáginas: caja con carretera y taxi animado (.road + Taxi).
+import StoreButtons from './StoreButtons.astro';
+import Taxi from './Taxi.astro';
+import type { PageAction } from '../data/pages';
+interface Props { id?: string; titleLead: string; titleAccent?: string; text?: string; actions: readonly PageAction[]; location: string; tone?: 'cian' | 'ink'; store?: boolean }
+const { id = 'descargar', titleLead, titleAccent, text, actions, location, tone = 'cian', store = false } = Astro.props;
+---
+<section class="p-cta" id={id} aria-labelledby={`${id}-title`}>
+  <div class="wrap">
+    <div class:list={['p-cta-box', `is-${tone}`]} data-reveal>
+      <svg class="p-cta-pin" viewBox="0 0 24 30" aria-hidden="true"><path d="M12 1a8 8 0 0 0-8 8c0 6 8 16 8 16s8-10 8-16a8 8 0 0 0-8-8z" /><circle cx="12" cy="9" r="3" /></svg>
+      <div class="p-cta-copy">
+        <h2 id={`${id}-title`}>{titleLead}{titleAccent && <><br /><span>{titleAccent}</span></>}</h2>
+        {text && <p>{text}</p>}
+      </div>
+      <div class="p-cta-actions">
+        {store && <StoreButtons location={location} />}
+        {actions.map((action, index) => (
+          <a class:list={['p-btn', index === 0 && !store ? 'p-btn-ink' : 'p-btn-ghost']} href={action.href} data-track="cta_click" data-track-label={action.track} data-track-location={location}>{action.label}</a>
+        ))}
+      </div>
+      <div class="road" aria-hidden="true"><Taxi /></div>
+    </div>
+  </div>
+</section>

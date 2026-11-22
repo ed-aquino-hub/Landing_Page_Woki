@@ -1,0 +1,25 @@
+---
+// Las preguntas visibles salen de la misma lista que genera el JSON-LD FAQPage
+// de la página (`buildFaqJsonLd`), así el contenido y los datos coinciden.
+import type { QuestionItem } from '../data/content';
+import { toTrackLabel } from '../data/pages';
+interface Props { id?: string; kicker: string; title: string; lead: string; items: readonly QuestionItem[]; location: string; tone?: 'soft' | 'white' }
+const { id = 'dudas', kicker, title, lead, items, location, tone = 'soft' } = Astro.props;
+---
+<section class:list={['p-section', 'p-faq', `is-${tone}`]} id={id} aria-labelledby={`${id}-title`}>
+  <div class="wrap p-faq-grid">
+    <header data-reveal>
+      <p class="p-kicker">{kicker}</p>
+      <h2 id={`${id}-title`}>{title}</h2>
+      <p class="p-lead">{lead}</p>
+    </header>
+    <div class="p-faq-list">
+      {items.map(({ question, answer }, index) => (
+        <details data-reveal style={`--i:${index}`} open={index === 0} data-faq={question} data-track-label={toTrackLabel(question)} data-track-location={location}>
+          <summary>{question}</summary>
+          <p>{answer}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

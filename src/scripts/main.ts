@@ -13,6 +13,19 @@ function onceVisible(els: Element[], fn: (el: HTMLElement) => void, options: Int
   els.forEach((el) => io.observe(el));
 }
 
+// Analítica: eventos al dataLayer de GTM, solo si el usuario aceptó la analítica
+// (AnalyticsConsent carga GTM y marca window.wokiGtmLoaded). En GTM se crean
+// activadores de "Evento personalizado" para cta_click, store_click,
+// contact_click, faq_open y contact_submit, y una etiqueta de evento GA4 que use las variables
+// de capa de datos cta_label, cta_location y page_path.
+type TrackPayload = Record<string, string | number | undefined>;
+const analyticsWindow = window as Window & { dataLayer?: TrackPayload[]; wokiGtmLoaded?: boolean };
+const track = (event: string, payload: TrackPayload) => {
+  if (!analyticsWindow.wokiGtmLoaded) return;
+  analyticsWindow.dataLayer = analyticsWindow.dataLayer || [];
+  analyticsWindow.dataLayer.push({ event, page_path: location.pathname, ...payload });
+};
+
 const revealEls = all<HTMLElement>('[data-reveal]');
 
 if (!('IntersectionObserver' in window)) {
@@ -116,104 +129,54 @@ if (header && burger) {
   });
 }
 
-// Las etapas cambian la escena ilustrada según el rol seleccionado.
+// Selector de etapas (Seguridad): cada botón muestra su panel en la escena.
 all<HTMLElement>('[data-journey]').forEach((journey) => {
   const scene = journey.querySelector<HTMLElement>('[data-ride-scene]');
-  const title = journey.querySelector<HTMLElement>('[data-scene-title]');
-  const description = journey.querySelector<HTMLElement>('[data-scene-description]');
-  const images = all<HTMLImageElement>('[data-stage-image]').filter((image) => image.closest('[data-journey]') === journey);
-  const placeholder = journey.querySelector<HTMLElement>('[data-image-placeholder]');
-  const buttons = all<HTMLButtonElement>('[data-step-button]').filter((button) => button.closest('[data-journey]') === journey);
-  const autoToggle = journey.closest('.phone-journey-shell')?.querySelector<HTMLButtonElement>('[data-journey-toggle]');
-  const progressBars = all<HTMLElement>('.step-progress > span').filter((bar) => bar.closest('[data-journey]') === journey);
-  let autoTimer: number | undefined;
-  let inViewport = false;
-  let userPaused = reduceMotion;
-  if (reduceMotion && autoToggle) autoToggle.hidden = true;
-  const showStage = (button: HTMLButtonElement) => {
-    const titleText = button.dataset.title ?? '';
-    const stepIndex = Number(button.dataset.step ?? 0);
-    if (scene) scene.dataset.step = String(stepIndex);
-    if (title) title.textContent = titleText;
-    if (description) description.textContent = button.dataset.description ?? '';
-    const activeImage = images.find((image) => Number(image.dataset.stageImage) === stepIndex);
-    images.forEach((image) => {
-      const isActive = image === activeImage;
-      image.hidden = !isActive;
-      image.closest('picture')?.toggleAttribute('hidden', !isActive);
-      if (isActive) image.removeAttribute('aria-hidden');
-      else image.setAttribute('aria-hidden', 'true');
-    });
-    if (placeholder) placeholder.hidden = Boolean(activeImage && !activeImage.dataset.failed);
-  };
-  images.forEach((image) => image.addEventListener('error', () => {
-    image.dataset.failed = 'true';
-    if (!image.hidden && placeholder) placeholder.hidden = false;
-  }));
-  images.forEach((image) => image.addEventListener('load', () => {
-    delete image.dataset.failed;
-    if (!image.hidden && placeholder) placeholder.hidden = true;
-  }));
-  const initial = buttons.find((button) => button.getAttribute('aria-pressed') === 'true');
-  if (initial) showStage(initial);
-  const roleInput = document.querySelector<HTMLInputElement>(journey.dataset.role === 'pasajero' ? '#t-pas' : '#t-con');
-  const isRoleActive = () => !roleInput || roleInput.checked;
-  const canAutoplay = () => journey.hasAttribute('data-autoplay') && !reduceMotion && !userPaused && inViewport && !document.hidden && isRoleActive();
-  const stopAutoplay = () => {
-    if (autoTimer !== undefined) window.clearTimeout(autoTimer);
-    autoTimer = undefined;
-    journey.removeAttribute('data-playing');
-  };
-  const startAutoplay = () => {
-    stopAutoplay();
-    if (!canAutoplay()) return;
-    journey.setAttribute('data-playing', '');
-    autoTimer = window.setTimeout(() => {
-      const activeIndex = buttons.findIndex((button) => button.getAttribute('aria-pressed') === 'true');
-      const next = buttons[(activeIndex + 1) % buttons.length];
-      if (next) {
-        buttons.forEach((item) => item.setAttribute('aria-pressed', String(item === next)));
-        showStage(next);
-      }
-      startAutoplay();
-    }, 4000);
-  };
-  if (journey.hasAttribute('data-autoplay')) {
-    if ('IntersectionObserver' in window) {
-      const observer = new IntersectionObserver(([entry]) => {
-        inViewport = entry.isIntersecting;
-        startAutoplay();
-      }, { threshold: 0.2 });
-      observer.observe(journey);
-    } else inViewport = true;
-    autoToggle?.addEventListener('click', () => {
-      userPaused = !userPaused;
-      autoToggle.setAttribute('aria-pressed', String(userPaused));
-      autoToggle.textContent = userPaused ? 'Reanudar recorrido' : 'Pausar recorrido';
-      startAutoplay();
-    });
-    document.addEventListener('visibilitychange', startAutoplay);
-    roleInput?.addEventListener('change', () => {
-      if (isRoleActive()) startAutoplay();
-      else stopAutoplay();
-    });
-  }
+  const buttons = Array.from(journey.querySelectorAll<HTMLButtonElement>('[data-step-button]'));
   buttons.forEach((button) => {
     button.addEventListener('click', () => {
       buttons.forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
-      showStage(button);
-      if (journey.hasAttribute('data-autoplay')) {
-        progressBars.forEach((bar) => { bar.style.animation = 'none'; void bar.offsetWidth; bar.style.animation = ''; });
-        startAutoplay();
-      }
+      if (scene) scene.dataset.step = button.dataset.step ?? '0';
     });
   });
 });
 
-// El formulario solo se activa con un endpoint configurado.
+// "En esta página": resalta el atajo de la sección visible.
+const pageNavLinks = all<HTMLAnchorElement>('[data-page-nav] a');
+if (pageNavLinks.length && 'IntersectionObserver' in window) {
+  const pageSpy = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      pageNavLinks.forEach((link) => link.classList.toggle('is-on', link.hash === `#${entry.target.id}`));
+    }
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  pageNavLinks.forEach((link) => {
+    const section = document.getElementById(link.hash.slice(1));
+    if (section) pageSpy.observe(section);
+  });
+}
+
+// Barra fija de conductores (móvil): aparece al dejar atrás el hero.
+const stickyCta = document.querySelector<HTMLElement>('[data-sticky-cta]');
+const stickyAnchor = document.querySelector<HTMLElement>('.p-hero');
+if (stickyCta && stickyAnchor && 'IntersectionObserver' in window) {
+  new IntersectionObserver(([entry]) => {
+    stickyCta.classList.toggle('is-visible', !entry.isIntersecting);
+  }).observe(stickyAnchor);
+} else stickyCta?.classList.add('is-visible');
+
+// Formulario de contacto: envía al endpoint si está configurado; si no, prepara un
+// correo (mailto). Sin JavaScript el envío queda desactivado desde el HTML.
 const contactForm = document.querySelector<HTMLFormElement>('[data-contact-form]');
 if (contactForm) {
   const status = contactForm.querySelector<HTMLElement>('[data-form-status]');
+  const mailtoSubmit = contactForm.querySelector<HTMLButtonElement>('[data-mailto-submit]');
+  const mailtoNote = contactForm.querySelector<HTMLElement>('[data-mailto-note]');
+  if (mailtoSubmit && contactForm.dataset.recipient) {
+    mailtoSubmit.disabled = false;
+    if (mailtoNote?.dataset.mailtoNote) mailtoNote.textContent = mailtoNote.dataset.mailtoNote;
+  }
+  const selectedTopic = () => contactForm.querySelector<HTMLInputElement>('input[name="tema"]:checked');
   const fields = all<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>('[data-contact-field]').filter((field) => field.closest('[data-contact-form]') === contactForm);
   const clearFieldError = (field: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement) => {
     const name = field.dataset.contactField;
@@ -277,6 +240,8 @@ if (contactForm) {
     if (!validateForm()) return;
     const data = new FormData(contactForm);
     if (data.get('website')) return;
+    const topic = selectedTopic();
+    track('contact_submit', { cta_label: topic?.dataset.trackLabel ?? 'sin_tema', cta_location: 'contacto_formulario' });
     const endpoint = contactForm.dataset.endpoint;
     if (endpoint) {
       if (status) status.textContent = 'Enviando tu mensaje…';
@@ -299,25 +264,13 @@ if (contactForm) {
     const name = String(data.get('nombre') ?? '').trim();
     const email = String(data.get('contacto') ?? '').trim();
     const messageText = String(data.get('mensaje') ?? '').trim();
-    const subject = `Consulta desde woki.pe — ${name}`;
-    const body = `Hola, quisiera hacer una consulta.\n\nNombre: ${name}\nCorreo para responderme: ${email}\n\nMensaje:\n${messageText}`;
+    const topicText = topic?.value ?? '';
+    const subject = `Consulta${topicText ? ` (${topicText})` : ''} desde woki.pe — ${name}`;
+    const body = `Hola, quisiera hacer una consulta.\n\n${topicText ? `Tema: ${topicText}\n` : ''}Nombre: ${name}\nCorreo para responderme: ${email}\n\nMensaje:\n${messageText}`;
     if (status) status.textContent = `Se abrirá tu aplicación de correo para enviar la consulta a ${recipient}.`;
     window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   });
 }
-
-// Analítica: eventos al dataLayer de GTM, solo si el usuario aceptó la analítica
-// (AnalyticsConsent carga GTM y marca window.wokiGtmLoaded). En GTM se crean
-// activadores de "Evento personalizado" para cta_click, store_click,
-// contact_click y faq_open, y una etiqueta de evento GA4 que use las variables
-// de capa de datos cta_label, cta_location y page_path.
-type TrackPayload = Record<string, string | number | undefined>;
-const analyticsWindow = window as Window & { dataLayer?: TrackPayload[]; wokiGtmLoaded?: boolean };
-const track = (event: string, payload: TrackPayload) => {
-  if (!analyticsWindow.wokiGtmLoaded) return;
-  analyticsWindow.dataLayer = analyticsWindow.dataLayer || [];
-  analyticsWindow.dataLayer.push({ event, page_path: location.pathname, ...payload });
-};
 
 document.addEventListener('click', (event) => {
   const target = (event.target as Element | null)?.closest<HTMLElement>('[data-track]');
@@ -331,6 +284,6 @@ document.addEventListener('click', (event) => {
 
 all<HTMLDetailsElement>('details[data-faq]').forEach((item) => {
   item.addEventListener('toggle', () => {
-    if (item.open) track('faq_open', { cta_label: item.dataset.faq, cta_location: 'faq' });
+    if (item.open) track('faq_open', { cta_label: item.dataset.trackLabel ?? item.dataset.faq, cta_location: item.dataset.trackLocation ?? 'faq' });
   });
 });
