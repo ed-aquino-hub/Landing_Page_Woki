@@ -109,7 +109,8 @@ for (const file of htmlFiles) {
     if (/fetchpriority="high"/i.test(imageTag)) assert(/loading="eager"/i.test(imageTag), `${relative}: una imagen prioritaria debe cargar inmediatamente.`);
     else assert(/loading="lazy"/i.test(imageTag), `${relative}: las imágenes fuera de la primera vista deben cargar lazy.`);
   }
-  if (['/como-funciona', '/conductores'].includes(normalizedPath)) {
+  // Si la página tiene imagen principal, debe cargarse con prioridad; también vale no tener imagen principal.
+  if (['/como-funciona', '/conductores'].includes(normalizedPath) && /<img\b/i.test(mainHtml)) {
     assert(/fetchpriority="high"/i.test(mainHtml), `${normalizedPath}: la imagen principal debe tener fetchpriority=high.`);
   }
 }
