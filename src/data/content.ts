@@ -32,17 +32,17 @@ export const passengerJourney: JourneyStep[] = [
 ];
 
 export const passengerSafetyTools: LabeledItem[] = [
-  { title: 'Identifica al conductor', description: 'Revisa su licencia, el SOAT y los datos del vehículo antes de iniciar.', iconPath: 'M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3zM9 12l2 2 4-4' },
+  { title: 'Identifica al conductor', description: 'Revisa su foto y los datos del vehículo, como el color y la marca.', iconPath: 'M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3zM9 12l2 2 4-4' },
   { title: 'Un PIN para iniciar el viaje', description: 'Comparte el código solo cuando estés frente al taxi asignado.', iconPath: 'M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3zM9.5 12.5V11a2.5 2.5 0 015 0v1.5M9 12.5h6v4H9z' },
   { title: 'Sigue el trayecto en el mapa', description: 'Consulta la ubicación del viaje y el tiempo estimado para llegar.', iconPath: 'M12 21s-7-6-7-11a7 7 0 0114 0c0 5-7 11-7 11zM12 10m-2.5 0a2.5 2.5 0 105 0 2.5 2.5 0 10-5 0' },
-  { title: 'Coordina desde la app', description: 'Comunícate con tu conductor por chat o llamada durante el servicio.', iconPath: 'M5 5h14a2 2 0 012 2v8a2 2 0 01-2 2h-7l-5 4v-4H5a2 2 0 01-2-2V7a2 2 0 012-2z' },
-  { title: 'Consulta opiniones de pasajeros', description: 'Las calificaciones te dan más contexto sobre la experiencia de otros usuarios.', iconPath: 'M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z' },
+  { title: 'Pide ayuda ante una emergencia', description: 'Usa el botón de emergencia para reportar una situación sospechosa y compartir tu ubicación con tu contacto de emergencia.', iconPath: 'M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3zM12 8v5m0 3h.01' },
+  { title: 'Consulta opiniones de pasajeros', description: 'Lee las calificaciones de otros pasajeros.', iconPath: 'M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z' },
 ];
 
 export const passengerSituations: LabeledItem[] = [
-  { title: 'Confirma antes de subir', description: 'Comprueba conductor, vehículo y placa. Usa el PIN para iniciar el viaje correcto.' },
-  { title: 'Sigue el trayecto', description: 'Consulta el recorrido en el mapa y revisa cuánto falta para llegar.' },
-  { title: 'Cierra el viaje con claridad', description: 'Al llegar, revisa el recorrido y completa el pago acordado.' },
+  { title: 'Realiza el pago al conductor', description: 'Al llegar, paga el monto acordado en efectivo o con una billetera digital disponible.' },
+  { title: 'Confirma el pago con tu PIN', description: 'Proporciona el PIN de confirmación de pago para registrar que completaste el pago del viaje.' },
+  { title: 'Verifica y califica', description: 'Confirma que el viaje terminó correctamente y comparte tu experiencia con una calificación.' },
 ];
 
 export const paymentOptions: LabeledItem[] = [
@@ -51,8 +51,8 @@ export const paymentOptions: LabeledItem[] = [
 ];
 
 export const driverPaymentOptions: LabeledItem[] = [
-  { title: 'Comisión por viaje · 15 %', description: 'Flexible si conduces de vez en cuando.', bullets: ['Pagas 15 % por cada viaje completado.', 'Si no viajas, no pagas comisión.', 'Sin mensualidad fija.'], iconPath: 'M7.5 7.5h.01M16.5 16.5h.01M7 17l10-10' },
-  { title: 'Plan mensual · S/ 50', description: 'Una cuota fija para quienes conducen con frecuencia.', bullets: ['Pago proporcional a los días desde tu aprobación.', 'Sin comisión por viaje.'], iconPath: 'M6 3v3M18 3v3M4 8h16M5 5h14a1 1 0 011 1v13H4V6a1 1 0 011-1zM8 12h3M8 16h3' },
+  { title: 'Comisión por viaje · 15 %', description: 'Flexible si conduces de vez en cuando.', bullets: ['Pagas 15 % por cada viaje completado.', 'Si no viajas, no pagas comisión.', 'Sin mensualidad fija.'], iconPath: 'M8 6.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zM16 14.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zM6 18 18 6' },
+  { title: 'Plan mensual · S/ 50', description: 'Una cuota fija para quienes conducen con frecuencia.', bullets: ['Pagas S/ 50 cada fin de mes.', 'Pago proporcional a los días desde tu aprobación.', 'Sin comisión por viaje.'], iconPath: 'M6 3v3M18 3v3M4 8h16M5 5h14a1 1 0 011 1v13H4V6a1 1 0 011-1zM8 12h3M8 16h3' },
 ];
 
 export const passengerFaqs: QuestionItem[] = [
@@ -150,9 +150,9 @@ export const driverBenefits: ContentItem[] = [
 ];
 
 export const driverReasons: IconItem[] = [
-  { title: 'Conoces la ciudad. Conectas a tu comunidad.', description: `Woki nace en ${brand.city} para acercar a quienes conocen sus calles con las personas que necesitan moverse por la ciudad.`, iconPath: 'M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6M8 9h.01M12 9h.01M16 9h.01' },
-  { title: 'Confianza compartida en cada viaje', description: 'El PIN ayuda a confirmar el inicio correcto y da a pasajero y conductor una referencia común.', iconPath: 'M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3zM9 12l2 2 4-4' },
-  { title: 'Herramientas para cada recorrido', description: 'Woki acompaña el servicio desde que te conectas hasta que completas el viaje.', iconPath: 'M4 12h16M13 5l7 7-7 7M4 5v14' },
+  { title: 'Conoces la ciudad. Conectas a tu comunidad.', description: `Conectamos a quienes conocen ${brand.city} con quienes necesitan movilizarse.`, iconPath: 'M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6M8 9h.01M12 9h.01M16 9h.01' },
+  { title: 'Confianza compartida en cada viaje', description: 'El PIN confirma que pasajero y conductor inician el viaje correcto.', iconPath: 'M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3zM9 12l2 2 4-4' },
+  { title: 'Herramientas para cada recorrido', description: 'Woki te acompaña al recibir y completar cada viaje.', iconPath: 'M4 12h16M13 5l7 7-7 7M4 5v14' },
 ];
 
 export const faqs: { question: string; answer: string }[] = [
