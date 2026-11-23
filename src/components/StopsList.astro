@@ -66,8 +66,8 @@ const { id, eyebrow, title, subtitle, items, dark = false, featured = false, bal
   .stops-featured .stops-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:1.25rem}
   .stops-featured .stops-grid>li{grid-template-columns:4.5rem minmax(0,1fr);align-items:center;gap:1.25rem;min-height:12rem;padding:clamp(1.5rem,3vw,2.2rem)}
   .stops-featured .stop-icon{width:4.5rem;height:4.5rem;border:0;border-radius:0;background:transparent;color:var(--cian)}
-  .stops-featured .stop-icon svg{width:3.6rem;height:3.6rem}
-  .stops-featured .stops-grid h3{font-size:1.2rem}
+  .stops-featured .stop-icon svg{width:4rem;height:4rem}
+  .stops-featured .stops-grid h3{font-size:1.45rem;line-height:1.2}
   .stops-featured .stops-grid p{font-size:1rem}
   .stops-section.stops-dark.stops-featured .stops-grid>li{border-color:#b5dfe3;background:#fff;box-shadow:0 16px 34px color-mix(in srgb,var(--deep) 24%,transparent)}
   .stops-section.stops-dark.stops-featured .stops-grid h3{color:var(--deep)}
@@ -97,7 +97,7 @@ const { id, eyebrow, title, subtitle, items, dark = false, featured = false, bal
   .stops-sequence .stops-grid h3{margin-top:.15rem;font-size:1.05rem;line-height:1.35}
   .stops-sequence .stops-grid p{font-size:.93rem}
   @media(max-width:520px){.stops-grid{grid-template-columns:1fr}.stops-grid>li{padding:1rem}}
-  @media(max-width:680px){.stops-featured .stops-grid{grid-template-columns:1fr}.stops-featured .stops-grid>li{grid-template-columns:3.5rem minmax(0,1fr);min-height:0;padding:1.2rem}.stops-featured .stop-icon{width:3.5rem;height:3.5rem;border:0;border-radius:0;background:transparent}.stops-featured .stop-icon svg{width:3rem;height:3rem}}
+  @media(max-width:680px){.stops-featured .stops-grid{grid-template-columns:1fr}.stops-featured .stops-grid>li{grid-template-columns:3.5rem minmax(0,1fr);min-height:0;padding:1.2rem}.stops-featured .stop-icon{width:3.5rem;height:3.5rem;border:0;border-radius:0;background:transparent}.stops-featured .stop-icon svg{width:3.2rem;height:3.2rem}.stops-featured .stops-grid h3{font-size:1.3rem}}
   @media(max-width:680px){.stops-pyramid .stops-grid{grid-template-columns:1fr;gap:1rem}.stops-pyramid .stops-grid>li{min-height:0;padding:1.4rem}.stops-pyramid .stops-grid>li:nth-child(2){transform:none}.stops-pyramid .stop-icon{width:3.6rem;height:3.6rem}.stops-pyramid .stop-icon svg{width:3rem;height:3rem}}
   @media(max-width:760px){.stops-balanced .stops-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.stops-balanced .stops-grid>li,.stops-balanced .stops-grid>li:nth-child(4),.stops-balanced .stops-grid>li:nth-child(5){grid-column:auto}.stops-balanced .stops-grid>li:nth-child(5){grid-column:1 / -1;width:calc(50% - .5rem);justify-self:center}}
   @media(max-width:520px){.stops-balanced .stops-grid{grid-template-columns:1fr}.stops-balanced .stops-grid>li:nth-child(5){grid-column:auto;width:auto}}
