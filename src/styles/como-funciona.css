@@ -1,0 +1,74 @@
+/* Cómo funciona · prefijo cf- */
+
+.cf-hero{padding-bottom:clamp(8rem,13vw,9.5rem);text-align:center}
+.cf-hero .p-crumbs ol{justify-content:center}
+.cf-hero-copy{max-width:52rem;margin-inline:auto}
+.cf-hero-copy .p-hero-lead{margin:0 auto;max-width:38rem}
+
+/* ---------- Dos carriles ---------- */
+.cf-lanes{position:relative;z-index:2;margin-top:-6rem;padding:0 0 clamp(4rem,8vw,6rem)}
+.cf-card{padding:clamp(1.5rem,4vw,2.5rem);border-radius:32px;background:#fff;box-shadow:0 30px 70px #00323724}
+.cf-card-head{max-width:44rem;margin:0 auto 2rem;text-align:center}
+.page .cf-card-head h2{margin-bottom:.6rem;font-size:clamp(1.6rem,3vw,2.1rem)}
+.cf-roles{display:grid;grid-template-columns:minmax(0,1fr) 160px minmax(0,1fr);margin-bottom:1.25rem}
+.cf-role{display:flex;align-items:center;gap:.75rem;font-size:1.35rem;font-weight:800}
+.cf-role.is-driver{grid-column:3;justify-content:flex-end}
+.cf-role-ic{display:grid;place-items:center;width:44px;height:44px;border-radius:14px;background:#e3f3f4}
+.cf-role-ic svg{width:24px;height:24px}
+.cf-role-ic :is(path,circle){fill:none;stroke:var(--deep);stroke-width:2;stroke-linejoin:round}
+.cf-role.is-driver .cf-role-ic{background:var(--p-ink)}
+.cf-role.is-driver .cf-role-ic path{stroke:var(--aqua)}
+.cf-rows{position:relative;display:flex;flex-direction:column;gap:.9rem;margin:0;padding:0;list-style:none}
+.cf-rows::before{content:"";position:absolute;top:22px;bottom:22px;left:50%;width:3px;margin-left:-1.5px;background:repeating-linear-gradient(180deg,#9fd0d4 0 8px,transparent 8px 16px);animation:cf-flow 1.2s linear infinite}
+@keyframes cf-flow{to{background-position:0 16px}}
+.cf-row{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 160px minmax(0,1fr);align-items:stretch}
+.cf-cell{display:flex;flex-direction:column;gap:.3rem;padding:1.1rem 1.25rem;border-radius:18px;background:var(--p-soft);transition:transform .3s,box-shadow .3s}
+.cf-cell:hover{transform:translateY(-3px);box-shadow:0 16px 32px #00323712}
+.cf-cell.is-driver{text-align:right}
+.cf-cell h3{font-size:1.08rem}
+.cf-cell p{margin:0;font-size:.95rem;line-height:1.55;color:var(--p-text)}
+.cf-who{display:none}
+.cf-marker{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.55rem}
+.cf-marker small{font-size:.75rem;font-weight:700;color:var(--p-text)}
+.cf-marker small.is-pin{font-weight:800;color:var(--deep)}
+.cf-dot{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--deep);color:#fff;font-weight:800;box-shadow:0 0 0 8px #e3f3f4}
+.cf-dot.is-end{background:var(--p-ink)}
+.cf-dot svg{width:16px;height:20px}
+.cf-dot path{fill:var(--aqua)}
+.cf-dot circle{fill:var(--p-ink)}
+.cf-pin{padding:.55rem .85rem;border-radius:16px;background:var(--cian);color:#fff;font-size:1.25rem;font-weight:800;letter-spacing:.2em;padding-left:calc(.85rem + .2em);font-variant-numeric:tabular-nums;box-shadow:0 0 0 8px var(--p-line)}
+html.js .cf-row.in :is(.cf-dot,.cf-pin){animation:cf-pop .6s cubic-bezier(.3,1.6,.5,1) both;animation-delay:calc(var(--i,0)*120ms + .2s)}
+@keyframes cf-pop{from{transform:scale(.4);opacity:0}to{transform:none;opacity:1}}
+.cf-note{margin:1.75rem 0 0;text-align:center;font-size:.9rem;color:var(--p-text)}
+
+/* ---------- Guías ---------- */
+.cf-guide-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.25rem}
+.cf-guide{display:flex;flex-direction:column;gap:.75rem;padding:clamp(1.6rem,4vw,2.25rem);border-radius:28px;background:#fff;transition:transform .3s,box-shadow .3s}
+.cf-guide:hover{transform:translateY(-4px);box-shadow:0 24px 48px #00323718}
+.cf-guide .p-kicker{margin:0}
+.cf-guide h3{font-size:clamp(1.4rem,2.6vw,1.75rem)}
+.cf-guide p:not(.p-kicker){margin:0;font-size:1rem;line-height:1.65;color:var(--p-text)}
+.cf-guide a{margin-top:auto;padding-top:.5rem;font-weight:800;color:var(--deep);text-decoration:none}
+.cf-guide a span{display:inline-block;transition:transform .2s}
+.cf-guide a:hover span{transform:translateX(4px)}
+.cf-guide.is-dark{background:var(--p-ink);color:#fff}
+.cf-guide.is-dark .p-kicker{color:var(--aqua)}
+.cf-guide.is-dark p:not(.p-kicker){color:var(--p-on-dark)}
+.cf-guide.is-dark a{color:var(--aqua)}
+.cf-contact{margin:2rem 0 0;text-align:center;color:var(--p-text)}
+.cf-contact a{font-weight:800;color:var(--deep)}
+
+/* ---------- Responsive ---------- */
+@media(max-width:860px){
+  .cf-roles{display:none}
+  .cf-rows::before{display:none}
+  .cf-rows{gap:1.75rem}
+  .cf-row{grid-template-columns:1fr;gap:.6rem}
+  .cf-marker{order:-1;flex-direction:row;justify-content:flex-start;gap:1rem;padding-left:.25rem}
+  .cf-cell.is-driver{text-align:left;background:#e3f3f4}
+  .cf-who{display:block;font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--deep)}
+  .cf-guide-grid{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  .cf-rows::before{animation:none}
+}

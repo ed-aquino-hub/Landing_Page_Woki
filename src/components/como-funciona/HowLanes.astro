@@ -1,0 +1,45 @@
+---
+// Dos carriles (pasajero / conductor) que comparten cada etapa del viaje.
+import { howItWorksPage } from '../../data/pages';
+import { brand } from '../../data/site';
+const { lanes } = howItWorksPage;
+---
+<section class="cf-lanes" aria-labelledby="cf-lanes-title">
+  <div class="wrap">
+    <div class="cf-card" data-reveal>
+      <header class="cf-card-head">
+        <h2 id="cf-lanes-title">{lanes.title}</h2>
+        <p class="p-lead">{lanes.intro}</p>
+      </header>
+      <div class="cf-roles" aria-hidden="true">
+        <span class="cf-role"><span class="cf-role-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="3.2" /><path d="M5.5 20v-1.8a6.5 6.5 0 0113 0V20" /></svg></span>{lanes.passenger}</span>
+        <span class="cf-role is-driver">{lanes.driver}<span class="cf-role-ic"><svg viewBox="0 0 24 24"><path d="M4 15l1.5-5h13L20 15v4h-2v-2H6v2H4zM6 10l1.3-3h9.4l1.3 3" /></svg></span></span>
+      </div>
+      <ol class="cf-rows">
+        {lanes.rows.map((row, index) => (
+          <li class="cf-row" data-reveal style={`--i:${index}`}>
+            <div class="cf-cell">
+              <small class="cf-who">{lanes.passenger}</small>
+              <h3>{row.passenger.title}</h3>
+              <p>{row.passenger.text}</p>
+            </div>
+            <div class="cf-marker">
+              {row.kind === 'pin'
+                ? <span class="cf-pin" aria-hidden="true" data-slot={brand.demoPin}>{brand.demoPin}</span>
+                : row.kind === 'end'
+                  ? <span class="cf-dot is-end" aria-hidden="true"><svg viewBox="0 0 24 30"><path d="M12 1a8 8 0 0 0-8 8c0 6 8 16 8 16s8-10 8-16a8 8 0 0 0-8-8z" /><circle cx="12" cy="9" r="3" /></svg></span>
+                  : <span class="cf-dot" aria-hidden="true">{index + 1}</span>}
+              <small class:list={{ 'is-pin': row.kind === 'pin' }}>{row.marker}</small>
+            </div>
+            <div class="cf-cell is-driver">
+              <small class="cf-who">{lanes.driver}</small>
+              <h3>{row.driver.title}</h3>
+              <p>{row.driver.text}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+      <p class="cf-note">{lanes.note}</p>
+    </div>
+  </div>
+</section>

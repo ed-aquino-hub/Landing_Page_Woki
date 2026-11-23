@@ -1,0 +1,25 @@
+---
+import { companyPillars } from '../../data/content';
+import { aboutPage } from '../../data/pages';
+const { principles } = aboutPage;
+---
+<section class="p-section ab-principles" aria-labelledby="ab-principles-title">
+  <div class="wrap ab-principles-grid">
+    <header data-reveal>
+      <p class="p-kicker">{principles.kicker}</p>
+      <h2 id="ab-principles-title">{principles.title}</h2>
+      <p class="p-lead">{principles.lead}</p>
+    </header>
+    <ol class="ab-principles-list">
+      {companyPillars.map((pillar, index) => (
+        <li data-reveal style={`--i:${index}`}>
+          <span class="ab-principles-num" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+          <div>
+            <h3>{pillar.title}</h3>
+            <p>{pillar.description}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

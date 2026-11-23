@@ -1,0 +1,11 @@
+---
+import PageHero from '../PageHero.astro';
+import { contactPage } from '../../data/pages';
+const { hero } = contactPage;
+---
+<PageHero id="ct-hero-title" crumb={contactPage.crumb} class="ct-hero">
+  <div class="p-hero-copy">
+    <h1 id="ct-hero-title">{hero.titleLead} <span>{hero.titleAccent}</span></h1>
+    <p class="p-hero-lead">{hero.lead}</p>
+  </div>
+</PageHero>

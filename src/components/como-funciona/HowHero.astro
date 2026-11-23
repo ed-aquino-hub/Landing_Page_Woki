@@ -1,0 +1,12 @@
+---
+import PageHero from '../PageHero.astro';
+import { howItWorksPage } from '../../data/pages';
+const { hero } = howItWorksPage;
+---
+<PageHero id="cf-hero-title" crumb={howItWorksPage.crumb} class="cf-hero">
+  <div class="p-hero-copy cf-hero-copy">
+    <p class="p-kicker is-light">{hero.eyebrow}</p>
+    <h1 id="cf-hero-title">{hero.title}</h1>
+    <p class="p-hero-lead">{hero.lead}</p>
+  </div>
+</PageHero>

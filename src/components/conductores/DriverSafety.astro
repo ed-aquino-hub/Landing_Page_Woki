@@ -1,0 +1,21 @@
+---
+import { driverSafety } from '../../data/content';
+import { driversPage } from '../../data/pages';
+const { safety } = driversPage;
+---
+<section class="p-section is-soft dr-safety" id="seguridad-conductor" aria-labelledby="seguridad-conductor-title">
+  <div class="wrap">
+    <header class="p-head" data-reveal>
+      <p class="p-kicker">{safety.kicker}</p>
+      <h2 id="seguridad-conductor-title">{safety.title}</h2>
+    </header>
+    <ul class="dr-safety-grid">
+      {driverSafety.map((item, index) => (
+        <li class:list={['dr-safety-card', { 'is-accent': item.title === safety.highlight }]} data-reveal style={`--i:${index}`}>
+          <h3>{item.title}</h3>
+          <p>{item.description}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

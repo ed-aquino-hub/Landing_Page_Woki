@@ -45,6 +45,16 @@ export const routes = {
   cookies: '/cookies',
 } as const;
 
+/** Nombre de cada página en la ruta de navegación visible y en el JSON-LD BreadcrumbList. */
+export const breadcrumbLabels = {
+  home: 'Inicio',
+  safety: 'Seguridad',
+  howItWorks: 'Cómo funciona',
+  drivers: 'Conductores',
+  about: 'Nosotros',
+  contact: 'Contacto',
+} as const;
+
 export const assets = {
   socialImage: images.driver.src,
   driverPhoto: images.driver.src,
@@ -83,10 +93,3 @@ export const legalNavigation = [
   { href: routes.accountDeletion, label: 'Eliminar cuenta' },
 ] as const;
 
-export const legalDocuments = [
-  { href: routes.legalNotice, label: 'Información del sitio' },
-  { href: routes.terms, label: 'T&C Pasajero' },
-  { href: routes.driverTerms, label: 'T&C Conductor' },
-  { href: routes.privacy, label: 'Privacidad' },
-  { href: routes.cookies, label: 'Cookies' },
-] as const;

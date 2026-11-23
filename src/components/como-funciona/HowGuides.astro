@@ -1,0 +1,23 @@
+---
+import { howItWorksPage } from '../../data/pages';
+const { guides } = howItWorksPage;
+---
+<section class="p-section is-soft cf-guides" aria-labelledby="cf-guides-title">
+  <div class="wrap">
+    <header class="p-head is-center" data-reveal>
+      <p class="p-kicker">{guides.kicker}</p>
+      <h2 id="cf-guides-title">{guides.title}</h2>
+    </header>
+    <div class="cf-guide-grid">
+      {guides.items.map((guide, index) => (
+        <article class:list={['cf-guide', `is-${guide.tone}`]} data-reveal style={`--i:${index}`} aria-labelledby={`cf-guide-${index}`}>
+          <p class="p-kicker">{guide.eyebrow}</p>
+          <h3 id={`cf-guide-${index}`}>{guide.title}</h3>
+          <p>{guide.text}</p>
+          <a href={guide.action.href} data-track="cta_click" data-track-label={guide.action.track} data-track-location="como_funciona_guias">{guide.action.label} <span aria-hidden="true">→</span></a>
+        </article>
+      ))}
+    </div>
+    <p class="cf-contact">{guides.contactLead} <a href={guides.contact.href} data-track="cta_click" data-track-label={guides.contact.track} data-track-location="como_funciona_guias">{guides.contact.label}</a></p>
+  </div>
+</section>

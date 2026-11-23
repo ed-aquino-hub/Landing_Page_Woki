@@ -1,0 +1,31 @@
+---
+import PageHero from '../PageHero.astro';
+import StoreButtons from '../StoreButtons.astro';
+import { safetyPage } from '../../data/pages';
+import { homeDemoTrip } from '../../data/home';
+import { brand } from '../../data/site';
+const { hero } = safetyPage;
+---
+<PageHero id="sg-hero-title" crumb={safetyPage.crumb} class="sg-hero">
+  <div class="p-hero-grid">
+    <div class="p-hero-copy">
+      <p class="p-kicker is-light">{hero.eyebrow}</p>
+      <h1 id="sg-hero-title">{hero.titleLead}<br /><span>{hero.titleAccent}</span></h1>
+      <p class="p-hero-lead">{hero.lead}</p>
+      <div class="p-hero-actions">
+        <StoreButtons location="seguridad_hero" />
+        <a class="p-btn p-btn-ghost" href={hero.secondary.href} data-track="cta_click" data-track-label={hero.secondary.track} data-track-location="seguridad_hero">{hero.secondary.label}</a>
+      </div>
+    </div>
+    <div class="sg-hero-visual" aria-hidden="true">
+      <div class="sg-compare">
+        <p>{hero.compareTitle}</p>
+        <ul>
+          {hero.compare.map((row) => <li><b>{row.label}</b><span>{row.value} <i>✓</i></span></li>)}
+          <li><b>{hero.plateLabel}</b><span class="p-plate">{homeDemoTrip.driver.plate}</span></li>
+        </ul>
+      </div>
+      <div class="sg-hero-pin"><small>{hero.pinLabel}</small><b data-slot={brand.demoPin}>{brand.demoPin}</b></div>
+    </div>
+  </div>
+</PageHero>

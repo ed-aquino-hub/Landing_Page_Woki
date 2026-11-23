@@ -1,0 +1,20 @@
+---
+import { companyPurpose } from '../../data/content';
+import { aboutPage } from '../../data/pages';
+const { purpose } = aboutPage;
+---
+<section class="p-section ab-purpose" aria-labelledby="ab-purpose-title">
+  <div class="wrap">
+    <h2 id="ab-purpose-title" class="sr-only">{purpose.title}</h2>
+    <div class="ab-purpose-grid">
+      <article class="ab-purpose-card" data-reveal aria-labelledby="ab-mision">
+        <h3 id="ab-mision" class="p-kicker">{purpose.mission}</h3>
+        <p>{companyPurpose.mission}</p>
+      </article>
+      <article class="ab-purpose-card is-dark" data-reveal style="--i:1" aria-labelledby="ab-vision">
+        <h3 id="ab-vision" class="p-kicker">{purpose.vision}</h3>
+        <p>{companyPurpose.vision}</p>
+      </article>
+    </div>
+  </div>
+</section>

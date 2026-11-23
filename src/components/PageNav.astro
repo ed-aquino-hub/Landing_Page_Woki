@@ -1,0 +1,16 @@
+---
+// "En esta página": atajos a las secciones. main.ts marca la sección visible.
+import type { PageNavItem } from '../data/pages';
+interface Props { items: readonly PageNavItem[]; location: string }
+const { items, location } = Astro.props;
+---
+<nav class="p-pagenav" aria-label="En esta página" data-page-nav>
+  <div class="wrap p-pagenav-inner">
+    <span class="p-pagenav-label">En esta página:</span>
+    <ul>
+      {items.map((item, index) => (
+        <li><a href={`#${item.id}`} class:list={{ 'is-on': index === 0 }} data-track="cta_click" data-track-label={`ir_${item.id.replaceAll('-', '_')}`} data-track-location={location}>{item.label}</a></li>
+      ))}
+    </ul>
+  </div>
+</nav>

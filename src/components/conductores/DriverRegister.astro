@@ -1,0 +1,32 @@
+---
+import { driverRequirements } from '../../data/content';
+import { driversPage } from '../../data/pages';
+const { register } = driversPage;
+const lastIndex = driverRequirements.steps.length - 1;
+---
+<section class="p-section dr-register" id="registro-conductor" aria-labelledby="registro-conductor-title">
+  <div class="wrap dr-register-grid">
+    <div data-reveal>
+      <p class="p-kicker">{register.kicker}</p>
+      <h2 id="registro-conductor-title">{register.title}</h2>
+      <p class="p-lead">{register.lead}</p>
+      <ul class="dr-docs">
+        {driverRequirements.requirements.map((item, index) => (
+          <li data-reveal style={`--i:${index}`}><span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10" /></svg></span>{item}</li>
+        ))}
+      </ul>
+    </div>
+    <div class="dr-steps-card" data-reveal style="--i:1">
+      <h3>{register.stepsTitle}</h3>
+      <ol class="dr-steps">
+        {driverRequirements.steps.map((step, index) => (
+          <li class:list={{ 'is-last': index === lastIndex }}>
+            <span class="dr-step-dot" aria-hidden="true">{index + 1}</span>
+            <div><b>{step.title}</b><span>{step.description}</span></div>
+          </li>
+        ))}
+      </ol>
+      <a class="p-btn p-btn-aqua" href={register.action.href} data-track="cta_click" data-track-label={register.action.track} data-track-location="conductores_registro">{register.action.label}</a>
+    </div>
+  </div>
+</section>

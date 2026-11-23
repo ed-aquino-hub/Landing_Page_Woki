@@ -1,0 +1,27 @@
+---
+import { paymentOptions } from '../../data/content';
+import { safetyPage } from '../../data/pages';
+const { payments } = safetyPage;
+---
+<section class="p-section sg-payments" id="pago" aria-labelledby="pago-title">
+  <div class="wrap sg-payments-grid">
+    <header data-reveal>
+      <p class="p-kicker">{payments.kicker}</p>
+      <h2 id="pago-title">{payments.title}</h2>
+      <p class="p-lead">{payments.lead}</p>
+    </header>
+    <ul class="sg-pay-list">
+      {paymentOptions.map((option, index) => {
+        const featured = option.title === payments.featured;
+        return (
+          <li class:list={['sg-pay', { 'is-featured': featured }]} data-reveal style={`--i:${index + 1}`}>
+            {option.iconPath && <span class="p-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={option.iconPath} /></svg></span>}
+            <h3>{option.title}</h3>
+            <p>{option.description}</p>
+            {featured && <ul class="sg-wallets" aria-label="Billeteras digitales">{payments.wallets.map((wallet) => <li>{wallet}</li>)}</ul>}
+          </li>
+        );
+      })}
+    </ul>
+  </div>
+</section>

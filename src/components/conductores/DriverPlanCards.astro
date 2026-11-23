@@ -1,0 +1,26 @@
+---
+import { driversPage } from '../../data/pages';
+const { plans } = driversPage;
+---
+<section class="p-section dr-plans" id="planes" aria-labelledby="planes-title">
+  <div class="wrap">
+    <header class="p-head is-center" data-reveal>
+      <p class="p-kicker is-light">{plans.kicker}</p>
+      <h2 id="planes-title">{plans.title}</h2>
+      <p class="p-lead">{plans.lead}</p>
+    </header>
+    <div class="dr-plan-grid">
+      {plans.items.map((plan, index) => (
+        <article class:list={['dr-plan', { 'is-featured': plan.featured }]} data-reveal style={`--i:${index + 1}`} aria-labelledby={`dr-plan-${index}`}>
+          {plan.badge && <span class="dr-plan-badge">{plan.badge}</span>}
+          <h3 id={`dr-plan-${index}`}>{plan.name}</h3>
+          <p class="dr-plan-price">{plan.price}</p>
+          <p class="dr-plan-unit">{plan.unit}</p>
+          <ul>{plan.bullets.map((bullet) => <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l4 4 10-10" /></svg>{bullet}</li>)}</ul>
+          <a class:list={['p-btn', plan.featured ? 'p-btn-aqua' : 'p-btn-outline']} href={plan.action.href} data-track="cta_click" data-track-label={plan.action.track} data-track-location="conductores_planes">{plan.action.label}</a>
+        </article>
+      ))}
+    </div>
+    <p class="dr-plans-note">{plans.note}</p>
+  </div>
+</section>

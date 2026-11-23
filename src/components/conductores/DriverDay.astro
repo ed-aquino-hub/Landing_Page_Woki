@@ -1,0 +1,39 @@
+---
+import { driverJourney } from '../../data/content';
+import { driversPage } from '../../data/pages';
+const { day } = driversPage;
+---
+<section class="p-section dr-day" id="dia" aria-labelledby="dia-title">
+  <div class="wrap">
+    <header class="p-head is-center" data-reveal>
+      <p class="p-kicker">{day.kicker}</p>
+      <h2 id="dia-title">{day.title}</h2>
+      <p class="p-lead">{day.lead}</p>
+    </header>
+    <ol class="dr-day-list">
+      {driverJourney.map((step, index) => {
+        const visual = step.visual;
+        return (
+          <li class="dr-day-card" data-reveal style={`--i:${index}`}>
+            <span class="dr-day-num">{String(index + 1).padStart(2, '0')}</span>
+            <div>
+              <h3>{step.title}</h3>
+              <p>{step.description}</p>
+            </div>
+            <div class="dr-day-visual" aria-hidden="true">
+              {index === 0 && <div class="dr-online"><b>{day.online}</b><span class="dr-switch"><span></span></span></div>}
+              {index === 1 && visual?.type === 'pills' && <ul class="dr-pills">{visual.items.map((item) => <li>{item}</li>)}</ul>}
+              {visual?.type === 'fare' && <div class="dr-fare"><b>{visual.currency} {visual.base}</b>{visual.adjustments.map((amount) => <span>+{amount}</span>)}</div>}
+              {visual?.type === 'earnings' && (
+                <div class="dr-earn">
+                  <div><small>{day.earnings.label}</small><b>S/ <span data-count={day.earnings.value} data-dec="2">{day.earnings.value.toFixed(2)}</span></b></div>
+                  <div><small>{visual.items[1]}</small><span class="dr-meter"><span></span></span></div>
+                </div>
+              )}
+            </div>
+          </li>
+        );
+      })}
+    </ol>
+  </div>
+</section>

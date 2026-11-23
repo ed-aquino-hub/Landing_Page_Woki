@@ -1,0 +1,66 @@
+/* Nosotros · prefijo ab- */
+
+/* ---------- Hero editorial + bloque de ciudad ---------- */
+.ab-hero{padding:clamp(6.75rem,11vw,8rem) 0 0}
+.ab-hero-head{display:flex;flex-wrap:wrap;gap:1.5rem 2.5rem;align-items:flex-end;margin-bottom:2.75rem}
+.ab-hero-head>div{flex:1.4 1 32rem;min-width:0}
+.ab-hero h1{margin:0;font-size:clamp(2.3rem,5vw,3.8rem);line-height:1.03;letter-spacing:-.04em;text-wrap:balance}
+.ab-hero h1 span{color:var(--cian)}
+.ab-hero-intro{flex:1 1 20rem;min-width:0;margin:0;font-size:1.1rem;line-height:1.65;color:var(--p-text);animation:rise .9s cubic-bezier(.2,.7,.2,1) .3s both}
+.ab-city{position:relative;overflow:hidden;display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);align-items:center;min-height:340px;padding:clamp(1.5rem,4vw,2.5rem);border-radius:32px;background:var(--deep);color:#fff}
+.ab-city-lines{position:absolute;inset:0;width:100%;height:100%;max-width:none;pointer-events:none}
+.ab-city-lines path{fill:none;stroke:var(--aqua);stroke-opacity:.35;stroke-width:1.4}
+.ab-city-lines .ab-city-route{stroke:#fff;stroke-opacity:1;stroke-width:5;stroke-linecap:round;stroke-dasharray:2 14;animation:ab-route 1.4s linear infinite}
+@keyframes ab-route{to{stroke-dashoffset:-32}}
+.ab-city-copy{position:relative;display:flex;align-items:center;gap:1rem}
+.ab-city-pin{flex:none;width:48px;height:60px;animation:bobY 2.6s ease-in-out infinite}
+.ab-city-pin path{fill:#fff}
+.ab-city-pin circle{fill:var(--deep)}
+.ab-city-copy p{margin:0;display:flex;flex-direction:column}
+.ab-city-copy b{font-size:clamp(1.5rem,3vw,1.9rem);line-height:1.15}
+.ab-city-copy span{font-size:1rem;color:#c7ebec}
+.ab-map{position:relative}
+.ab-map-svg{width:100%;height:auto;max-height:300px}
+.ab-map-svg [data-map-art]{transform-origin:197px 205px;animation:ab-map-in 1.2s cubic-bezier(.2,.7,.2,1) both}
+@keyframes ab-map-in{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:none}}
+
+/* ---------- Misión y visión ---------- */
+.ab-purpose-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.25rem}
+.ab-purpose-card{padding:clamp(1.75rem,4vw,2.5rem);border-radius:28px;background:var(--p-soft)}
+.ab-purpose-card .p-kicker{margin-bottom:.9rem;font-size:.82rem;letter-spacing:.1em}
+.ab-purpose-card p{margin:0;font-size:clamp(1.1rem,2vw,1.35rem);line-height:1.5;font-weight:600}
+.ab-purpose-card.is-dark{background:var(--p-ink);color:#fff}
+.ab-purpose-card.is-dark .p-kicker{color:var(--aqua)}
+
+/* ---------- Valores ---------- */
+.ab-values{background:var(--deep);color:#fff}
+.ab-values-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;margin:0;padding:0;list-style:none;border-radius:24px;overflow:hidden;background:#ffffff2e}
+.ab-values-grid li{padding:1.9rem 1.6rem;background:var(--deep);transition:background .3s}
+.ab-values-grid li:hover{background:#00505a}
+.ab-values-num{display:block;margin-bottom:.9rem;font-size:2.4rem;font-weight:800;line-height:1;color:var(--aqua)}
+.ab-values-grid h3{margin-bottom:.5rem;font-size:1.3rem}
+.ab-values-grid p{margin:0;font-size:.95rem;line-height:1.6;color:var(--p-on-deep)}
+
+/* ---------- Cómo trabajamos ---------- */
+.ab-principles-grid{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(2rem,5vw,3.5rem);align-items:start}
+.ab-principles-grid header h2{margin-bottom:.9rem}
+.ab-principles-list{margin:0;padding:0;list-style:none;border-bottom:1px solid var(--p-line)}
+.ab-principles-list li{display:flex;gap:1.25rem;padding:1.35rem 0;border-top:1px solid var(--p-line)}
+.ab-principles-num{flex:none;width:2.5rem;font-weight:800;color:var(--deep)}
+.ab-principles-list h3{margin-bottom:.35rem;font-size:1.2rem}
+.ab-principles-list p{margin:0;font-size:.95rem;line-height:1.6;color:var(--p-text)}
+
+/* ---------- Responsive ---------- */
+@media(max-width:1000px){
+  .ab-values-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:860px){
+  .ab-city{grid-template-columns:1fr;gap:1rem}
+  .ab-purpose-grid,.ab-principles-grid{grid-template-columns:1fr}
+}
+@media(max-width:560px){
+  .ab-values-grid{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  .ab-hero-intro,.ab-city-pin,.ab-map-svg [data-map-art],.ab-city-lines .ab-city-route{animation:none}
+}

@@ -2,44 +2,34 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import AudienceHero from '../components/AudienceHero.astro';
-import SectionJump from '../components/SectionJump.astro';
-import JourneyRoute from '../components/JourneyRoute.astro';
-import StopsList from '../components/StopsList.astro';
-import FaqList from '../components/FaqList.astro';
-import FinalDestination from '../components/FinalDestination.astro';
-import { buildSectionJsonLd, passengerFaqs, passengerJourney, passengerJourneySubtitle, passengerJourneyTitle, passengerSafetyTools, passengerSituations, paymentOptions, passengerFinalDestination } from '../data/content';
+import PageNav from '../components/PageNav.astro';
+import PageFaq from '../components/PageFaq.astro';
+import PageCta from '../components/PageCta.astro';
+import SafetyHero from '../components/seguridad/SafetyHero.astro';
+import SafetyJourney from '../components/seguridad/SafetyJourney.astro';
+import SafetyTools from '../components/seguridad/SafetyTools.astro';
+import SafetyMismatch from '../components/seguridad/SafetyMismatch.astro';
+import SafetyPayments from '../components/seguridad/SafetyPayments.astro';
+import { buildFaqJsonLd, buildSectionJsonLd, passengerFaqs } from '../data/content';
+import { safetyPage as page } from '../data/pages';
 import { assets } from '../data/site';
+import '../styles/pages.css';
+import '../styles/seguridad.css';
 
-const title = `Seguridad en tus viajes | Woki`;
-const description = `Conoce las herramientas de seguridad para pedir taxi en Cerro de Pasco: conductor verificado, PIN y seguimiento. Revisa cómo te acompaña Woki.`;
-const structuredData = buildSectionJsonLd(Astro.site, '/seguridad', 'Pasajero en Woki', description);
-const faqStructuredData = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: passengerFaqs.map(({ question, answer }) => ({ '@type': 'Question', name: question, acceptedAnswer: { '@type': 'Answer', text: answer } })),
-};
-const sections = [
-  { id: 'recorrido', label: 'Recorrido' },
-  { id: 'seguridad-pasajero', label: 'Seguridad' },
-  { id: 'casos', label: 'Situaciones' },
-  { id: 'pago', label: 'Pago' },
-  { id: 'dudas', label: 'Dudas' },
-];
+const structuredData = [...buildSectionJsonLd(Astro.site, page.path, page.jsonLdName, page.description, page.crumb), buildFaqJsonLd(passengerFaqs)];
 ---
-<Layout title={title} description={description} image={assets.socialImage} bannerImage={assets.contactBanner} imageAlt="Herramientas de seguridad de Woki para viajes en taxi" ogType="article">
+<Layout title={page.title} description={page.description} image={assets.socialImage} imageAlt="Herramientas de seguridad de Woki para viajes en taxi" ogType="article">
   {structuredData.map((item) => <script type="application/ld+json" set:html={JSON.stringify(item)} slot="head" />)}
-  <script type="application/ld+json" set:html={JSON.stringify(faqStructuredData)} slot="head" />
   <Header solid />
-  <main id="main-content">
-    <AudienceHero eyebrow="Para pasajeros" title="Viaja con Woki con más tranquilidad" description="Conoce las herramientas que te ayudan a identificar tu taxi, revisar el viaje y llegar con más confianza a tu destino." action="Viaja como pasajero" actionHref="/#descargar" image={assets.driverPhoto} imageAlt="Conductor de taxi preparado para recibir a un pasajero en Cerro de Pasco" />
-    <SectionJump items={sections} />
-    <JourneyRoute id="recorrido" title={passengerJourneyTitle} subtitle={passengerJourneySubtitle} steps={passengerJourney} />
-    <StopsList id="seguridad-pasajero" eyebrow="Herramientas para tu viaje" title="Tu seguridad, herramienta por herramienta" subtitle="Recursos para reconocer el servicio, coordinar el recorrido y compartir una referencia clara." items={passengerSafetyTools} balanced />
-    <StopsList id="casos" eyebrow="En cada momento" title="Pensado para cada situación" subtitle="Una secuencia clara para acompañarte antes, durante y al terminar el viaje." items={passengerSituations} dark sequence />
-    <StopsList id="pago" eyebrow="Al llegar a destino" title="Pagar es simple" subtitle="Elige el medio que te resulte más cómodo y coordina los detalles antes de terminar el viaje." items={paymentOptions} featured />
-    <FaqList id="dudas" items={passengerFaqs} subtitle="Respuestas sobre tus viajes como pasajero en Woki." />
-    <FinalDestination {...passengerFinalDestination} />
+  <main id="main-content" class="page">
+    <SafetyHero />
+    <PageNav items={page.nav} location="seguridad_en_esta_pagina" />
+    <SafetyJourney />
+    <SafetyTools />
+    <SafetyMismatch />
+    <SafetyPayments />
+    <PageFaq {...page.faq} items={passengerFaqs} location="seguridad_faq" />
+    <PageCta titleLead={page.cta.title} text={page.cta.text} actions={page.cta.actions} location="seguridad_cta_final" />
   </main>
   <Footer />
   <script>import '../scripts/main.ts';</script>

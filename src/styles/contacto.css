@@ -1,0 +1,50 @@
+/* Contacto · prefijo ct-  (el formulario reutiliza .form, .field-error, .check y .hp de global.css) */
+
+.ct-hero{padding-bottom:clamp(8.5rem,13vw,9.5rem)}
+.ct-hero .p-hero-lead{margin-bottom:0;max-width:38rem}
+
+.ct-main{position:relative;z-index:2;margin-top:-6.5rem;padding:0 0 clamp(4rem,8vw,6rem)}
+.ct-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:1.5rem;align-items:start}
+.ct-aside{display:flex;flex-direction:column;gap:.9rem}
+.ct-card{padding:1.6rem;border-radius:24px;background:#fff;box-shadow:0 24px 56px #0032371f}
+.page .ct-card h2{margin-bottom:1rem;font-size:1.25rem;letter-spacing:-.01em}
+.ct-needs{display:flex;flex-direction:column;gap:.6rem;margin:0;padding:0;list-style:none}
+.ct-needs a{display:flex;justify-content:space-between;align-items:center;gap:1rem;min-height:50px;padding:.75rem 1rem;border-radius:14px;background:var(--p-soft);color:var(--p-ink);font-weight:700;text-decoration:none;transition:background .25s,transform .2s}
+.ct-needs a span{color:var(--deep);transition:transform .2s}
+.ct-needs a:hover{background:#dff1f2}
+.ct-needs a:hover span{transform:translateX(4px)}
+.ct-channels{display:flex;flex-direction:column;gap:1.1rem;margin:0;padding:1.6rem;border-radius:24px;background:var(--p-ink);color:#fff;list-style:none}
+.ct-channels a,.ct-channels li>span:not(.ct-ic){color:#fff;text-decoration:none}
+.ct-channels li,.ct-channels a{display:flex;align-items:center;gap:.9rem;min-width:0}
+.ct-channels a>span:last-child,.ct-channels li>span:last-child{min-width:0;overflow-wrap:anywhere}
+.ct-channels small{display:block;font-size:.8rem;color:#9cc3c6}
+.ct-channels b{font-size:1.02rem}
+.ct-channels a:hover b{text-decoration:underline;text-underline-offset:4px}
+.ct-ic{flex:none;display:grid;place-items:center;width:44px;height:44px;border-radius:14px;background:#65d9dd26}
+.ct-ic svg{width:22px;height:22px}
+.ct-ic :is(path,circle){fill:none;stroke:var(--aqua);stroke-width:2;stroke-linejoin:round}
+.ct-ic circle{fill:var(--aqua)}
+
+.ct-form{gap:1.15rem;padding:clamp(1.5rem,4vw,2.25rem);border-radius:28px;box-shadow:0 24px 56px #0032371f}
+.page .ct-form h2{margin-bottom:.35rem;font-size:clamp(1.4rem,2.6vw,1.65rem);letter-spacing:-.02em}
+.ct-form .form-intro{margin:0;font-size:.95rem;line-height:1.6;color:var(--p-text)}
+.ct-form .form-intro a{color:var(--deep);font-weight:700}
+.ct-topics{margin:0;padding:0;border:0;min-width:0}
+.ct-topics legend{margin-bottom:.5rem;font-size:.95rem;font-weight:700}
+.ct-topics div{display:flex;flex-wrap:wrap;gap:.5rem}
+.form .ct-topics label{display:inline-flex;align-items:center;gap:.45rem;min-height:42px;padding:0 1rem;border-radius:999px;background:var(--p-soft);font-size:.92rem;font-weight:700;cursor:pointer;transition:background .25s,color .25s}
+.form .ct-topics input{width:auto;margin:0;padding:0;accent-color:var(--aqua)}
+.form .ct-topics label:has(input:checked){background:var(--deep);color:#fff}
+.form .ct-topics label:has(input:focus-visible){outline:3px solid var(--pin);outline-offset:2px}
+.ct-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+.ct-form .p-btn{width:100%;border:0;font:inherit;font-weight:800;cursor:pointer}
+.ct-form .p-btn:disabled{cursor:not-allowed;opacity:.55;transform:none}
+.ct-note{font-size:.85rem}
+.ct-form .form-status:empty{display:none}
+
+@media(max-width:900px){
+  .ct-grid{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .ct-row{grid-template-columns:1fr}
+}
