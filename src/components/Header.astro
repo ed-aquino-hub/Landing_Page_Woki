@@ -4,11 +4,11 @@ import { navigation, routes } from '../data/site';
 interface Props { solid?: boolean }
 const { solid = false } = Astro.props;
 ---
-<header class:list={['top', { scrolled: solid }]} data-solid={solid ? '' : undefined}>
+<header class:list={['top', { scrolled: solid }]} data-solid={solid ? '' : undefined} data-home={Astro.url.pathname === '/' ? '' : undefined}>
   <div class="bar">
     <a href={routes.home} aria-label="Woki, inicio"><Logo /></a>
     <nav id="menu" aria-label="Navegación principal">
-      {navigation.map((item) => item.children ? (
+      {navigation.map((item) => 'children' in item ? (
         <div class="nav-dropdown" data-nav-dropdown>
           <button class="nav-dropdown-trigger" type="button" aria-expanded="false" aria-controls="how-menu" data-nav-trigger>
             {item.label}<svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3 6 5 5 5-5"/></svg>
@@ -19,7 +19,7 @@ const { solid = false } = Astro.props;
         </div>
       ) : <a href={item.href} aria-current={Astro.url.pathname !== '/' && Astro.url.pathname === item.href ? 'page' : undefined}>{item.label}</a>)}
     </nav>
-    <a class="pide" href={routes.download}>
+    <a class="pide" href={routes.download} aria-label="Viaja ya">
       Viaja ya
       <span class="arr" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M3 8h9M8.5 4l4 4-4 4"/></svg></span>
     </a>

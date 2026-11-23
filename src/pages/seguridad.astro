@@ -3,7 +3,6 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import AudienceHero from '../components/AudienceHero.astro';
-import SectionJump from '../components/SectionJump.astro';
 import JourneyRoute from '../components/JourneyRoute.astro';
 import StopsList from '../components/StopsList.astro';
 import FaqList from '../components/FaqList.astro';
@@ -19,13 +18,6 @@ const faqStructuredData = {
   '@type': 'FAQPage',
   mainEntity: passengerFaqs.map(({ question, answer }) => ({ '@type': 'Question', name: question, acceptedAnswer: { '@type': 'Answer', text: answer } })),
 };
-const sections = [
-  { id: 'recorrido', label: 'Recorrido' },
-  { id: 'seguridad-pasajero', label: 'Seguridad' },
-  { id: 'casos', label: 'Situaciones' },
-  { id: 'pago', label: 'Pago' },
-  { id: 'dudas', label: 'Dudas' },
-];
 ---
 <Layout title={title} description={description} image={assets.socialImage} bannerImage={assets.contactBanner} imageAlt="Herramientas de seguridad de Woki para viajes en taxi" ogType="article">
   {structuredData.map((item) => <script type="application/ld+json" set:html={JSON.stringify(item)} slot="head" />)}
@@ -33,11 +25,10 @@ const sections = [
   <Header solid />
   <main id="main-content">
     <AudienceHero eyebrow="Para pasajeros" title="Viaja con Woki con más tranquilidad" description="Conoce las herramientas que te ayudan a identificar tu taxi, revisar el viaje y llegar con más confianza a tu destino." action="Viaja como pasajero" actionHref="/#descargar" image={assets.driverPhoto} imageAlt="Conductor de taxi preparado para recibir a un pasajero en Cerro de Pasco" />
-    <SectionJump items={sections} />
+    <StopsList id="seguridad-pasajero" eyebrow="Herramientas para tu viaje" title="Viaja con más confianza, paso a paso" subtitle="Identifica el servicio, mantente al tanto del recorrido y coordina desde la app." items={passengerSafetyTools} balanced />
+    <StopsList id="casos" eyebrow="En cada momento" title="Sabe qué revisar en cada etapa" subtitle="Ten claro qué hacer antes de subir, durante el trayecto y al llegar." items={passengerSituations} dark sequence />
+    <StopsList id="pago" eyebrow="Al llegar a destino" title="Elige cómo pagar tu viaje" subtitle="Coordina el medio de pago con el conductor antes de finalizar el recorrido." items={paymentOptions} featured />
     <JourneyRoute id="recorrido" title={passengerJourneyTitle} subtitle={passengerJourneySubtitle} steps={passengerJourney} />
-    <StopsList id="seguridad-pasajero" eyebrow="Herramientas para tu viaje" title="Tu seguridad, herramienta por herramienta" subtitle="Recursos para reconocer el servicio, coordinar el recorrido y compartir una referencia clara." items={passengerSafetyTools} balanced />
-    <StopsList id="casos" eyebrow="En cada momento" title="Pensado para cada situación" subtitle="Una secuencia clara para acompañarte antes, durante y al terminar el viaje." items={passengerSituations} dark sequence />
-    <StopsList id="pago" eyebrow="Al llegar a destino" title="Pagar es simple" subtitle="Elige el medio que te resulte más cómodo y coordina los detalles antes de terminar el viaje." items={paymentOptions} featured />
     <FaqList id="dudas" items={passengerFaqs} subtitle="Respuestas sobre tus viajes como pasajero en Woki." />
     <FinalDestination {...passengerFinalDestination} />
   </main>
