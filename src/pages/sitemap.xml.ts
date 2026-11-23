@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
 import { brand } from '../data/site';
 
-const pages = ['', 'como-funciona', 'seguridad', 'conductores', 'nosotros', 'contacto', 'aviso-legal', 'privacidad', 'terminos', 'terminos-conductor', 'cookies'];
+const pages = ['', 'como-funciona', 'seguridad', 'conductores', 'nosotros', 'contacto', 'Informacion-Legal/Informacion-del-sitio', 'Informacion-Legal/Terminos-y-Condiciones-Pasajero', 'Informacion-Legal/Terminos-Condiciones-Conductor', 'Informacion-Legal/privacidad', 'Informacion-Legal/cookies'];
 
 export const GET: APIRoute = () => {
   if (brand.noIndex) return new Response('', { status: 404 });

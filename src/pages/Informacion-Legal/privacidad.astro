@@ -1,7 +1,7 @@
 ---
-import Legal from '../layouts/Legal.astro';
-import { contacto } from '../data/content';
-import { brand } from '../data/site';
+import Legal from '../../layouts/Legal.astro';
+import { contacto } from '../../data/content';
+import { brand, routes } from '../../data/site';
 ---
 <Legal title="Política de privacidad" legalSection imageAlt="Política de privacidad y datos personales de Woki" description={`Conoce qué datos personales trata Woki, para qué los utiliza, cómo los protege y qué derechos puedes ejercer como usuario de la plataforma.`}>
   <p>Esta política describe el tratamiento de datos personales relacionado con el sitio web y la aplicación {brand.projectName}. Woki App es el nombre de un proyecto en etapa inicial, no una razón social constituida. El tratamiento de datos debe ajustarse a la Ley N.º 29733 y su Reglamento vigente. Para consultas generales escribe a {contacto.email}; para asuntos de privacidad o ejercer tus derechos, contacta a {contacto.legalEmail}.</p>
@@ -32,7 +32,7 @@ import { brand } from '../data/site';
   <h2>7. Tus derechos</h2>
   <p>Puedes solicitar acceso, información, actualización, rectificación, inclusión, supresión o cancelación y oposición de tus datos, según corresponda. Escribe a {contacto.legalEmail} e indica qué derecho deseas ejercer. También puedes acudir a la Autoridad Nacional de Protección de Datos Personales si consideras que no atendimos tu solicitud conforme a ley.</p>
   <h2>8. Cookies y analítica</h2>
-  <p>La analítica de la landing es opcional y requiere tu elección. Puedes consultar qué herramientas se usan, cómo se guarda tu preferencia y cómo modificarla en la <a href="/cookies">Política de cookies</a>.</p>
+  <p>La analítica de la landing es opcional y requiere tu elección. Puedes consultar qué herramientas se usan, cómo se guarda tu preferencia y cómo modificarla en la <a href={routes.cookies}>Política de cookies</a>.</p>
   <h2>9. Privacidad de menores</h2>
   <p>{brand.name} no está dirigido a menores de edad. Si detectamos que se creó una cuenta de un menor sin las autorizaciones que correspondan, podemos restringirla y eliminar sus datos conforme a la ley.</p>
   <h2>10. Cambios y contacto</h2>

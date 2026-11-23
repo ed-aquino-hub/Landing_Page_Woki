@@ -1,5 +1,6 @@
 ---
 import { contacto } from '../data/content';
+import { routes } from '../data/site';
 const contactFormEndpoint = import.meta.env.PUBLIC_CONTACT_FORM_ENDPOINT;
 ---
 <section class="contact" id="contacto" aria-labelledby="h-contact">
@@ -16,12 +17,12 @@ const contactFormEndpoint = import.meta.env.PUBLIC_CONTACT_FORM_ENDPOINT;
     </div>
     <form class="form contact-form" data-contact-form data-endpoint={contactFormEndpoint ?? ''} data-recipient={contacto.email} data-reveal novalidate>
       <h2>Cuéntanos cómo podemos ayudarte</h2>
-      <p class="form-intro">Por ahora atendemos las consultas por correo. Usaremos tus datos únicamente para responderte. Revisa la <a href="/privacidad">Política de Privacidad</a>.</p>
+      <p class="form-intro">Por ahora atendemos las consultas por correo. Usaremos tus datos únicamente para responderte. Revisa la <a href={routes.privacy}>Política de Privacidad</a>.</p>
       <label>Nombre<input name="nombre" type="text" autocomplete="name" placeholder="Tu nombre" data-contact-field="nombre" data-default-placeholder="Tu nombre" aria-describedby="error-nombre" required /><small class="field-error" id="error-nombre" data-field-error="nombre" role="alert" hidden></small></label>
       <label>Tu correo electrónico<input name="contacto" type="email" autocomplete="email" placeholder="nombre@correo.com" data-contact-field="contacto" data-default-placeholder="nombre@correo.com" aria-describedby="error-contacto" required /><small class="field-error" id="error-contacto" data-field-error="contacto" role="alert" hidden></small></label>
       <label>Mensaje<textarea name="mensaje" placeholder="Escribe aquí tu consulta" data-contact-field="mensaje" data-default-placeholder="Escribe aquí tu consulta" aria-describedby="error-mensaje" required></textarea><small class="field-error" id="error-mensaje" data-field-error="mensaje" role="alert" hidden></small></label>
       <label class="hp" aria-hidden="true">No completar<input name="website" tabindex="-1" autocomplete="off" /></label>
-      <div class="contact-consent"><label class="check"><input type="checkbox" name="consentimiento" data-contact-field="consentimiento" aria-describedby="error-consentimiento" required /><span>Acepto que Woki App trate mis datos para responder esta consulta. Consulta la <a href="/privacidad">Política de Privacidad</a>.</span></label><small class="field-error" id="error-consentimiento" data-field-error="consentimiento" role="alert" hidden></small></div>
+      <div class="contact-consent"><label class="check"><input type="checkbox" name="consentimiento" data-contact-field="consentimiento" aria-describedby="error-consentimiento" required /><span>Acepto que Woki App trate mis datos para responder esta consulta. Consulta la <a href={routes.privacy}>Política de Privacidad</a>.</span></label><small class="field-error" id="error-consentimiento" data-field-error="consentimiento" role="alert" hidden></small></div>
       {!contactFormEndpoint && <p class="form-intro" id="contact-form-unavailable">Al continuar, se abrirá tu aplicación de correo con la consulta preparada para {contacto.email}. Revisa el mensaje y envíalo desde allí.</p>}
       <button class="btn solid" type="submit" aria-describedby={!contactFormEndpoint ? 'contact-form-unavailable' : undefined}>{contactFormEndpoint ? 'Enviar mensaje' : 'Continuar al correo'}</button>
       <p class="form-status" data-form-status role="status" aria-live="polite"></p>

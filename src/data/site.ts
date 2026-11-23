@@ -33,15 +33,15 @@ export const routes = {
   howItWorks: '/como-funciona',
   safety: '/seguridad',
   drivers: '/conductores',
-  legalNotice: '/aviso-legal',
+  legalNotice: '/Informacion-Legal/Informacion-del-sitio',
   download: '/#descargar',
   about: '/nosotros',
   contact: '/contacto',
   accountDeletion: '/eliminar-cuenta',
-  terms: '/terminos',
-  driverTerms: '/terminos-conductor',
-  privacy: '/privacidad',
-  cookies: '/cookies',
+  terms: '/Informacion-Legal/Terminos-y-Condiciones-Pasajero',
+  driverTerms: '/Informacion-Legal/Terminos-Condiciones-Conductor',
+  privacy: '/Informacion-Legal/privacidad',
+  cookies: '/Informacion-Legal/cookies',
 } as const;
 
 export const assets = {

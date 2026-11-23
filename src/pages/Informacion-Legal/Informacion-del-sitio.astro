@@ -1,6 +1,6 @@
 ---
-import Legal from '../layouts/Legal.astro';
-import { brand } from '../data/site';
+import Legal from '../../layouts/Legal.astro';
+import { brand, routes } from '../../data/site';
 ---
 <Legal title="Información del sitio" legalSection imageAlt="Información del sitio web y servicios de Woki" description={`Consulta quién opera el sitio de Woki, su alcance informativo, canales oficiales, propiedad intelectual, enlaces externos y políticas relacionadas.`}>
   <p>Esta página reúne información sobre el sitio web y el proyecto Woki App, actualmente en etapa inicial. Aquí puedes conocer el propósito de la landing, cómo contactar al equipo del proyecto y dónde consultar las condiciones y políticas disponibles.</p>
@@ -22,15 +22,18 @@ import { brand } from '../data/site';
   <h2>5. Propiedad intelectual</h2>
   <p>Los nombres, logotipos, diseños, textos y demás elementos que aparecen en el sitio pueden formar parte del proyecto Woki App o utilizarse con autorización de sus respectivos titulares. No debes reproducirlos, modificarlos, distribuirlos ni usarlos como si fueran propios sin autorización, salvo los usos permitidos por la normativa vigente.</p>
 
-  <h2>6. Enlaces y servicios de terceros</h2>
+  <h2>6. Imágenes e ilustraciones</h2>
+  <p>Algunas imágenes e ilustraciones de este sitio pueden haber sido creadas o editadas con herramientas de inteligencia artificial generativa. Se presentan con fines ilustrativos y no necesariamente representan a personas, conductores, pasajeros, vehículos o lugares reales. Su uso está sujeto a las condiciones de la herramienta utilizada y a los derechos de autor, marcas, imagen y privacidad de terceros que pudieran corresponder. Para consultas sobre una imagen o sus derechos, escríbenos a <a href="mailto:legal@woki.pe">legal@woki.pe</a>.</p>
+
+  <h2>7. Enlaces y servicios de terceros</h2>
   <p>El sitio puede incluir enlaces a plataformas externas, como tiendas de aplicaciones o servicios de terceros. Estos enlaces facilitan el acceso a recursos ajenos a Woki. Cada tercero administra su propio contenido, disponibilidad y política de privacidad; revisa sus condiciones antes de utilizar sus servicios.</p>
 
-  <h2>7. Uso adecuado del sitio</h2>
+  <h2>8. Uso adecuado del sitio</h2>
   <p>Al navegar por esta página, debes respetar la normativa aplicable y evitar acciones que afecten su disponibilidad, seguridad o funcionamiento, o que vulneren derechos de otras personas. Si detectas un enlace roto, un error en el contenido o un problema de seguridad, puedes comunicarlo a soporte@woki.pe.</p>
 
-  <h2>8. Documentos y políticas relacionadas</h2>
-  <p>La información sobre el uso de la plataforma se desarrolla en los <a href="/terminos">Términos y condiciones del Pasajero</a> y los <a href="/terminos-conductor">Términos y condiciones del Conductor</a>. El tratamiento de datos personales se explica en la <a href="/privacidad">Política de privacidad</a>; el uso de cookies y analítica, en la <a href="/cookies">Política de cookies</a>. Para conocer cómo solicitar la eliminación de una cuenta, visita la <a href="/eliminar-cuenta">Guía para eliminar cuenta</a>.</p>
+  <h2>9. Documentos y políticas relacionadas</h2>
+  <p>La información sobre el uso de la plataforma se desarrolla en los <a href={routes.terms}>Términos y condiciones del Pasajero</a> y los <a href={routes.driverTerms}>Términos y condiciones del Conductor</a>. El tratamiento de datos personales se explica en la <a href={routes.privacy}>Política de privacidad</a>; el uso de cookies y analítica, en la <a href={routes.cookies}>Política de cookies</a>. Para conocer cómo solicitar la eliminación de una cuenta, visita la <a href={routes.accountDeletion}>Guía para eliminar cuenta</a>.</p>
 
-  <h2>9. Normativa aplicable</h2>
+  <h2>10. Normativa aplicable</h2>
   <p>El acceso y uso del sitio se sujetan a la normativa aplicable en la República del Perú. Este aviso describe el sitio y complementa los documentos específicos de Woki; no reemplaza los derechos que correspondan a los usuarios conforme a la ley.</p>
 </Legal>
