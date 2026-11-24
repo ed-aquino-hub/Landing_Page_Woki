@@ -43,6 +43,7 @@ export const routes = {
   driverTerms: '/terminos-conductor',
   privacy: '/privacidad',
   cookies: '/cookies',
+  complaints: '/libro-de-reclamaciones',
 } as const;
 
 /** Nombre de cada página en la ruta de navegación visible y en el JSON-LD BreadcrumbList. */
@@ -53,6 +54,7 @@ export const breadcrumbLabels = {
   drivers: 'Conductores',
   about: 'Nosotros',
   contact: 'Contacto',
+  complaints: 'Libro de Reclamaciones',
 } as const;
 
 export const assets = {

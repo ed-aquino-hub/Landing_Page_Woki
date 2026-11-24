@@ -13,18 +13,8 @@ function onceVisible(els: Element[], fn: (el: HTMLElement) => void, options: Int
   els.forEach((el) => io.observe(el));
 }
 
-// Analítica: eventos al dataLayer de GTM, solo si el usuario aceptó la analítica
-// (AnalyticsConsent carga GTM y marca window.wokiGtmLoaded). En GTM se crean
-// activadores de "Evento personalizado" para cta_click, store_click,
-// contact_click, faq_open y contact_submit, y una etiqueta de evento GA4 que use las variables
-// de capa de datos cta_label, cta_location y page_path.
-type TrackPayload = Record<string, string | number | undefined>;
-const analyticsWindow = window as Window & { dataLayer?: TrackPayload[]; wokiGtmLoaded?: boolean };
-const track = (event: string, payload: TrackPayload) => {
-  if (!analyticsWindow.wokiGtmLoaded) return;
-  analyticsWindow.dataLayer = analyticsWindow.dataLayer || [];
-  analyticsWindow.dataLayer.push({ event, page_path: location.pathname, ...payload });
-};
+// Analítica (dataLayer de GTM con consentimiento): ver analytics.ts.
+import { track } from './analytics';
 
 const revealEls = all<HTMLElement>('[data-reveal]');
 

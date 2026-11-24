@@ -1,0 +1,59 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PageHero from '../components/PageHero.astro';
+import ComplaintForm from '../components/reclamaciones/ComplaintForm.astro';
+import { buildSectionJsonLd } from '../data/content';
+import { complaintsPage as page, complaintsProvider } from '../data/reclamaciones';
+import { assets, brand } from '../data/site';
+import '../styles/pages.css';
+import '../styles/reclamaciones.css';
+
+const structuredData = buildSectionJsonLd(Astro.site, page.path, page.title, page.description, page.crumb);
+---
+<Layout title={page.title} description={page.description} image={assets.socialImage} imageAlt={`Libro de Reclamaciones virtual de ${brand.name}`} ogType="website">
+  {structuredData.map((item) => <script type="application/ld+json" set:html={JSON.stringify(item)} slot="head" />)}
+  <Header solid />
+  <main id="main-content" class="page">
+    <PageHero id="cr-hero-title" crumb={page.crumb} class="cr-hero">
+      <div class="p-hero-copy">
+        <p class="p-kicker is-light">{page.hero.kicker}</p>
+        <h1 id="cr-hero-title">{page.hero.titleLead} <span>{page.hero.titleAccent}</span></h1>
+        <p class="p-hero-lead">{page.hero.lead}</p>
+      </div>
+    </PageHero>
+
+    <section class="cr-main" aria-label="Registrar un reclamo o queja">
+      <div class="wrap cr-layout">
+        <div class="cr-form-col">
+          {complaintsProvider.pending && (
+            <p class="cr-pending" role="note"><b>Datos del titular pendientes.</b> El nombre, el RUC y el domicilio del proveedor se publicarán aquí antes de habilitar el libro.</p>
+          )}
+          <ComplaintForm />
+        </div>
+
+        <aside class="cr-aside" aria-labelledby="cr-aside-title">
+          <div class="cr-card" data-reveal>
+            <h2 id="cr-aside-title">¿Reclamo o queja?</h2>
+            <dl class="cr-defs">
+              {page.types.map((type) => <div><dt>{type.label}</dt><dd>{type.description}</dd></div>)}
+            </dl>
+          </div>
+          <div class="cr-card is-ink" data-reveal style="--i:1">
+            <h2>¿Qué pasa después?</h2>
+            <ol class="cr-after">
+              {page.after.map((item) => <li><b>{item.title}</b><span>{item.description}</span></li>)}
+            </ol>
+          </div>
+          <ul class="cr-legal" data-reveal style="--i:2">
+            {page.notes.map((note) => <li>{note}</li>)}
+          </ul>
+        </aside>
+      </div>
+    </section>
+  </main>
+  <Footer />
+  <script>import '../scripts/main.ts';</script>
+  <script>import '../scripts/reclamaciones.ts';</script>
+</Layout>

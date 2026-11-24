@@ -1,0 +1,105 @@
+---
+// Hoja de reclamación virtual. La lógica (validación, envío al Worker, constancia
+// y evento complaint_submit) vive en src/scripts/reclamaciones.ts y se apoya en
+// los data-* de aquí. Sin PUBLIC_COMPLAINTS_ENDPOINT el envío sale desactivado.
+import { complaintsPage, complaintsProvider, complaintsResponseDays } from '../../data/reclamaciones';
+import { routes } from '../../data/site';
+import type { HTMLAttributes } from 'astro/types';
+const endpoint = import.meta.env.PUBLIC_COMPLAINTS_ENDPOINT?.trim();
+const { types, documentTypes, services, steps, form } = complaintsPage;
+const today = new Date().toISOString().slice(0, 10);
+
+type Field = Pick<HTMLAttributes<'input'>, 'type' | 'autocomplete' | 'inputmode'> & { name: string; label: string; placeholder?: string; required?: boolean; maxlength?: number };
+const consumerFields: Field[] = [
+  { name: 'nombre', label: 'Nombres y apellidos', autocomplete: 'name', placeholder: 'Como figura en tu documento', required: true, maxlength: 120 },
+  { name: 'domicilio', label: 'Domicilio', autocomplete: 'street-address', placeholder: 'Dirección, distrito y provincia', required: true, maxlength: 200 },
+  { name: 'telefono', label: 'Teléfono', type: 'tel', autocomplete: 'tel', placeholder: '9XX XXX XXX', required: true, inputmode: 'tel', maxlength: 20 },
+  { name: 'correo', label: 'Correo electrónico', type: 'email', autocomplete: 'email', placeholder: 'nombre@correo.com', required: true, maxlength: 120 },
+];
+---
+<form class="form cr-form" id="hoja" data-complaint-form data-endpoint={endpoint ?? ''} data-error-message={form.error} data-sending-label={form.sending} novalidate aria-labelledby="cr-form-title">
+  <header class="cr-form-head">
+    <div>
+      <h2 id="cr-form-title">Hoja de reclamación</h2>
+      <p class="cr-muted">Fecha: <time datetime={today} data-cr-today>{today}</time> · N.º de hoja: <b>se asigna al enviar</b></p>
+    </div>
+    <ol class="cr-steps" aria-label="Partes de la hoja">
+      {steps.map((step, index) => <li><span aria-hidden="true">{index + 1}</span>{step.title}</li>)}
+    </ol>
+  </header>
+
+  <dl class="cr-provider" aria-label="Datos del proveedor">
+    <div><dt>Proveedor</dt><dd>{complaintsProvider.name} <small>({complaintsProvider.holderType})</small></dd></div>
+    <div><dt>RUC</dt><dd>{complaintsProvider.ruc}</dd></div>
+    <div><dt>Nombre comercial</dt><dd>{complaintsProvider.commercialName}</dd></div>
+    <div><dt>Domicilio</dt><dd>{complaintsProvider.address}</dd></div>
+  </dl>
+
+  <fieldset class="cr-part">
+    <legend><span aria-hidden="true">1</span>Identificación del consumidor</legend>
+    <div class="cr-grid">
+      <label class="cr-span-2">{consumerFields[0].label}<input name="nombre" type="text" autocomplete="name" placeholder={consumerFields[0].placeholder} maxlength="120" data-cr-field="nombre" aria-describedby="cr-error-nombre" required /><small class="field-error" id="cr-error-nombre" data-cr-error="nombre" hidden></small></label>
+      <label>Tipo de documento<select name="tipoDocumento" data-cr-field="tipoDocumento" aria-describedby="cr-error-tipoDocumento" required>{documentTypes.map((type) => <option value={type}>{type}</option>)}</select><small class="field-error" id="cr-error-tipoDocumento" data-cr-error="tipoDocumento" hidden></small></label>
+      <label>N.º de documento<input name="numeroDocumento" type="text" inputmode="numeric" autocomplete="off" maxlength="15" placeholder="Ej. 12345678" data-cr-field="numeroDocumento" aria-describedby="cr-error-numeroDocumento" required /><small class="field-error" id="cr-error-numeroDocumento" data-cr-error="numeroDocumento" hidden></small></label>
+      {consumerFields.slice(1).map((field) => (
+        <label class:list={{ 'cr-span-2': field.name === 'domicilio' }}>{field.label}<input name={field.name} type={field.type ?? 'text'} autocomplete={field.autocomplete} inputmode={field.inputmode} maxlength={field.maxlength} placeholder={field.placeholder} data-cr-field={field.name} aria-describedby={`cr-error-${field.name}`} required={field.required} /><small class="field-error" id={`cr-error-${field.name}`} data-cr-error={field.name} hidden></small></label>
+      ))}
+    </div>
+    <label class="check cr-minor"><input type="checkbox" name="esMenor" value="si" data-cr-minor /><span>Soy menor de edad: completaré los datos de mi padre, madre o apoderado.</span></label>
+    <div class="cr-grid cr-guardian" data-cr-guardian hidden>
+      <label>Nombre del padre, madre o apoderado<input name="apoderadoNombre" type="text" maxlength="120" data-cr-field="apoderadoNombre" aria-describedby="cr-error-apoderadoNombre" /><small class="field-error" id="cr-error-apoderadoNombre" data-cr-error="apoderadoNombre" hidden></small></label>
+      <label>Documento del apoderado<input name="apoderadoDocumento" type="text" inputmode="numeric" maxlength="15" data-cr-field="apoderadoDocumento" aria-describedby="cr-error-apoderadoDocumento" /><small class="field-error" id="cr-error-apoderadoDocumento" data-cr-error="apoderadoDocumento" hidden></small></label>
+    </div>
+  </fieldset>
+
+  <fieldset class="cr-part">
+    <legend><span aria-hidden="true">2</span>Identificación del servicio contratado</legend>
+    <div class="cr-grid">
+      <label>Servicio<select name="servicio" data-cr-field="servicio" aria-describedby="cr-error-servicio" required>{services.map((service) => <option value={service}>{service}</option>)}</select><small class="field-error" id="cr-error-servicio" data-cr-error="servicio" hidden></small></label>
+      <label>Fecha del servicio <span class="cr-optional">(opcional)</span><input name="fechaServicio" type="date" max={today} data-cr-field="fechaServicio" /></label>
+      <label>Monto reclamado en S/ <span class="cr-optional">(opcional)</span><input name="monto" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0.00" data-cr-field="monto" aria-describedby="cr-error-monto" /><small class="field-error" id="cr-error-monto" data-cr-error="monto" hidden></small></label>
+      <label class="cr-span-2">Descripción del servicio<input name="descripcionServicio" type="text" maxlength="200" placeholder="Ej. viaje del 20/11 de Plaza Chaupimarca al hospital" data-cr-field="descripcionServicio" aria-describedby="cr-error-descripcionServicio" required /><small class="field-error" id="cr-error-descripcionServicio" data-cr-error="descripcionServicio" hidden></small></label>
+    </div>
+  </fieldset>
+
+  <fieldset class="cr-part">
+    <legend><span aria-hidden="true">3</span>Detalle de la reclamación y pedido</legend>
+    <fieldset class="cr-types">
+      <legend class="sr-only">Tipo de registro</legend>
+      {types.map((type, index) => (
+        <label>
+          <input type="radio" name="tipo" value={type.value} checked={index === 0} data-cr-type />
+          <span><b>{type.label}</b><small>{type.description}</small></span>
+        </label>
+      ))}
+    </fieldset>
+    <label>Detalle<textarea name="detalle" maxlength="3000" placeholder="Cuéntanos qué pasó, con fechas y lugares si es posible" data-cr-field="detalle" aria-describedby="cr-error-detalle" required></textarea><small class="field-error" id="cr-error-detalle" data-cr-error="detalle" hidden></small></label>
+    <label>Pedido<textarea name="pedido" maxlength="1500" placeholder="¿Qué solicitas que hagamos?" data-cr-field="pedido" aria-describedby="cr-error-pedido" required></textarea><small class="field-error" id="cr-error-pedido" data-cr-error="pedido" hidden></small></label>
+  </fieldset>
+
+  <label class="hp" aria-hidden="true">No completar<input name="website" tabindex="-1" autocomplete="off" /></label>
+  <div>
+    <label class="check"><input type="checkbox" name="declaracion" value="si" data-cr-field="declaracion" aria-describedby="cr-error-declaracion" required /><span>{form.declaration} <a href={routes.privacy}>Política de Privacidad</a>.</span></label>
+    <small class="field-error" id="cr-error-declaracion" data-cr-error="declaracion" hidden></small>
+  </div>
+
+  {endpoint
+    ? <button class="p-btn p-btn-solid" type="submit" data-cr-submit>{form.submit}</button>
+    : <>
+        <button class="p-btn p-btn-solid" type="submit" disabled aria-describedby="complaints-form-unavailable">{form.submit}</button>
+        <p class="cr-note" id="complaints-form-unavailable">{form.unavailable} <a href={`mailto:${complaintsProvider.email}?subject=${encodeURIComponent('Libro de Reclamaciones')}`} data-track="contact_click" data-track-label="email_reclamo" data-track-location="libro_reclamaciones">Escribir a {complaintsProvider.email}</a></p>
+      </>}
+  <p class="form-status" data-cr-status role="status" aria-live="polite"></p>
+</form>
+
+<section class="cr-receipt" data-cr-receipt hidden tabindex="-1" aria-labelledby="cr-receipt-title">
+  <span class="cr-receipt-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10" /></svg></span>
+  <h2 id="cr-receipt-title">Registramos tu hoja de reclamación</h2>
+  <dl>
+    <div><dt>N.º de hoja</dt><dd data-cr-number>—</dd></div>
+    <div><dt>Fecha</dt><dd data-cr-date>—</dd></div>
+    <div><dt>Tipo</dt><dd data-cr-kind>—</dd></div>
+  </dl>
+  <p>Te enviamos una copia a <b data-cr-email>tu correo</b>. Te responderemos en un plazo máximo de {complaintsResponseDays} días hábiles. Guarda tu número de hoja.</p>
+  <button class="p-btn p-btn-outline" type="button" data-cr-print>Imprimir o guardar constancia</button>
+</section>

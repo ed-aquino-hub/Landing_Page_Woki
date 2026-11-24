@@ -136,6 +136,9 @@ footer{position:relative;margin-top:90px;background:linear-gradient(180deg,var(-
 .legal a{text-decoration:underline}
 .cookie-settings{border:0;padding:0;background:none;color:inherit;font:inherit;font-size:inherit;text-decoration:underline;cursor:pointer}
 .cookie-settings:hover{color:var(--aqua)}
+.legal .complaints-link{display:inline-flex;align-items:center;gap:.45rem;padding:.35rem .8rem;border:1.5px solid #ffffff66;border-radius:999px;font-weight:700;text-decoration:none}
+.legal .complaints-link:hover{background:#ffffff1f}
+.complaints-link svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 
 .mark{font-size:clamp(5rem,23vw,17rem);font-weight:800;line-height:.78;letter-spacing:-.04em;text-align:center;color:transparent;-webkit-text-stroke:2px #ffffff26;user-select:none;margin-top:.5rem;overflow:hidden;padding-top:.15em}
 @media(max-width:900px){.foot{grid-template-columns:1fr 1fr}}
