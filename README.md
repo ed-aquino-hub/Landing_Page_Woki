@@ -54,7 +54,7 @@ Si el proxy corre en otro contenedor, conéctalo a la misma red Docker y usa `ht
 - Las rutas se publican sin barra final (`trailingSlash: 'never'`). La portada usa `/`.
 - Cada página define title, descripción, imagen social y texto alternativo. La imagen se genera en tamaño social de 1200 × 630.
 - El JSON-LD comparte una sola entidad `Organization`/`LocalBusiness`/`TaxiService`; las otras páginas la referencian. FAQPage solo se incluye en inicio. MobileApplication solo aparece cuando existe el enlace real de Google Play.
-- Se genera `sitemap.xml` con nueve páginas públicas. La guía de eliminación de cuenta no se agrega al sitemap.
+- Se genera `sitemap.xml` con 12 páginas públicas. La guía de eliminación de cuenta no se agrega al sitemap.
 - `robots.txt` publica la URL del sitemap cuando se permite indexar. En modo de pruebas bloquea el rastreo y Astro elimina el sitemap compilado.
 - GTM mantiene su consentimiento actual: el contenedor solo se carga cuando la persona acepta analítica.
 
@@ -71,6 +71,7 @@ Define las variables en `.env` durante desarrollo o en la configuración de la p
 | `TURNSTILE_SECRET_KEY` | Clave privada para validar el token de Turnstile en el servidor. |
 | `RESEND_API_KEY` | Clave privada de Resend para enviar el correo de soporte. |
 | `RESEND_FROM_EMAIL` | Dirección remitente verificada en Resend, por ejemplo `Woki <contacto@tu-dominio-verificado.pe>`. |
+| `PUBLIC_COMPLAINTS_ENDPOINT` | URL del Cloudflare Worker que recibe las hojas del Libro de Reclamaciones; consulta `docs/libro-reclamaciones.md`. |
 | `PUBLIC_GOOGLE_SITE_VERIFICATION` | Token de verificación de Google Search Console. |
 | `VERCEL_ENV` | Variable de Vercel; los despliegues `preview` se marcan automáticamente como no indexables. |
 | `VERCEL_URL` | Host del despliegue actual; se usa como canonical temporal en pruebas. |
@@ -84,7 +85,7 @@ Para que la detección automática funcione, habilita **Enable access to System 
 
 La versión canónica del sitio es `https://woki.pe` (sin `www`). Configura el proveedor de hosting y DNS para servir esta dirección con HTTPS. Si se habilita `www.woki.pe`, redirígelo permanentemente a `https://woki.pe` para evitar que ambas variantes se comporten como sitios diferentes.
 
-En producción, define `PUBLIC_SITE_URL=https://woki.pe` y deja `PUBLIC_NOINDEX` vacío o elimínala. Después de desplegar, ejecuta `npm run check:seo` con las mismas variables y confirma que canonical, `og:url`, sitemap y robots usan `woki.pe`, que el sitemap lista nueve rutas y que no hay meta `noindex`. En Google Search Console, envía `https://woki.pe/sitemap.xml` y solicita la indexación de las páginas públicas.
+En producción, define `PUBLIC_SITE_URL=https://woki.pe` y deja `PUBLIC_NOINDEX` vacío o elimínala. Después de desplegar, ejecuta `npm run check:seo` con las mismas variables y confirma que canonical, `og:url`, sitemap y robots usan `woki.pe`, que el sitemap lista 12 rutas y que no hay meta `noindex`. En Google Search Console, envía `https://woki.pe/sitemap.xml` y solicita la indexación de las páginas públicas.
 
 En los previews, Vercel detecta el estado de prueba automáticamente. Para una compilación local indexable se usa el dominio por defecto del proyecto; para comprobar el modo de pruebas, define `PUBLIC_NOINDEX=true` y un host de despliegue `VERCEL_URL`.
 
