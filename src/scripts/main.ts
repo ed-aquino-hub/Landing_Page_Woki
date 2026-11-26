@@ -155,18 +155,11 @@ if (stickyCta && stickyAnchor && 'IntersectionObserver' in window) {
   }).observe(stickyAnchor);
 } else stickyCta?.classList.add('is-visible');
 
-// Formulario de contacto: envía al endpoint si está configurado; si no, prepara un
-// correo (mailto). Sin JavaScript el envío queda desactivado desde el HTML.
+// El formulario solo envía cuando Turnstile está configurado; la ruta propia
+// verifica el CAPTCHA y entrega la consulta a soporte.
 const contactForm = document.querySelector<HTMLFormElement>('[data-contact-form]');
 if (contactForm) {
   const status = contactForm.querySelector<HTMLElement>('[data-form-status]');
-  const mailtoSubmit = contactForm.querySelector<HTMLButtonElement>('[data-mailto-submit]');
-  const mailtoNote = contactForm.querySelector<HTMLElement>('[data-mailto-note]');
-  if (mailtoSubmit && contactForm.dataset.recipient) {
-    mailtoSubmit.disabled = false;
-    if (mailtoNote?.dataset.mailtoNote) mailtoNote.textContent = mailtoNote.dataset.mailtoNote;
-  }
-  const selectedTopic = () => contactForm.querySelector<HTMLInputElement>('input[name="tema"]:checked');
   const fields = all<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>('[data-contact-field]').filter((field) => field.closest('[data-contact-form]') === contactForm);
   const clearFieldError = (field: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement) => {
     const name = field.dataset.contactField;
@@ -230,35 +223,38 @@ if (contactForm) {
     if (!validateForm()) return;
     const data = new FormData(contactForm);
     if (data.get('website')) return;
-    const topic = selectedTopic();
-    track('contact_submit', { cta_label: topic?.dataset.trackLabel ?? 'sin_tema', cta_location: 'contacto_formulario' });
+    const captchaToken = String(data.get('cf-turnstile-response') ?? '').trim();
+    if (!captchaToken) {
+      if (status) status.textContent = 'Completa la validación CAPTCHA antes de enviar.';
+      return;
+    }
+    track('contact_submit', { cta_label: 'contact_form', cta_location: 'contacto_formulario' });
     const endpoint = contactForm.dataset.endpoint;
     if (endpoint) {
       if (status) status.textContent = 'Enviando tu mensaje…';
       try {
-        const response = await fetch(endpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
-        if (!response.ok) throw new Error('No se pudo enviar el mensaje.');
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: String(data.get('nombre') ?? '').trim(),
+            email: String(data.get('contacto') ?? '').trim(),
+            message: String(data.get('mensaje') ?? '').trim(),
+            consent: Boolean(data.get('consentimiento')),
+            website: String(data.get('website') ?? ''),
+            turnstileToken: captchaToken,
+          }),
+        });
+        const result = await response.json().catch(() => ({})) as { error?: string };
+        if (!response.ok) throw new Error(result.error ?? 'No se pudo enviar el mensaje.');
         contactForm.reset();
         if (status) status.textContent = '¡Gracias! Recibimos tu mensaje.';
-      } catch {
-        if (status) status.textContent = 'No pudimos enviarlo ahora. Intenta de nuevo o escríbenos por correo.';
+        (window as Window & { turnstile?: { reset: () => void } }).turnstile?.reset();
+      } catch (error) {
+        if (status) status.textContent = error instanceof Error ? error.message : 'No pudimos enviarlo ahora. Intenta de nuevo.';
       }
       return;
     }
-
-    const recipient = contactForm.dataset.recipient;
-    if (!recipient) {
-      if (status) status.textContent = 'No se pudo preparar el correo. Escríbenos a soporte@woki.pe.';
-      return;
-    }
-    const name = String(data.get('nombre') ?? '').trim();
-    const email = String(data.get('contacto') ?? '').trim();
-    const messageText = String(data.get('mensaje') ?? '').trim();
-    const topicText = topic?.value ?? '';
-    const subject = `Consulta${topicText ? ` (${topicText})` : ''} desde woki.pe — ${name}`;
-    const body = `Hola, quisiera hacer una consulta.\n\n${topicText ? `Tema: ${topicText}\n` : ''}Nombre: ${name}\nCorreo para responderme: ${email}\n\nMensaje:\n${messageText}`;
-    if (status) status.textContent = `Se abrirá tu aplicación de correo para enviar la consulta a ${recipient}.`;
-    window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   });
 }
 

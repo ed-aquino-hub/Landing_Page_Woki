@@ -27,7 +27,7 @@ import { brand, footerNavigation, legalNavigation, routes } from '../data/site';
     <div class="wrap foot">
       <div data-reveal>
         <Logo light />
-        <p class="tag-line">Tu taxi urbano, más cerca, seguro y confiable.</p>
+        <p class="tag-line">Tu taxi urbano, más cerca y a tu ritmo.</p>
       </div>
       <nav aria-label="Pie de página" data-reveal style="--i:1"><h3>{brand.name}</h3><ul>{footerNavigation.map(({ href, label }) => <li><a href={href}>{label}</a></li>)}</ul></nav>
       <div data-reveal style="--i:2"><h3>Contacto</h3><ul><li><a href="mailto:legal@woki.pe">legal@woki.pe</a></li><li><a href="mailto:soporte@woki.pe">soporte@woki.pe</a></li><li>{brand.city}, {brand.country}</li></ul></div>

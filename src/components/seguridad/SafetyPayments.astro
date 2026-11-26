@@ -14,7 +14,7 @@ const { payments } = safetyPage;
       {paymentOptions.map((option, index) => {
         const featured = option.title === payments.featured;
         return (
-          <li class:list={['sg-pay', { 'is-featured': featured }]} data-reveal style={`--i:${index + 1}`}>
+          <li class:list={['sg-pay', { 'is-wallet': option.title === 'Billetera digital', 'is-cash': option.title === 'Efectivo' }]} data-reveal style={`--i:${index + 1}`}>
             {option.iconPath && <span class="p-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={option.iconPath} /></svg></span>}
             <h3>{option.title}</h3>
             <p>{option.description}</p>

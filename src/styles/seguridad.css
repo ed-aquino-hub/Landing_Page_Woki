@@ -19,7 +19,7 @@ html.js .sg-compare li:nth-child(3){animation-delay:.85s}
 /* ---------- Recorrido (selector de etapas) ---------- */
 .sg-journey-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:2rem;align-items:stretch}
 .sg-steps{display:flex;flex-direction:column;gap:.65rem;margin:0;padding:0;list-style:none}
-.sg-step{display:flex;gap:1rem;align-items:flex-start;width:100%;padding:1.05rem 1.2rem;border:1.5px solid var(--p-line);border-radius:18px;background:#fff;color:var(--p-ink);font:inherit;text-align:left;cursor:pointer;transition:background .3s,border-color .3s,color .3s,box-shadow .3s,transform .2s}
+.sg-step{display:flex;gap:1rem;align-items:flex-start;width:100%;padding:1.05rem 1.2rem;border:1.5px solid #a9c8cb;border-radius:18px;background:#fff;color:var(--p-ink);font:inherit;text-align:left;cursor:pointer;transition:background .3s,border-color .3s,color .3s,box-shadow .3s,transform .2s}
 .sg-step:hover{border-color:var(--cian);transform:translateX(4px)}
 .sg-step>span:last-child{display:flex;flex-direction:column;gap:.15rem}
 .sg-step b{font-size:1.08rem}
@@ -44,7 +44,8 @@ html.js .sg-compare li:nth-child(3){animation-delay:.85s}
 
 /* ---------- Herramientas ---------- */
 .sg-tools-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin:0;padding:0;list-style:none}
-.sg-tool{display:flex;flex-direction:column;gap:.65rem;padding:1.6rem;border-radius:24px;background:#fff;transition:transform .3s,box-shadow .3s}
+.p-section.sg-tools{background:color-mix(in srgb,var(--p-soft) 80%,var(--deep))}
+.sg-tool{display:flex;flex-direction:column;gap:.65rem;padding:1.6rem;border:1.5px solid #b2cdd0;border-radius:24px;background:#fff;transition:transform .3s,box-shadow .3s}
 .sg-tool:hover{transform:translateY(-4px);box-shadow:0 20px 40px #00323714}
 .sg-tool h3{font-size:1.2rem}
 .sg-tool p{margin:0;font-size:.95rem;line-height:1.6;color:var(--p-text)}
@@ -70,12 +71,21 @@ html.js .sg-mismatch-box.in .sg-mismatch-ic{animation:bobY 2.6s ease-in-out infi
 .sg-payments-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(2rem,5vw,3rem);align-items:center}
 .sg-payments-grid header h2{margin-bottom:.8rem}
 .sg-pay-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin:0;padding:0;list-style:none}
-.sg-pay{display:flex;flex-direction:column;gap:.6rem;padding:1.6rem;border:1.5px solid var(--p-line);border-radius:24px}
-.sg-pay.is-featured{border-color:var(--cian);background:var(--p-soft)}
-.sg-pay h3{font-size:1.3rem}
-.sg-pay p{margin:0;font-size:.95rem;line-height:1.6;color:var(--p-text)}
+.sg-pay{display:flex;flex-direction:column;gap:.75rem;padding:1.6rem;border:2px solid #b2cdd0;border-radius:24px;background:#fff}
+.sg-pay.is-cash{border-color:#25855b;background:#f3faf6}
+.sg-pay.is-wallet{border-color:#8054bd;background:#f8f4fc}
+.sg-pay .p-ic{width:64px;height:64px;border-radius:18px;background:#e5f4eb}
+.sg-pay .p-ic svg{width:34px;height:34px}
+.sg-pay.is-cash .p-ic{background:#dcefe4}
+.sg-pay.is-cash .p-ic path{stroke:#25855b}
+.sg-pay.is-wallet .p-ic{background:#ece2f7}
+.sg-pay.is-wallet .p-ic path{stroke:#8054bd}
+.sg-pay h3{margin:0;font-size:1.4rem}
+.sg-pay.is-cash h3{color:#17663f}
+.sg-pay.is-wallet h3{color:#644095}
+.sg-pay p{margin:0;font-size:1.02rem;line-height:1.6;color:#334f53}
 .sg-wallets{display:flex;gap:.5rem;margin:.25rem 0 0;padding:0;list-style:none}
-.sg-wallets li{padding:.25rem .8rem;border-radius:999px;background:#fff;font-size:.85rem;font-weight:700}
+.sg-wallets li{padding:.35rem .85rem;border:1px solid #d9c8ed;border-radius:999px;background:#fff;color:#644095;font-size:.9rem;font-weight:750}
 
 /* ---------- Responsive ---------- */
 @media(max-width:1000px){

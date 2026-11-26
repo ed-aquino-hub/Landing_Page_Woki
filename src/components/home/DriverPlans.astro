@@ -1,6 +1,6 @@
 ---
 import { Picture } from 'astro:assets';
-import { driverPlans, driverPerks } from '../../data/home';
+import { driverPerks } from '../../data/home';
 import { assets, brand, routes } from '../../data/site';
 ---
 <section class="h-section h-drivers" id="conductores" aria-labelledby="h-drivers-title">
@@ -16,28 +16,18 @@ import { assets, brand, routes } from '../../data/site';
         decoding="async"
         class="h-drivers-img"
       />
-      <div class="h-drivers-stats" aria-hidden="true">
-        <div><small>Ganado hoy</small><b>S/ <span data-count="42" data-dec="2">42.00</span></b></div>
-        <div><small>Nueva solicitud</small><b class="h-sm">Plaza Chaupimarca</b><span>S/ 6.00 · 0.8 km</span></div>
+      <div class="h-drivers-stats" role="group" aria-label="Ejemplo de información en la app">
+          <div class="h-driver-request"><small>Nueva solicitud</small><b>Plaza Chaupimarca</b><span>Destino · 0.8 km</span></div>
+        <div class="h-driver-detail"><small>Tarifa visible</small><b>S/ 6.00</b><span>Pago en efectivo o Yape</span></div>
       </div>
     </div>
     <div class="h-drivers-copy">
       <header data-reveal>
         <p class="h-kicker is-light">Para conductores</p>
-        <h2 id="h-drivers-title">Tu taxi, tus horarios,<br />tu plan.</h2>
-        <p class="h-lead">Conéctate cuando quieras, mira la tarifa y la distancia antes de aceptar, y cobra directo al pasajero.</p>
+        <h2 id="h-drivers-title">Tu taxi, a tu manera.</h2>
+        <p class="h-lead">Revisa cada solicitud antes de decidir y recibe el pago directo del pasajero.</p>
       </header>
-      <div class="h-plans" id="planes">
-        {driverPlans.map((plan, index) => (
-          <article class:list={['h-plan', { 'is-featured': plan.featured }]} data-reveal style={`--i:${index + 1}`}>
-            {plan.badge && <span class="h-plan-badge">{plan.badge}</span>}
-            <h3>{plan.name}</h3>
-            <p class="h-plan-price">{plan.price}</p>
-            <p>{plan.description}</p>
-          </article>
-        ))}
-      </div>
-      <ul class="h-perks" data-reveal style="--i:3">
+      <ul class="h-perks" data-reveal style="--i:2" aria-label="Ventajas para conductores">
         {driverPerks.map((perk) => <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l4 4 10-10" /></svg>{perk}</li>)}
       </ul>
       <div class="h-drivers-actions" data-reveal style="--i:4">

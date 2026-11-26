@@ -13,7 +13,9 @@ const { guides } = howItWorksPage;
         <article class:list={['cf-guide', `is-${guide.tone}`]} data-reveal style={`--i:${index}`} aria-labelledby={`cf-guide-${index}`}>
           <p class="p-kicker">{guide.eyebrow}</p>
           <h3 id={`cf-guide-${index}`}>{guide.title}</h3>
-          <p>{guide.text}</p>
+          <ol class="cf-guide-steps">
+            {guide.steps.map((step, stepIndex) => <li><span>{stepIndex + 1}</span>{step}</li>)}
+          </ol>
           <a href={guide.action.href} data-track="cta_click" data-track-label={guide.action.track} data-track-location="como_funciona_guias">{guide.action.label} <span aria-hidden="true">→</span></a>
         </article>
       ))}

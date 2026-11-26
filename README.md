@@ -15,11 +15,11 @@ curl -I http://127.0.0.1:8080/
 curl -I http://127.0.0.1:8080/contacto
 ```
 
-En `.env`, configura `PUBLIC_SITE_URL=https://www.woki.pe` (o tu dominio definitivo), `PUBLIC_NOINDEX=false` y las otras variables públicas que correspondan. Para pruebas sin indexación, usa `PUBLIC_NOINDEX=true`. El formulario requiere un servicio externo configurado en `PUBLIC_CONTACT_FORM_ENDPOINT`; el contenedor sirve únicamente el sitio estático.
+En `.env`, configura `PUBLIC_SITE_URL=https://woki.pe` (o tu dominio definitivo), `PUBLIC_NOINDEX=false` y las claves del formulario. El formulario requiere las claves de Cloudflare Turnstile y Resend indicadas más abajo; los mensajes se envían a `soporte@woki.pe`.
 
 Por defecto se publica en `http://IP_DEL_VPS:8080`; permite ese puerto en el firewall del proveedor/VPS si quieres acceso directo. Para servir HTTP en el puerto 80, configura `HTTP_PORT=80` si está libre. Si cambias el puerto, ajústalo también en los comandos `curl`.
 
-La imagen compila con Node 22, ejecuta la verificación de Astro y copia solamente los archivos generados a Nginx. El servidor se ejecuta sin privilegios, con el sistema de archivos de solo lectura, comprobación de salud y reinicio automático. `.env` queda fuera de la imagen; Compose pasa explícitamente las variables públicas como argumentos de compilación. **Cambiar una variable `PUBLIC_*` requiere reconstruir la imagen**:
+La imagen compila con Node 22 y sirve los archivos generados junto con la ruta segura del formulario. El servidor se ejecuta sin privilegios, con el sistema de archivos de solo lectura, comprobación de salud y reinicio automático. `.env` queda fuera de la imagen; Compose pasa las claves públicas de Turnstile al compilar y entrega las claves secretas solo al contenedor en ejecución. **Cambiar una variable `PUBLIC_*` requiere reconstruir la imagen**:
 
 ```sh
 # Después de actualizar el código o las variables:
@@ -67,7 +67,10 @@ Define las variables en `.env` durante desarrollo o en la configuración de la p
 | `PUBLIC_SITE_URL` | Dominio canónico. Déjala vacía para usar el valor por defecto; en producción define la URL oficial. |
 | `PUBLIC_NOINDEX` | Control manual: `true` añade `noindex,nofollow`, bloquea robots y omite el sitemap. |
 | `PUBLIC_GOOGLE_PLAY_URL` | URL real de la ficha de Woki en Play Store. Vacía, la app se muestra como próximamente y no se añade MobileApplication. |
-| `PUBLIC_CONTACT_FORM_ENDPOINT` | Endpoint que recibe el formulario. Vacío, el envío queda desactivado con una explicación. |
+| `PUBLIC_TURNSTILE_SITE_KEY` | Clave pública de Cloudflare Turnstile que muestra el CAPTCHA. |
+| `TURNSTILE_SECRET_KEY` | Clave privada para validar el token de Turnstile en el servidor. |
+| `RESEND_API_KEY` | Clave privada de Resend para enviar el correo de soporte. |
+| `RESEND_FROM_EMAIL` | Dirección remitente verificada en Resend, por ejemplo `Woki <contacto@tu-dominio-verificado.pe>`. |
 | `PUBLIC_GOOGLE_SITE_VERIFICATION` | Token de verificación de Google Search Console. |
 | `VERCEL_ENV` | Variable de Vercel; los despliegues `preview` se marcan automáticamente como no indexables. |
 | `VERCEL_URL` | Host del despliegue actual; se usa como canonical temporal en pruebas. |

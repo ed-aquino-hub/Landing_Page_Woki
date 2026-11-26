@@ -29,17 +29,12 @@
 .page .ct-form h2{margin-bottom:.35rem;font-size:clamp(1.4rem,2.6vw,1.65rem);letter-spacing:-.02em}
 .ct-form .form-intro{margin:0;font-size:.95rem;line-height:1.6;color:var(--p-text)}
 .ct-form .form-intro a{color:var(--deep);font-weight:700}
-.ct-topics{margin:0;padding:0;border:0;min-width:0}
-.ct-topics legend{margin-bottom:.5rem;font-size:.95rem;font-weight:700}
-.ct-topics div{display:flex;flex-wrap:wrap;gap:.5rem}
-.form .ct-topics label{display:inline-flex;align-items:center;gap:.45rem;min-height:42px;padding:0 1rem;border-radius:999px;background:var(--p-soft);font-size:.92rem;font-weight:700;cursor:pointer;transition:background .25s,color .25s}
-.form .ct-topics input{width:auto;margin:0;padding:0;accent-color:var(--aqua)}
-.form .ct-topics label:has(input:checked){background:var(--deep);color:#fff}
-.form .ct-topics label:has(input:focus-visible){outline:3px solid var(--pin);outline-offset:2px}
+.ct-captcha{min-height:66px}
+.ct-captcha-note{margin:0;padding:.9rem 1rem;border:1px solid #d3c294;border-radius:14px;background:#fff9e8;color:#584b2f;font-size:.9rem;line-height:1.5}
+.ct-captcha-note a{color:var(--deep);font-weight:800}
 .ct-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
 .ct-form .p-btn{width:100%;border:0;font:inherit;font-weight:800;cursor:pointer}
 .ct-form .p-btn:disabled{cursor:not-allowed;opacity:.55;transform:none}
-.ct-note{font-size:.85rem}
 .ct-form .form-status:empty{display:none}
 
 @media(max-width:900px){

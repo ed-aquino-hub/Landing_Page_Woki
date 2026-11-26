@@ -28,13 +28,13 @@ export const safetyPage = {
   path: routes.safety,
   crumb: breadcrumbLabels.safety,
   title: 'Seguridad en tus viajes | Woki',
-  description: `Conoce las herramientas de seguridad para pedir taxi en ${brand.city}: conductor verificado, PIN y seguimiento. Revisa cómo te acompaña Woki.`,
+  description: `Consulta la información del taxi, confirma el viaje con un PIN y sigue el recorrido en ${brand.city}.`,
   jsonLdName: 'Pasajero en Woki',
   hero: {
     eyebrow: 'Para pasajeros',
     titleLead: 'Viaja tranquilo:',
     titleAccent: 'sabes quién te recoge.',
-    lead: `Conductores verificados, un PIN único en cada viaje y tu ruta siempre a la vista. Así te cuidamos en ${brand.city}.`,
+    lead: `Compara los datos del taxi, confirma el inicio con un PIN único y consulta la ruta durante el viaje en ${brand.city}.`,
     secondary: { href: routes.howItWorks, label: 'Ver cómo funciona', track: 'ver_como_funciona' },
     compareTitle: 'Antes de subir, compara:',
     compare: [
@@ -99,11 +99,6 @@ export const driversPage = {
     lead: 'Conéctate cuando quieras, revisa cada solicitud y elige tu plan.',
     primary: { href: '#registro-conductor', label: 'Regístrate como conductor', track: 'registro_conductor' },
     secondary: { href: '#planes', label: 'Ver planes', track: 'ver_planes' },
-    stats: [
-      { label: 'Por viaje', value: commissionPlan.price },
-      { label: 'Plan mensual', value: monthlyPlan.price },
-      { label: 'Horario', value: 'Sin horarios fijos' },
-    ],
     imageAlt: `Conductor de Woki sonriendo al volante de su taxi en ${brand.city}`,
     request: { tag: 'Nueva solicitud', fare: homeDemoTrip.fare, place: 'Plaza Chaupimarca', meta: '0.8 km · Yape', accept: 'Aceptar', adjustments: ['+S/1', '+S/2'] },
   },
@@ -126,7 +121,7 @@ export const driversPage = {
     title: 'Elige cómo pagar por usar Woki',
     lead: 'Dos modelos simples, según la frecuencia con la que conduces.',
     items: [
-      { ...commissionPlan, unit: 'por cada viaje completado', bullets: commissionOption.bullets?.slice(1) ?? [], action: { href: '#registro-conductor', label: 'Empezar con 15 %', track: 'plan_comision' } },
+      { ...commissionPlan, unit: 'por cada viaje completado', bullets: commissionOption.bullets?.slice(1) ?? [], action: { href: '#registro-conductor', label: 'Empezar con comisión de 15 %', track: 'plan_comision' } },
       { ...monthlyPlan, unit: 'cuota fija al cierre de cada mes', bullets: monthlyOption.bullets?.slice(1) ?? [], action: { href: '#registro-conductor', label: 'Empezar con plan mensual', track: 'plan_mensual' } },
     ],
     note: 'Las condiciones vigentes se confirman en la app antes de que empieces a conducir.',
@@ -187,14 +182,14 @@ export const howItWorksPage = {
         tone: 'light',
         eyebrow: 'Para pasajeros',
         title: 'Pide, verifica y viaja',
-        text: 'Indica tu punto de recogida y destino. Antes de subir, revisa el conductor, el vehículo y la placa, y comparte el PIN solo cuando el taxi coincida. Conoce las herramientas de seguridad, los pagos y qué hacer si algo no coincide.',
+        steps: ['Indica recogida y destino.', 'Revisa la tarifa y los datos del taxi.', 'Compara nombre, vehículo y placa.', 'Confirma con el PIN; paga y califica.'],
         action: { href: routes.safety, label: 'Ver la guía para pasajeros', track: 'guia_pasajeros' },
       },
       {
         tone: 'dark',
         eyebrow: 'Para conductores',
         title: 'Revisa y decide',
-        text: 'Cuando te conectas, revisas cada solicitud antes de aceptarla y eliges cómo pagar por usar Woki: 15 % por viaje o S/ 50 al mes. También encuentras los requisitos para enviar tu perfil a revisión.',
+        steps: ['Conéctate desde la app.', 'Revisa los datos de la solicitud.', 'Acepta o ajusta la tarifa.', 'Completa el viaje y revisa tus ingresos.'],
         action: { href: routes.drivers, label: 'Ver la guía para conductores', track: 'guia_conductores' },
       },
     ],
@@ -254,13 +249,8 @@ export const contactPage = {
   form: {
     title: 'Cuéntanos cómo podemos ayudarte',
     intro: 'Usaremos tus datos solo para responderte. Revisa la',
-    topicLegend: 'Tema',
-    topics: ['Pasajero', 'Conductor', 'Otro'],
     consent: `Acepto que ${brand.projectName} trate mis datos para responder esta consulta.`,
-    submitEndpoint: 'Enviar mensaje',
-    submitMailto: 'Continuar al correo',
-    unavailable: `Por ahora no recibimos mensajes directamente desde el sitio. Escríbenos a ${brand.email}.`,
-    mailtoNote: `Se abrirá tu aplicación de correo con la consulta lista para ${brand.email}.`,
+    submitEndpoint: 'Enviar consulta',
   },
 } as const;
 

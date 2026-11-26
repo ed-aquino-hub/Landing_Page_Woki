@@ -1,22 +1,24 @@
 ---
 import Logo from './Logo.astro';
-import { navigation, headerActions, routes } from '../data/site';
+import { headerActions, routes } from '../data/site';
 interface Props { solid?: boolean }
 const { solid = false } = Astro.props;
 const currentPath = Astro.url.pathname.replace(/\/+$/, '') || '/';
-const isCurrent = (href: string) => !href.includes('#') && currentPath === href;
+const passengerHref = currentPath === '/' ? '/#seguridad' : routes.safety;
+const driverHref = currentPath === '/' ? '/#conductores' : routes.drivers;
 ---
 <header class:list={['top', { scrolled: solid }]} data-solid={solid ? '' : undefined}>
   <div class="bar">
     <a href={routes.home} aria-label="Woki, inicio"><Logo /></a>
     <nav id="menu" aria-label="Navegación principal">
-      {navigation.map((item) => (
-        <a href={item.href} data-section={item.section} aria-current={isCurrent(item.href) ? 'page' : undefined}>{item.label}</a>
-      ))}
-      <a class="nav-cta-mobile" href={headerActions.driver.href} data-track="cta_click" data-track-label="quiero_conducir" data-track-location="menu_movil">{headerActions.driver.label}</a>
+      <a href={routes.home}>Inicio</a>
+      <a href={routes.howItWorks}>Cómo funciona</a>
+      <div class="audience-toggle" role="group" aria-label="Elige tu perfil">
+        <a href={passengerHref} aria-current={currentPath === routes.safety ? 'page' : undefined} data-section="seguridad">Pasajeros</a>
+        <a href={driverHref} aria-current={currentPath === routes.drivers ? 'page' : undefined} data-section="conductores">Conductores</a>
+      </div>
     </nav>
     <div class="bar-actions">
-      <a class="pide-ghost" href={headerActions.driver.href} data-track="cta_click" data-track-label="quiero_conducir" data-track-location="header">{headerActions.driver.label}</a>
       <a class="pide" href={headerActions.download.href} data-track="cta_click" data-track-label="descargar_app" data-track-location="header">
         {headerActions.download.label}
         <span class="arr" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M3 8h9M8.5 4l4 4-4 4"/></svg></span>

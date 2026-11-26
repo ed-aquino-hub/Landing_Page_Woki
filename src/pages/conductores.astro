@@ -2,7 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import PageNav from '../components/PageNav.astro';
 import PageFaq from '../components/PageFaq.astro';
 import PageCta from '../components/PageCta.astro';
 import DriverHero from '../components/conductores/DriverHero.astro';
@@ -24,7 +23,6 @@ const structuredData = [...buildSectionJsonLd(Astro.site, page.path, page.jsonLd
   <Header solid />
   <main id="main-content" class="page">
     <DriverHero />
-    <PageNav items={page.nav} location="conductores_en_esta_pagina" />
     <DriverDay />
     <DriverPlanCards />
     <DriverRegister />

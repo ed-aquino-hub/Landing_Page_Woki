@@ -208,6 +208,11 @@ footer{margin-top:var(--sky)}
 .top nav a:hover{background:#ffffff26}
 .top nav a.on{background:#ffffff38}
 .top.scrolled nav a:hover,.top.scrolled nav a.on{background:#e3f3f4;color:var(--deep)}
+.audience-toggle{display:inline-flex;align-items:center;gap:2px;padding:3px;border:1px solid #ffffff55;border-radius:999px;background:#ffffff12}
+.audience-toggle a{padding:.42rem .9rem!important;font-weight:700;white-space:nowrap}
+.audience-toggle a[aria-current="page"]{background:#ffffff38}
+.top.scrolled .audience-toggle{border-color:#218e9733;background:#eaf6f6}
+.top.scrolled .audience-toggle a[aria-current="page"]{background:var(--cian);color:#fff}
 .burger{display:none;width:44px;height:44px;border:0;background:none;color:inherit;cursor:pointer;flex-direction:column;justify-content:center;align-items:center;gap:5px}
 .burger span{width:22px;height:3px;border-radius:3px;background:currentColor;transition:transform .3s,opacity .3s}
 .top.open .burger span:nth-child(1){transform:translateY(8px) rotate(45deg)}
@@ -219,7 +224,11 @@ footer{margin-top:var(--sky)}
   .bar{gap:.4rem;padding-left:1.2rem}
   .top nav{position:absolute;left:0;right:0;top:calc(100% + 10px);flex-direction:column;gap:.2rem;margin:0;padding:.8rem;background:#fff;color:var(--ink);border-radius:24px;box-shadow:0 18px 40px #00303730;transform-origin:top;transform:scaleY(.6);opacity:0;pointer-events:none;transition:transform .3s,opacity .3s}
   .top.open nav{transform:none;opacity:1;pointer-events:auto}
-  .top nav a:hover,.top nav a.on{background:#e3f3f4;color:var(--deep)}}
+  .top nav a:hover,.top nav a.on{background:#e3f3f4;color:var(--deep)}
+  .audience-toggle{display:grid;grid-template-columns:1fr 1fr;width:100%;margin:.35rem 0;background:#f0f8f8;border-color:#d9ebec}
+  .audience-toggle a{justify-content:center;text-align:center}
+  .audience-toggle a[aria-current="page"]{background:var(--cian);color:#fff}
+  .top.scrolled .audience-toggle a[aria-current="page"]{color:#fff}}
 
 .pide{display:inline-flex;align-items:center;gap:.7rem;height:42px;padding:0 5px 0 1.1rem;border-radius:999px;font-weight:700;font-size:.92rem;text-decoration:none;white-space:nowrap;background:#fff;color:var(--deep);transition:background .3s,color .3s,height .35s,transform .2s}
 .pide .arr{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--deep);color:#fff;transition:transform .3s,width .35s,height .35s,background .3s,color .3s}

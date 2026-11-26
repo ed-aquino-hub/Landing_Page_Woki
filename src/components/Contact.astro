@@ -1,12 +1,9 @@
 ---
-// Formulario de contacto. La lógica (validación, endpoint opcional, mailto y
-// evento contact_submit) vive en main.ts y se apoya en los data-* de aquí.
-// Sin endpoint, el HTML sale con el envío desactivado y main.ts lo activa
-// para preparar el correo cuando JavaScript está disponible.
+// Formulario con envío propio y validación Cloudflare Turnstile.
 import { contacto } from '../data/content';
-import { contactPage, toTrackLabel } from '../data/pages';
+import { contactPage } from '../data/pages';
 import { routes } from '../data/site';
-const contactFormEndpoint = import.meta.env.PUBLIC_CONTACT_FORM_ENDPOINT?.trim();
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY?.trim();
 const { needs, channels, form } = contactPage;
 const location = 'contacto_canales';
 ---
@@ -28,33 +25,24 @@ const location = 'contacto_canales';
       </ul>
     </div>
 
-    <form class="form ct-form" data-contact-form data-endpoint={contactFormEndpoint ?? ''} data-recipient={contacto.email} data-reveal style="--i:1" novalidate>
+    <form class="form ct-form" data-contact-form data-endpoint="/api/contact" data-form-ready={turnstileSiteKey ? 'true' : 'false'} data-reveal style="--i:1" novalidate>
       <div>
         <h2 id="ct-form-title">{form.title}</h2>
         <p class="form-intro">{form.intro} <a href={routes.privacy}>Política de Privacidad</a>.</p>
       </div>
-      <fieldset class="ct-topics">
-        <legend>{form.topicLegend}</legend>
-        <div>
-          {form.topics.map((topic, index) => (
-            <label><input type="radio" name="tema" value={topic} data-track-label={toTrackLabel(topic)} checked={index === 0} />{topic}</label>
-          ))}
-        </div>
-      </fieldset>
       <div class="ct-row">
         <label>Nombre<input name="nombre" type="text" autocomplete="name" placeholder="Tu nombre" data-contact-field="nombre" data-default-placeholder="Tu nombre" aria-describedby="error-nombre" required /><small class="field-error" id="error-nombre" data-field-error="nombre" role="alert" hidden></small></label>
         <label>Correo electrónico<input name="contacto" type="email" autocomplete="email" placeholder="nombre@correo.com" data-contact-field="contacto" data-default-placeholder="nombre@correo.com" aria-describedby="error-contacto" required /><small class="field-error" id="error-contacto" data-field-error="contacto" role="alert" hidden></small></label>
       </div>
       <label>Mensaje<textarea name="mensaje" placeholder="Escribe aquí tu consulta" data-contact-field="mensaje" data-default-placeholder="Escribe aquí tu consulta" aria-describedby="error-mensaje" required></textarea><small class="field-error" id="error-mensaje" data-field-error="mensaje" role="alert" hidden></small></label>
       <label class="hp" aria-hidden="true">No completar<input name="website" tabindex="-1" autocomplete="off" /></label>
+      {turnstileSiteKey
+        ? <div class="ct-captcha"><div class="cf-turnstile" data-sitekey={turnstileSiteKey} data-theme="light" data-language="es"></div></div>
+        : <p class="ct-captcha-note" role="status">Estamos activando la validación del formulario. Mientras tanto, escríbenos a <a href={`mailto:${contacto.email}`}>{contacto.email}</a>.</p>}
       <div class="contact-consent"><label class="check"><input type="checkbox" name="consentimiento" data-contact-field="consentimiento" aria-describedby="error-consentimiento" required /><span>{form.consent}</span></label><small class="field-error" id="error-consentimiento" data-field-error="consentimiento" role="alert" hidden></small></div>
-      {contactFormEndpoint
-        ? <button class="p-btn p-btn-solid" type="submit">{form.submitEndpoint}</button>
-        : <>
-            <button class="p-btn p-btn-solid" type="submit" disabled aria-describedby="contact-form-unavailable" data-mailto-submit>{form.submitMailto}</button>
-            <p class="form-intro ct-note" id="contact-form-unavailable" data-mailto-note={form.mailtoNote}>{form.unavailable}</p>
-          </>}
+      <button class="p-btn p-btn-solid" type="submit" disabled={!turnstileSiteKey}>{form.submitEndpoint}</button>
       <p class="form-status" data-form-status role="status" aria-live="polite"></p>
     </form>
   </div>
 </section>
+{turnstileSiteKey && <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}

@@ -16,9 +16,6 @@ const location = 'conductores_hero';
         <a class="p-btn p-btn-aqua" href={hero.primary.href} data-track="cta_click" data-track-label={hero.primary.track} data-track-location={location}>{hero.primary.label}</a>
         <a class="p-btn p-btn-ghost" href={hero.secondary.href} data-track="cta_click" data-track-label={hero.secondary.track} data-track-location={location}>{hero.secondary.label}</a>
       </div>
-      <ul class="dr-hero-stats">
-        {hero.stats.map((stat) => <li><small>{stat.label}</small><b>{stat.value}</b></li>)}
-      </ul>
     </div>
     <div class="dr-hero-media">
       <Picture

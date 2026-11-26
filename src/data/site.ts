@@ -20,7 +20,7 @@ export const brand = {
   themeColor: '#218e97',
   demoPin: '4827',
   legalUpdated: '17 de noviembre de 2026',
-  defaultTitle: 'Taxi en Cerro de Pasco fácil y seguro | Woki',
+  defaultTitle: 'Pide un taxi en Cerro de Pasco | Woki',
   defaultDescription: 'Pide tu taxi en Cerro de Pasco con Woki: conoce tu tarifa, sigue el viaje y comparte un PIN de seguridad. Descubre una forma más fácil de moverte.',
 } as const;
 
@@ -49,7 +49,7 @@ export const routes = {
 /** Nombre de cada página en la ruta de navegación visible y en el JSON-LD BreadcrumbList. */
 export const breadcrumbLabels = {
   home: 'Inicio',
-  safety: 'Seguridad',
+  safety: 'Pasajeros',
   howItWorks: 'Cómo funciona',
   drivers: 'Conductores',
   about: 'Nosotros',
@@ -64,23 +64,14 @@ export const assets = {
   contactBanner: images.contactBanner.src,
 } as const;
 
-export const navigation = [
-  { href: routes.home, label: 'Inicio', section: 'inicio' },
-  { href: routes.safety, label: 'Seguridad', section: 'seguridad' },
-  { href: routes.howItWorks, label: 'Cómo funciona', section: 'como-funciona' },
-  { href: routes.drivers, label: 'Conductores', section: 'conductores' },
-  { href: routes.help, label: 'Ayuda', section: 'ayuda' },
-] as const;
-
 export const headerActions = {
-  driver: { href: routes.drivers, label: 'Quiero conducir' },
   download: { href: routes.download, label: 'Descargar app' },
 } as const;
 
 export const footerNavigation = [
   { href: routes.home, label: 'Inicio' },
   { href: routes.howItWorks, label: 'Cómo funciona' },
-  { href: routes.safety, label: 'Seguridad' },
+  { href: routes.safety, label: 'Pasajeros' },
   { href: routes.drivers, label: 'Conductores' },
   { href: routes.about, label: 'Nosotros' },
   { href: routes.contact, label: 'Contáctanos' },
