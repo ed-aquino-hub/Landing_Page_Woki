@@ -97,7 +97,7 @@ html.js .dr-steps-card.in li:nth-child(3) .dr-step-dot{animation-delay:.3s}
 /* ---------- Seguridad del conductor ---------- */
 .dr-safety-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem;margin:0;padding:0;list-style:none}
 .dr-safety-card{padding:1.5rem;border-radius:22px;background:#fff}
-.p-section.dr-safety{background:color-mix(in srgb,var(--p-soft) 80%,var(--deep))}
+.p-section.dr-safety{background:color-mix(in srgb,var(--p-soft) 84%,var(--deep) 16%)}
 .dr-safety-card h3{margin-bottom:.5rem;font-size:1.15rem}
 .dr-safety-card p{margin:0;font-size:.95rem;line-height:1.6;color:var(--p-text)}
 .dr-safety-card.is-accent{background:var(--deep);color:#fff}

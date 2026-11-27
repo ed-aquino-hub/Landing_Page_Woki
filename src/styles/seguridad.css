@@ -28,8 +28,8 @@ html.js .sg-compare li:nth-child(3){animation-delay:.85s}
 .sg-step[aria-pressed="true"]{background:var(--deep);border-color:var(--deep);color:#fff;box-shadow:0 14px 30px #005b6640}
 .sg-step[aria-pressed="true"]>span:last-child>span{color:var(--p-on-deep)}
 .sg-step[aria-pressed="true"] .sg-step-num{background:var(--aqua);color:var(--p-ink)}
-.sg-scene-wrap{display:flex;align-items:center;justify-content:center;padding:2rem;border-radius:28px;background:var(--p-soft)}
-.sg-phone{width:min(280px,100%);padding:10px;border-radius:40px;background:var(--p-ink);box-shadow:0 30px 60px #00282d40}
+.sg-scene-wrap{display:flex;align-items:center;justify-content:center;padding:0}
+.sg-phone{width:min(360px,100%);padding:10px;border-radius:40px;background:var(--p-ink);box-shadow:0 30px 60px #00282d40}
 .sg-scene{min-height:250px;display:grid;padding:1.6rem 1.25rem 1.4rem;border-radius:32px;background:#fff;text-align:center}
 .sg-panel{display:none;flex-direction:column;align-items:center;gap:1rem;grid-area:1/1}
 .sg-scene[data-step="0"] [data-panel="0"],.sg-scene[data-step="1"] [data-panel="1"],.sg-scene[data-step="2"] [data-panel="2"],.sg-scene[data-step="3"] [data-panel="3"]{display:flex;animation:rise .5s cubic-bezier(.2,.7,.2,1) both}
@@ -44,7 +44,7 @@ html.js .sg-compare li:nth-child(3){animation-delay:.85s}
 
 /* ---------- Herramientas ---------- */
 .sg-tools-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin:0;padding:0;list-style:none}
-.p-section.sg-tools{background:color-mix(in srgb,var(--p-soft) 80%,var(--deep))}
+.p-section.sg-tools{background:color-mix(in srgb,var(--p-soft) 84%,var(--deep) 16%)}
 .sg-tool{display:flex;flex-direction:column;gap:.65rem;padding:1.6rem;border:1.5px solid #b2cdd0;border-radius:24px;background:#fff;transition:transform .3s,box-shadow .3s}
 .sg-tool:hover{transform:translateY(-4px);box-shadow:0 20px 40px #00323714}
 .sg-tool h3{font-size:1.2rem}
@@ -99,7 +99,7 @@ html.js .sg-mismatch-box.in .sg-mismatch-ic{animation:bobY 2.6s ease-in-out infi
 @media(max-width:600px){
   .sg-tools-grid,.sg-pay-list{grid-template-columns:1fr}
   .sg-tool.is-featured{grid-row:auto}
-  .sg-scene-wrap{padding:1.25rem}
+  .sg-scene-wrap{padding:0}
   .sg-mismatch-box .p-btn{width:100%}
 }
 @media(prefers-reduced-motion:reduce){
