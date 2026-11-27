@@ -53,3 +53,6 @@
 @media(max-width:600px){
   .lg-toc ol{columns:1}
 }
+
+/* Contornos más visibles en superficies claras */
+.lg-docs{border-color:#9bbfc3}

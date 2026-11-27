@@ -43,21 +43,20 @@ html.js .cf-row.in :is(.cf-dot,.cf-pin){animation:cf-pop .6s cubic-bezier(.3,1.6
 
 /* ---------- Guías ---------- */
 .cf-guide-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.25rem}
-.cf-guide{display:flex;flex-direction:column;gap:.75rem;padding:clamp(1.6rem,4vw,2.25rem);border-radius:28px;background:#fff;transition:transform .3s,box-shadow .3s}
+.cf-guide{display:flex;flex-direction:column;gap:.75rem;padding:clamp(1.6rem,4vw,2.25rem);border:1px solid #9bbfc3;border-radius:28px;background:#fff;transition:transform .3s,box-shadow .3s}
 .cf-guide:hover{transform:translateY(-4px);box-shadow:0 24px 48px #00323718}
 .cf-guide .p-kicker{margin:0}
 .cf-guide h3{font-size:clamp(1.4rem,2.6vw,1.75rem)}
-.cf-guide-steps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.85rem;margin:.25rem 0 0;padding:0;list-style:none}
-.cf-guide-steps li{display:flex;align-items:flex-start;gap:.65rem;min-height:74px;padding:.85rem;border:1px solid #c5dfe1;border-radius:16px;background:#f8fbfb;font-size:.93rem;font-weight:650;line-height:1.45;color:var(--p-ink)}
-.cf-guide-steps li:nth-child(2),.cf-guide-steps li:nth-child(3){transform:translateY(.6rem)}
-.cf-guide-steps li:nth-child(4){transform:translateY(1.2rem)}
+.cf-guide-steps{display:grid;grid-template-columns:minmax(0,1fr);gap:.65rem;width:100%;min-width:0;margin:.25rem 0 0;padding:0;list-style:none}
+.cf-guide-steps li{display:flex;align-items:flex-start;gap:.65rem;min-height:0;padding:.85rem;border:1px solid #c5dfe1;border-radius:16px;background:#f8fbfb;font-size:.93rem;font-weight:650;line-height:1.45;color:var(--p-ink)}
+
 .cf-guide-steps li>span{flex:none;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--deep);color:#fff;font-size:.8rem;font-weight:800}
 .cf-guide.is-dark .cf-guide-steps li{border-color:#65d9dd55;background:#123b40;color:#fff}
 .cf-guide.is-dark .cf-guide-steps li>span{background:var(--aqua);color:var(--p-ink)}
 .cf-guide a{margin-top:auto;padding-top:.5rem;font-weight:800;color:var(--deep);text-decoration:none}
 .cf-guide a span{display:inline-block;transition:transform .2s}
 .cf-guide a:hover span{transform:translateX(4px)}
-.cf-guide.is-dark{background:var(--p-ink);color:#fff}
+.cf-guide.is-dark{border-color:#2d666b;background:var(--p-ink);color:#fff}
 .cf-guide.is-dark .p-kicker{color:var(--aqua)}
 .cf-guide.is-dark p:not(.p-kicker){color:var(--p-on-dark)}
 .cf-guide.is-dark a{color:var(--aqua)}
@@ -74,8 +73,11 @@ html.js .cf-row.in :is(.cf-dot,.cf-pin){animation:cf-pop .6s cubic-bezier(.3,1.6
   .cf-cell.is-driver{text-align:left;background:#e3f3f4}
   .cf-who{display:block;font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--deep)}
   .cf-guide-grid{grid-template-columns:1fr}
-  .cf-guide-steps li:nth-child(n){transform:none}
 }
 @media(prefers-reduced-motion:reduce){
   .cf-rows::before{animation:none}
 }
+
+/* Contornos de tarjetas y pasos */
+.cf-card{border:1px solid #9bbfc3}
+.cf-cell{border:1px solid #b4ced1}

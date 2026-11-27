@@ -43,3 +43,6 @@
 @media(max-width:600px){
   .ct-row{grid-template-columns:1fr}
 }
+
+/* Contorno de tarjetas de contacto */
+.ct-card{border:1px solid #9bbfc3}

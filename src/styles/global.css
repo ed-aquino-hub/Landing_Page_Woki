@@ -336,7 +336,7 @@ html.no-splash{--s:0s}
 .splash .road::before{top:40px}
 .splash .taxi{width:118px;bottom:10px;animation:splashDrive 1.9s .45s cubic-bezier(.4,.1,.3,1) both}
 
-.logo-i svg{position:absolute;left:50%;top:-.11em;width:.36em;height:.46em;max-width:none;transform:translateX(-50%);fill:currentColor}
+.logo-i svg{position:absolute;left:calc(50% + .035em);top:-.11em;width:.36em;height:.46em;max-width:none;transform:translateX(-50%);fill:currentColor}
 @keyframes drop{0%{opacity:0;transform:translate(-50%,-.7em)}55%{opacity:1;transform:translate(-50%,.04em)}75%{transform:translate(-50%,-.035em)}100%{opacity:1;transform:translate(-50%,0)}}
 @keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,-.04em)}}
 .logo-i svg{animation:drop .9s .2s both ease-in,bob 3s 1.3s ease-in-out infinite}
@@ -462,3 +462,6 @@ html.no-splash{--s:0s}
 .top nav a[aria-current="page"]{background:#ffffff38}
 .top.scrolled nav a[aria-current="page"]{background:#e3f3f4;color:var(--deep)}
 
+
+/* Contornos de superficies y tarjetas claras */
+.steps li,.card,.values li,.faq details,.form,.journey,.account-deletion-steps li{border:1px solid #a9c8cb}

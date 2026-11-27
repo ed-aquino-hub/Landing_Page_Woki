@@ -124,3 +124,6 @@
 @media(prefers-reduced-motion:reduce){
   .p-hero-copy>*{animation:none}
 }
+
+/* Contorno de preguntas frecuentes */
+.p-faq-list details{border:1px solid #b4ced1}

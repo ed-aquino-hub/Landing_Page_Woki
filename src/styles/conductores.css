@@ -147,3 +147,8 @@ html.js .dr-steps-card.in li:nth-child(3) .dr-step-dot{animation-delay:.3s}
 @media(prefers-reduced-motion:reduce){
   .dr-hero-media,.dr-request,.dr-sticky{animation:none;transition:none}
 }
+
+/* Contornos de tarjetas claras */
+.dr-request,.dr-earn>div,.dr-safety-card{border:1px solid #a9c8cb}
+.dr-day-card,.dr-docs li{border:1px solid #b4ced1}
+.dr-plan{border-color:#9bbfc3}

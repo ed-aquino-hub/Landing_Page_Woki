@@ -60,10 +60,15 @@ export const rideSteps = [
   { title: 'Llegas y pagas fácil', description: 'En efectivo o con Yape, directo al conductor. Luego calificas.' },
 ] as const;
 
+export const driverPlans = [
+  { name: 'Comisión por viaje', price: '15 %', description: 'Pagas solo por viaje completado. Ideal si conduces de vez en cuando.', featured: false, badge: '' },
+  { name: 'Plan mensual', price: 'S/ 50', description: 'Cuota fija al cierre de mes. Lo demás es tuyo.', featured: true, badge: 'Si manejas a diario' },
+] as const;
 export const driverPerks = [
-  'Mira la tarifa y la distancia',
-  'Acepta solo si te conviene',
-  'Cobra directo del pasajero',
+  'Sin horarios fijos',
+  'Tarifa visible antes de aceptar',
+  'Cobro directo: efectivo o Yape',
+  'Solicitudes cerca de ti',
 ] as const;
 
 export const driverRequirementsSummary = driverRequirements.requirements.join(', ');

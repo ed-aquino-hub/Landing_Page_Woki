@@ -90,3 +90,7 @@
   .cr-main{margin:0;padding:0}
   .cr-receipt{box-shadow:none}
 }
+
+/* Contornos de tarjetas claras */
+.cr-receipt,.cr-card{border:1px solid #9bbfc3}
+.cr-card.is-ink{border-color:#2d666b}

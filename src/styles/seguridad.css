@@ -105,3 +105,6 @@ html.js .sg-mismatch-box.in .sg-mismatch-ic{animation:bobY 2.6s ease-in-out infi
 @media(prefers-reduced-motion:reduce){
   .sg-hero-visual,.sg-compare,.sg-hero-pin{animation:none}
 }
+
+/* Contornos de paneles claros */
+.sg-compare,.sg-scene{border:1px solid #a9c8cb}
