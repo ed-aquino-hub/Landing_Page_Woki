@@ -124,7 +124,8 @@ html.js .h-safety-card.in .h-vis-pin span:nth-child(4){animation-delay:.3s}
 .h-vis-route path{fill:none;stroke:var(--cian);stroke-width:4;stroke-linecap:round;stroke-dasharray:1 9;animation:routeflow 1.2s linear infinite}
 .h-vis-route circle{fill:var(--deep)}
 .h-vis-route circle.end{fill:var(--cian);stroke:#fff;stroke-width:2}
-.h-vis-stars{background:#fff;border-radius:14px;padding:.6rem .9rem;font-size:1.25rem;letter-spacing:.25em;color:var(--h-star)}
+.h-safety-visual.is-stars{display:flex;justify-content:center;align-items:center}
+.h-vis-stars{font-size:clamp(1.75rem,3vw,2.5rem);line-height:1;letter-spacing:.18em;color:var(--h-star)}
 
 /* ---------- Cómo funciona ---------- */
 .h-steps{background:var(--h-soft)}
