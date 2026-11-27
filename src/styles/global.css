@@ -260,7 +260,7 @@ footer{margin-top:var(--sky)}
 @keyframes load{to{transform:none}}
 html{--s:2.4s}
 html.no-splash{--s:0s}
-.splash{position:fixed;inset:0;z-index:100;display:grid;place-items:center;text-align:center;color:#fff;background-color:var(--deep);background-image:var(--starfield),radial-gradient(circle at 50% 40%,#176f78,#176f78 45%,var(--deep));background-size:240px 190px,auto;background-repeat:repeat,no-repeat;animation:splashOut .75s 2.4s cubic-bezier(.7,0,.2,1) forwards}
+.splash{position:fixed;inset:0;z-index:100;display:grid;place-items:center;text-align:center;color:#fff;background:#005b66;animation:splashOut .75s 2.4s cubic-bezier(.7,0,.2,1) forwards}
 .splash .logo{font-size:clamp(3.6rem,15vw,6.5rem);animation:logoIn .7s .1s cubic-bezier(.2,.8,.2,1) both}
 .splash .logo-i svg{animation-delay:.45s,1.4s}
 .no-splash .splash{display:none}
