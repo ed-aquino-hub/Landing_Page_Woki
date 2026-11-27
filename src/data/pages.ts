@@ -181,14 +181,14 @@ export const howItWorksPage = {
       {
         tone: 'light',
         eyebrow: 'Para pasajeros',
-        title: 'Pide, verifica y viaja',
+        title: 'Sigue y coordina tu viaje',
         steps: ['Consulta las reseñas de otros pasajeros.', 'Sigue en el mapa cuánto falta para que llegue el taxi.', 'Coordina el punto de encuentro por chat o llamada desde la app.', 'Si los datos del taxi no coinciden, no subas y contacta a soporte.'],
         action: { href: routes.safety, label: 'Ver la guía para pasajeros', track: 'guia_pasajeros' },
       },
       {
         tone: 'dark',
         eyebrow: 'Para conductores',
-        title: 'Revisa y decide',
+        title: 'Prepara tu perfil y elige tu plan',
         steps: ['Prepara DNI, licencia, SOAT, inspección técnica y tarjeta de propiedad.', 'Envía los documentos y espera la revisión de tu perfil.', 'Conéctate cuando estés listo: no hay horario fijo.', 'Elige entre comisión por viaje (15 %) y plan mensual (S/ 50).'],
         action: { href: routes.drivers, label: 'Ver la guía para conductores', track: 'guia_conductores' },
       },
