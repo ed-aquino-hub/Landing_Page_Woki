@@ -15,11 +15,11 @@ const { day } = driversPage;
         const visual = step.visual;
         return (
           <li class="dr-day-card" data-reveal style={`--i:${index}`}>
-            <span class="dr-day-num">{String(index + 1).padStart(2, '0')}</span>
-            <div>
+            <div class="dr-day-heading">
+              <span class="dr-day-num">{String(index + 1).padStart(2, '0')}</span>
               <h3>{step.title}</h3>
-              <p>{step.description}</p>
             </div>
+            <p>{step.description}</p>
             <div class="dr-day-visual" aria-hidden="true">
               {index === 0 && <div class="dr-online"><b>{day.online}</b><span class="dr-switch"><span></span></span></div>}
               {index === 1 && visual?.type === 'pills' && <ul class="dr-pills">{visual.items.map((item) => <li>{item}</li>)}</ul>}

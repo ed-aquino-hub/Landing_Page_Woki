@@ -1,0 +1,29 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Taxi from '../components/Taxi.astro';
+import { routes } from '../data/site';
+import '../styles/pages.css';
+import '../styles/404.css';
+---
+<Layout title="Página no encontrada | Woki" description="No encontramos esta página. Vuelve al inicio de Woki y retoma tu camino.">
+  <Header solid />
+  <main id="main-content" class="page nf-page">
+    <section class="nf-screen" aria-labelledby="nf-title">
+      <div class="wrap nf-content">
+        <p class="nf-kicker">Woki · Error 404</p>
+        <p class="nf-code" aria-hidden="true">404</p>
+        <h1 id="nf-title">Este viaje se salió de ruta.</h1>
+        <p class="nf-copy">No encontramos esta página. Vuelve al inicio o descubre cómo funciona Woki.</p>
+        <div class="nf-actions">
+          <a class="p-btn p-btn-aqua" href={routes.home}>Volver al inicio <span aria-hidden="true">→</span></a>
+          <a class="p-btn p-btn-ghost" href={routes.howItWorks}>Cómo funciona Woki</a>
+        </div>
+        <div class="nf-road" aria-hidden="true"><div class="road"><Taxi /></div></div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+  <script>import '../scripts/main.ts';</script>
+</Layout>

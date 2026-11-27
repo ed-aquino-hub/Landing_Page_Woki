@@ -24,9 +24,9 @@
 .dr-day-list{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem;margin:0;padding:0;list-style:none}
 .dr-day-card{display:flex;flex-direction:column;gap:.65rem;padding:1.5rem;border-radius:24px;background:var(--p-soft);transition:transform .3s,box-shadow .3s}
 .dr-day-card:hover{transform:translateY(-4px);box-shadow:0 20px 40px #00323714}
-.dr-day-card>div:not(.dr-day-visual){display:flex;flex-direction:column;gap:.5rem}
+.dr-day-heading{display:flex;align-items:center;gap:.9rem;min-height:44px}
 .dr-day-num{display:grid;place-items:center;flex:none;width:44px;height:44px;border-radius:50%;background:var(--deep);color:#fff;font-size:.9rem;font-weight:800;box-shadow:0 0 0 5px #d3ecee}
-.dr-day-card h3{font-size:1.2rem}
+.dr-day-card h3{font-size:1.2rem;margin:0}
 .dr-day-card p{margin:0;font-size:.95rem;line-height:1.6;color:var(--p-text)}
 .dr-day-visual{margin-top:auto;padding-top:.5rem}
 .dr-online{display:flex;justify-content:space-between;align-items:center;padding:.75rem .9rem;border-radius:14px;background:var(--deep);color:#fff;font-size:.85rem;text-transform:uppercase}
@@ -34,9 +34,9 @@
 .dr-switch span{position:absolute;right:3px;top:3px;width:16px;height:16px;border-radius:50%;background:#fff}
 html.js .dr-day-card.in .dr-switch span{animation:dr-toggle .6s cubic-bezier(.3,1.4,.5,1) .4s both}
 @keyframes dr-toggle{from{transform:translateX(-18px)}to{transform:none}}
-.dr-pills{display:flex;flex-wrap:wrap;gap:.35rem;margin:0;padding:0;list-style:none}
+.dr-pills{display:flex;flex-wrap:wrap;justify-content:center;gap:.35rem;margin:0;padding:0;list-style:none}
 .dr-pills li{padding:.2rem .6rem;border-radius:999px;background:#fff;font-size:.75rem;font-weight:700}
-.dr-fare{display:flex;align-items:center;gap:.4rem}
+.dr-fare{display:flex;justify-content:center;align-items:center;gap:.4rem}
 .dr-fare b{margin-right:.25rem;font-size:1.35rem}
 .dr-fare span{padding:.2rem .5rem;border:1.5px solid var(--cian);border-radius:10px;background:#fff;color:var(--deep);font-size:.75rem;font-weight:700}
 .dr-earn{display:flex;gap:.5rem}
@@ -53,7 +53,7 @@ html.js .dr-day-card.in .dr-meter span{animation:dr-grow 1.4s cubic-bezier(.2,.7
 .dr-plans .p-lead{color:var(--p-on-deep)}
 .dr-plan-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.25rem;max-width:920px;margin:0 auto}
 .dr-plan{position:relative;display:flex;flex-direction:column;gap:.75rem;padding:2rem;border:2px solid var(--p-line);border-radius:28px;background:#fff;color:var(--p-ink);transition:transform .3s,border-color .3s}
-.dr-plan:not(.is-featured){border-color:var(--cian);box-shadow:0 12px 30px #005b6618}
+.dr-plan:not(.is-featured){border:3px solid var(--aqua);box-shadow:0 0 0 3px #65d9dd30,0 14px 36px #00323732}
 .dr-plan:hover{transform:translateY(-4px)}
 .dr-plan.is-featured{background:var(--p-ink);color:#fff;border:2px solid var(--aqua)}
 .dr-plan-badge{position:absolute;top:-14px;left:2rem;padding:.3rem .75rem;border-radius:999px;background:var(--aqua);color:var(--p-ink);font-size:.75rem;font-weight:800}
@@ -131,7 +131,7 @@ html.js .dr-steps-card.in li:nth-child(3) .dr-step-dot{animation-delay:.3s}
   .dr-hero-stats,.dr-request{display:none}
   .dr-hero-img{height:220px;border-radius:20px}
   .dr-day-list,.dr-safety-grid{grid-template-columns:1fr;gap:.65rem}
-  .dr-day-card{flex-direction:row;gap:.9rem;padding:1rem 1.1rem;border-radius:18px}
+  .dr-day-card{flex-direction:column;gap:.65rem;padding:1rem 1.1rem;border-radius:18px}
   .dr-day-num{width:42px;height:42px;flex:none;padding:0}
   .dr-day-card h3{font-size:1.05rem}
   .dr-day-card p{font-size:.9rem}
